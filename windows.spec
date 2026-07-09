@@ -1,15 +1,36 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import os
+
+# Segment N: optionally bundle the Vosk engine runtime + (optionally) a default
+# model. Controlled by env vars so a plain Sphinx-only build is unchanged:
+#   VOSK_DIR                 - path to the Vosk SDK (libvosk.dll + MinGW runtime)
+#   SUBSYNC_BUNDLE_VOSK_MODEL - path to a vosk model dir to ship inside the app
+vosk_binaries = []
+vosk_datas = []
+_vosk_dir = os.environ.get('VOSK_DIR')
+if _vosk_dir:
+    for _dll in ('libvosk.dll', 'libgcc_s_seh-1.dll', 'libstdc++-6.dll', 'libwinpthread-1.dll'):
+        _p = os.path.join(_vosk_dir, _dll)
+        if os.path.isfile(_p):
+            vosk_binaries.append((_p, '.'))
+_vosk_model = os.environ.get('SUBSYNC_BUNDLE_VOSK_MODEL')
+if _vosk_model and os.path.isdir(_vosk_model):
+    vosk_datas.append((_vosk_model, os.path.join('assets', 'speech', os.path.basename(_vosk_model))))
+
+_common_datas = [
+    ('LICENSE', '.'),
+    ('subsync/key.pub', '.'),
+    ('subsync/fork.pub', '.'),
+    ('subsync/img', 'img'),
+    ('subsync/locale', 'locale'),
+] + vosk_datas
+
 
 main_a = Analysis(['bin/subsync'],
         pathex=['.'],
-        binaries=[],
-        datas=[
-            ('LICENSE', '.'),
-            ('subsync/key.pub', '.'),
-            ('subsync/img', 'img'),
-            ('subsync/locale', 'locale'),
-            ],
+        binaries=vosk_binaries,
+        datas=_common_datas,
         hiddenimports=[],
         hookspath=[],
         runtime_hooks=[],
@@ -70,13 +91,8 @@ main_coll = COLLECT(main_exe,
 
 portable_a = Analysis(['bin/portable'],
         pathex=['.'],
-        binaries=[],
-        datas=[
-            ('LICENSE', '.'),
-            ('subsync/key.pub', '.'),
-            ('subsync/img', 'img'),
-            ('subsync/locale', 'locale'),
-            ],
+        binaries=vosk_binaries,
+        datas=_common_datas,
         hiddenimports=[],
         hookspath=[],
         runtime_hooks=[],
