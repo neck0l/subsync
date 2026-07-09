@@ -9,6 +9,36 @@ Format: newest entries on top. Dates are local.
 
 ## [Unreleased] — modernize branch
 
+### Segment H — Whisper engine (opt-in) (DONE, verified end-to-end)
+- **Added** `gizmo/media/whisperrec.{h,cpp}` — `WhisperSpeechRecognition` (whisper.cpp),
+  a chunked `AVOutput` (buffers 16 kHz mono float32, decodes in 30 s chunks, emits
+  words with proportional timing). Gated by `WITH_WHISPER` (+ `WHISPER_DIR`).
+- **Bound** `gizmo.WhisperSpeechRecognition`; `speech.py` gains a `whisper` engine
+  branch (float32 format) + `loadWhisperModel`; `--engine whisper` added.
+- Built whisper.cpp as a shared lib (MSVC + cmake); staged SDK at `C:\subsync-deps\whisper`.
+- **Verified** end-to-end (ggml-tiny.en): correlated True, 93 points, R=0.9999995,
+  `ref=0.99999708·sub−2.45`, ~13.5 s.
+
+### Segment N — Windows packaging (DONE)
+- `windows.spec` now bundles the Vosk runtime (`libvosk` + MinGW deps) and
+  `fork.pub` when `VOSK_DIR` is set, plus an optional default model via
+  `SUBSYNC_BUNDLE_VOSK_MODEL`. Plain Sphinx-only builds are unchanged.
+
+### Segment K — Multi-key asset signing (DONE)
+- `subsync/pubkey.py` verifies signatures against **any** trusted `*.pub`
+  (upstream `key.pub` + fork `fork.pub`). Generated a 4096-bit fork keypair
+  (public bundled; private kept out of the repo). Sign/verify roundtrip tested.
+- `doc/ASSETS_HOSTING.md` documents signing + hosting new engine models.
+
+### Segment M — GUI engine selector (DONE)
+- Speech-engine dropdown added to the Settings window (PocketSphinx / Vosk /
+  Whisper). Fixed a latent Python 3 / wxPython 4.2 crash (`SetSelection(float)`).
+
+### Segment J — Engine-aware effort (DONE)
+- `speechEngine` setting + `--engine` CLI flag. When Vosk/Whisper is selected and
+  the user left effort at default, `minEffort` auto-drops to 0.15 (they are ~4×
+  more word-dense than Sphinx) — big speed win at equal accuracy.
+
 ### Segments F + G — Multi-engine speech + Vosk (DONE, verified end-to-end)
 - **Added** a second speech engine, **Vosk (Kaldi)**, alongside the classic
   PocketSphinx, selectable per speech-model descriptor via a new `engine` field

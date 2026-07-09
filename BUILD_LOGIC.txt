@@ -172,3 +172,48 @@ NEXT (per roadmap, NOT yet started)
 Segments F/G/H/I: multi-engine speech (Vosk default, Whisper opt-in, Sphinx fallback).
 Segment J: sync-precision improvements. Segment K: asset hosting for new models.
 Segment M: GUI engine selector. Segment N: installers (full + portable). Segment O: tests.
+
+=====================================================================
+SEGMENTS F/G/O/J/M/K/N/H - MULTI-ENGINE COMPLETION           [DONE]
+=====================================================================
+O (golden harness): tools/golden_sync.py; PocketSphinx baseline recorded
+  (R=0.9999995, 83 pts, -2.1700). See doc/GOLDEN_REFERENCE.txt.
+F/G (Vosk): gizmo/media/voskrec.{h,cpp} + json.hpp; gated WITH_VOSK/VOSK_DIR;
+  shared process-wide VoskModel cache. tools/vosk_sync.py. Verified.
+J (engine-aware effort): settings 'speechEngine' + CLI --engine; Vosk/Whisper auto
+  minEffort=0.15 (they are ~4x more word-dense than Sphinx). Vosk real path 10.2s.
+M (GUI): engine dropdown in Settings window (GridBag-aware). Fixed latent
+  Py3/wx4.2 SetSelection(float) crash. Headless-verified.
+K (signing): pubkey.py verifies against ANY trusted *.pub (key.pub + fork.pub).
+  Generated 4096-bit fork keypair (private C:\subsync-deps\fork_private.pem, NOT
+  committed; public subsync/fork.pub bundled). Roundtrip tested. doc/ASSETS_HOSTING.md.
+N (packaging): windows.spec bundles Vosk runtime + fork.pub when VOSK_DIR set;
+  optional model via SUBSYNC_BUNDLE_VOSK_MODEL. Syntax-verified.
+H (Whisper): built whisper.cpp shared lib (cmake+MSVC) -> C:\subsync-deps\whisper.
+  gizmo/media/whisperrec.{h,cpp} (chunked float32 16k, gated WITH_WHISPER). Bound
+  in python/media.cpp; speech.py 'whisper' branch + loadWhisperModel (FLT).
+  Verified end-to-end (ggml-tiny.en): 93 pts, R=0.9999995, -2.45s, ~13.5s.
+
+FINAL STATE
+-----------
+- Active gizmo.pyd built WITH_VOSK + WITH_WHISPER: all three engines present.
+- Staged runtime DLLs in repo root: ffmpeg 5.1 + sphinx + libvosk(+MinGW) +
+  whisper(+ggml). Default engine = sphinx (zero behaviour change until switched).
+- Local test assets (not committed): C:\ProgramData\subsync\assets\speech\
+  eng.vosk.speech (+model) and eng.whisper.speech (+ggml-tiny.en.bin).
+- All-engine benchmark (same movie): Sphinx 20s/83, Vosk 10s/89, Whisper 13s/93;
+  all R~0.9999995, shift ~ -2.2..-2.45 s.
+
+BUILD (all engines):
+  set FFMPEG_DIR / SPHINXBASE_DIR / POCKETSPHINX_DIR
+  set WITH_VOSK=1 & VOSK_DIR=C:\subsync-deps\vosk
+  set WITH_WHISPER=1 & WHISPER_DIR=C:\subsync-deps\whisper
+  py -3.11 setup.py build_ext --inplace
+
+REMAINING (optional, not blocking)
+----------------------------------
+- Whisper word-level token timestamps (now segment-level proportional split).
+- Whisper: each job loads its own model (whisper_full not thread-safe) -> use small
+  models / fewer jobs (documented).
+- Host fork Vosk/Whisper models online + sign with fork key (infra step).
+- mac/linux packaging.
