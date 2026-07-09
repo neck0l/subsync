@@ -1,0 +1,4 @@
+ycm.flags
+test/tests
+/build
+/dist
