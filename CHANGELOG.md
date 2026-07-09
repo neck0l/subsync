@@ -7,7 +7,11 @@ Format: newest entries on top. Dates are local.
 
 ---
 
-## [Unreleased] — modernize branch
+## [1.0.0] — 2026-07-09 (fork: modernized + multi-engine)
+
+First release of the modernized fork: builds and runs on Python 3.11 with
+FFmpeg 5.1/7.1, C++17, wxPython 4.2, and a selectable multi-engine speech backend
+(PocketSphinx / Vosk / Whisper). Segments A–O of the modernization roadmap.
 
 ### GUI modernization fixes — wxPython 4.2 / Python 3 (DONE, simulated)
 Python 3's `/` yields floats where wxPython 4.2 requires `int`, which crashed
