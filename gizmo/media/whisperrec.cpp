@@ -2,7 +2,6 @@
 #include "text/utf8.h"
 #include "general/exception.h"
 #include "general/logger.h"
-#include <cstring>
 #include <sstream>
 
 using namespace std;
@@ -143,7 +142,6 @@ void WhisperSpeechRecognition::processBuffer()
 	params.translate        = false;
 	params.language         = m_language.c_str();
 	params.no_context       = true;
-	params.single_segment   = false;
 
 	int res = whisper_full(m_ctx, params, m_buffer.data(), (int) m_buffer.size());
 	if (res != 0)
@@ -188,7 +186,8 @@ void WhisperSpeechRecognition::processBuffer()
 			const double wDur = frac * segDur;
 			acc += frac;
 
-			if (Utf8::size(w) >= m_minLen && m_minProb <= 1.0f)
+			// Whisper has no reliable per-word confidence, so score = 1.0.
+			if (Utf8::size(w) >= m_minLen)
 				m_wordsNotifier.notify(
 						Word(w, (float)(chunkBase + wStart), (float) wDur, 1.0f));
 		}

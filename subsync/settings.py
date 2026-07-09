@@ -167,8 +167,14 @@ class Settings(object):
         # PocketSphinx, so they reach a confident correlation with much less
         # audio. If the user left effort at its default, lower it for them
         # (big speed win, same accuracy).
-        if self.get('speechEngine') in ('vosk', 'whisper') and self.minEffort == persistent['minEffort']:
+        engine = self.get('speechEngine')
+        if engine in ('vosk', 'whisper') and self.minEffort == persistent['minEffort']:
             options['minEffort'] = 0.15
+        # Whisper cannot share one decoder across threads, so each parallel job
+        # loads its own copy of the (large) model. Cap the job count to bound
+        # memory/CPU unless the user explicitly set jobsNo.
+        if engine == 'whisper' and not (type(self.jobsNo) is int and self.jobsNo >= 1):
+            options['jobsNo'] = min(options['jobsNo'], 4)
         return options
 
     def getJobsNo(self):

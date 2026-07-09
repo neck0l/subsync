@@ -89,6 +89,15 @@ def loadWhisperModel(lang):
         if mdl and mdl.startswith('./'):
             whisper['model'] = os.path.join(dirname, *mdl.split('/')[1:])
 
+        # If no language was fixed in the descriptor, derive Whisper's language
+        # from the reference language (3-letter -> 2-letter). With a MULTILINGUAL
+        # model this makes every supported language work; 'auto' lets Whisper
+        # detect it when we have no mapping.
+        if not whisper.get('language'):
+            from subsync.data import languages
+            info = languages.get(code3=lang)
+            whisper['language'] = (info.code2 if info and info.code2 else 'auto')
+
     return model
 
 
