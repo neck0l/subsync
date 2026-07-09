@@ -72,7 +72,7 @@ class SyncWin(subsync.gui.layout.syncwin.SyncWin):
         if finished:
             self.m_gaugeProgress.SetValue(100)
         else:
-            self.m_gaugeProgress.SetValue(100 * status.progress)
+            self.m_gaugeProgress.SetValue(int(100 * status.progress))
 
         if status.correlated and not self.m_bitmapTick.IsShown():
             self.m_bitmapCross.Hide()

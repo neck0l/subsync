@@ -26,8 +26,8 @@ class BatchWin(subsync.gui.layout.batchwin.BatchWin):
         self.m_buttonMaxDistInfo.message = descriptions.maxDistInfo
         self.m_buttonEffortInfo.message = descriptions.effortInfo
 
-        self.m_sliderMaxDist.SetValue(settings().windowSize / 60)
-        self.m_sliderEffort.SetValue(settings().minEffort * 100)
+        self.m_sliderMaxDist.SetValue(int(settings().windowSize / 60))
+        self.m_sliderEffort.SetValue(int(settings().minEffort * 100))
         self.onSliderMaxDistScroll(None)
         self.onSliderEffortScroll(None)
 
@@ -187,8 +187,8 @@ class BatchWin(subsync.gui.layout.batchwin.BatchWin):
             effort = settings().minEffort
             if effort:
                 progress = min(max(progress, status.effort / effort, 0), 1)
-        self.m_gaugeCurrentProgress.SetValue(100 * progress)
-        self.m_gaugeTotalProgress.SetValue(100 * (no + progress))
+        self.m_gaugeCurrentProgress.SetValue(int(100 * progress))
+        self.m_gaugeTotalProgress.SetValue(int(100 * (no + progress)))
 
         if self.sync.isRunning():
             self.updateProgressText(no, progress)

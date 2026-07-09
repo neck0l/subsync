@@ -68,7 +68,7 @@ class MainWin(subsync.gui.layout.mainwin.MainWin):
             self.m_panelSub.setStream(task.sub)
             self.m_panelRef.setStream(task.ref)
 
-        self.m_sliderMaxDist.SetValue(settings().windowSize / 60.0)
+        self.m_sliderMaxDist.SetValue(int(settings().windowSize / 60.0))
         self.onSliderMaxDistScroll(None)
 
         self.Fit()
