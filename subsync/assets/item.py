@@ -201,6 +201,13 @@ class SpeechAsset(Asset):
                 if val.startswith('./'):
                     sphinx[key] = os.path.join(dirname, *val.split('/')[1:])
 
+        # Segment G: resolve Vosk model path relative to the descriptor
+        vosk = local.get('vosk', None)
+        if vosk and isinstance(vosk, dict):
+            mdl = vosk.get('model')
+            if mdl and mdl.startswith('./'):
+                vosk['model'] = os.path.join(dirname, *mdl.split('/')[1:])
+
         localDir = local.get('dir', None)
         if localDir and localDir.startswith('./'):
             localDir = os.path.join(dirname, *localDir.split('/')[1:])

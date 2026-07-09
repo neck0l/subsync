@@ -10,6 +10,10 @@
 #include "media/speechrec.h"
 #include "text/ngrams.h"
 
+#ifdef WITH_VOSK
+#include "media/voskrec.h"
+#endif
+
 namespace py = pybind11;
 
 using namespace std;
@@ -81,6 +85,20 @@ void initMediaWrapper(py::module &m)
 	speechRec.def("addWordsListener", &SpeechRecognition::addWordsListener);
 	speechRec.def("removeWordsListener", &SpeechRecognition::removeWordsListener,
 			py::arg("listener") = nullptr);
+
+#ifdef WITH_VOSK
+	/*** class VoskSpeechRecognition ***/
+	py::class_<VoskSpeechRecognition, shared_ptr<VoskSpeechRecognition>>
+		voskRec(m, "VoskSpeechRecognition", audioOut);
+	voskRec.def(py::init<>());
+	voskRec.def("setModel", &VoskSpeechRecognition::setModel);
+	voskRec.def("setSampleRate", &VoskSpeechRecognition::setSampleRate);
+	voskRec.def("setMinWordProb", &VoskSpeechRecognition::setMinWordProb);
+	voskRec.def("setMinWordLen", &VoskSpeechRecognition::setMinWordLen);
+	voskRec.def("addWordsListener", &VoskSpeechRecognition::addWordsListener);
+	voskRec.def("removeWordsListener", &VoskSpeechRecognition::removeWordsListener,
+			py::arg("listener") = nullptr);
+#endif
 
 	/*** class NgramSplitter ***/
 	py::class_<NgramSplitter, shared_ptr<NgramSplitter>>

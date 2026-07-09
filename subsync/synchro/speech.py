@@ -21,6 +21,21 @@ def loadSpeechModel(lang):
 
 
 def createSpeechRec(model):
+    engine = model.get('engine', 'sphinx')
+
+    if engine == 'vosk':
+        if not hasattr(gizmo, 'VoskSpeechRecognition'):
+            raise error.Error(_('This build has no Vosk speech engine support'))
+        speechRec = gizmo.VoskSpeechRecognition()
+        vosk = model.get('vosk', {})
+        modelDir = vosk.get('model') or model.get('dir')
+        if not modelDir:
+            raise error.Error(_('Vosk model path is missing'))
+        speechRec.setModel(modelDir)
+        sampleRate = model.get('samplerate', 16000)
+        speechRec.setSampleRate(int(sampleRate))
+        return speechRec
+
     speechRec = gizmo.SpeechRecognition()
     if 'sphinx' in model:
         for key, val in model['sphinx'].items():

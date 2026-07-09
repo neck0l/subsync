@@ -57,6 +57,9 @@ class build_ext(setuptools.command.build_ext.build_ext):
         self.ffmpeg_dir       = os.environ.get('FFMPEG_DIR')
         self.sphinxbase_dir   = os.environ.get('SPHINXBASE_DIR')
         self.pocketsphinx_dir = os.environ.get('POCKETSPHINX_DIR')
+        # Segment G: optional Vosk engine (WITH_VOSK=1, VOSK_DIR=path to SDK).
+        self.vosk_dir         = os.environ.get('VOSK_DIR')
+        self.with_vosk        = os.environ.get('WITH_VOSK') in ('1', 'yes', 'true')
 
     def finalize_options(self):
         super().finalize_options()
@@ -125,6 +128,16 @@ class build_ext(setuptools.command.build_ext.build_ext):
             self.include_dirs += self.get_paths(self.sphinxbase_dir,   os.path.join('include', 'win32'))
             self.library_dirs += self.get_paths(self.sphinxbase_dir,   os.path.join('bin', 'Release', arch))
             self.library_dirs += self.get_paths(self.pocketsphinx_dir, os.path.join('bin', 'Release', arch))
+
+        # Segment G: wire the optional Vosk engine into the extension build.
+        if self.with_vosk:
+            self.include_dirs += self.get_paths(self.vosk_dir, '', 'include')
+            self.library_dirs += self.get_paths(self.vosk_dir, '', 'lib')
+            self.libraries    += [ 'vosk' ]
+            for ext in self.extensions:
+                if 'gizmo/media/voskrec.cpp' not in ext.sources:
+                    ext.sources.append('gizmo/media/voskrec.cpp')
+                ext.define_macros.append(('WITH_VOSK', '1'))
 
     def build_extensions(self):
         if self.compiler.compiler_type in ['unix', 'cygwin', 'mingw32']:

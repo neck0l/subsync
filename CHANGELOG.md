@@ -9,6 +9,31 @@ Format: newest entries on top. Dates are local.
 
 ## [Unreleased] — modernize branch
 
+### Segments F + G — Multi-engine speech + Vosk (DONE, verified end-to-end)
+- **Added** a second speech engine, **Vosk (Kaldi)**, alongside the classic
+  PocketSphinx, selectable per speech-model descriptor via a new `engine` field
+  (absent ⇒ `sphinx`, so 100% backward compatible).
+- **New** `gizmo/media/voskrec.{h,cpp}` — `VoskSpeechRecognition`, a drop-in
+  `AVOutput` implementing the same words-listener contract as the Sphinx class,
+  with the identical absolute-time mapping (`m_deltaTime` on first frame, reset on
+  discontinuity). Vendored `gizmo/thirdparty/json.hpp` (nlohmann/json) to parse
+  Vosk word results.
+- **New** pybind class `gizmo.VoskSpeechRecognition` (gated by `WITH_VOSK`).
+- **Build:** `setup.py` gains `WITH_VOSK=1` + `VOSK_DIR=...` env switches; when
+  off, nothing about the build changes (no bloat).
+- **Python:** `subsync/synchro/speech.py::createSpeechRec` now selects the engine;
+  `subsync/assets/item.py` resolves relative Vosk model paths.
+- **Verified end-to-end** on the same movie (Croatian sub vs English audio):
+  - Sphinx @0.5 effort: R=0.99999951, **83** points, `ref=0.99998·sub−2.17`, ~20 s.
+  - **Vosk @0.15 effort: R=0.99999923, 89 points, `ref=0.99996·sub−2.38`, ~9.4 s.**
+  - i.e. **Vosk tuned is ~2× faster than Sphinx at equal accuracy.**
+  - **Performance:** added a process-wide shared `VoskModel` cache (loaded once,
+    shared across all parallel jobs instead of reloaded per job). Because Vosk is
+    ~4× more information-dense, a lower effort budget (~0.15) gives the same result
+    with much less audio processed.
+  - Regression: Sphinx re-run on the Vosk-enabled build = 85 points, −2.20 s (intact).
+- **Tooling:** `tools/vosk_sync.py` (engine A/B harness, `SUBSYNC_MIN_EFFORT` env).
+
 ### Segment D — FFmpeg 6/7 compatibility (DONE)
 - **Added** `gizmo/media/ffmpeg-channel-compat.h` — a compat shim that translates
   SubSync's legacy `uint64_t` channel-layout bitmasks to/from the modern
