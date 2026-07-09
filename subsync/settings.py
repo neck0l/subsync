@@ -163,10 +163,11 @@ class Settings(object):
         options = { key: self.get(key) for key in synchronizationOptions }
         options['jobsNo'] = self.getJobsNo()
         options['overwrite'] = self.overwriteExistingFiles or self.overwrite
-        # Engine-aware effort: Vosk is ~4x more word-dense than PocketSphinx, so it
-        # reaches a confident correlation with far less audio. If the user left the
-        # effort at its default, lower it for Vosk (big speed win, same accuracy).
-        if self.get('speechEngine') == 'vosk' and self.minEffort == persistent['minEffort']:
+        # Engine-aware effort: Vosk/Whisper are far more word-dense than
+        # PocketSphinx, so they reach a confident correlation with much less
+        # audio. If the user left effort at its default, lower it for them
+        # (big speed win, same accuracy).
+        if self.get('speechEngine') in ('vosk', 'whisper') and self.minEffort == persistent['minEffort']:
             options['minEffort'] = 0.15
         return options
 

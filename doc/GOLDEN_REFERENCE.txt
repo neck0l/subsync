@@ -61,4 +61,26 @@ REGRESSION: PocketSphinx re-run on the WITH_VOSK build
   => matches the Sphinx baseline (83 pts, -2.1700). No regression from the
      multi-engine changes; the classic path is intact.
 
+-----------------------------------------------------------------------
+ENGINE: Whisper (whisper.cpp, ggml-tiny.en)  build: FFmpeg 5.1 / Py3.11 / WITH_WHISPER
+-----------------------------------------------------------------------
+  Real path (settings speechEngine=whisper, auto minEffort=0.15, jobs=4):
+     correlated : True
+     factor (R) : 0.9999994791466366
+     points     : 93
+     formula    : ref = 0.99999708 * sub + (-2.4539)
+     elapsed    : ~13.5 s   (tiny.en model; float32 16 kHz input)
+
+=======================================================================
+ALL-ENGINE SUMMARY (same movie: Croatian sub vs English audio)
+=======================================================================
+  engine            time    points   R           shift
+  PocketSphinx      ~20 s    83      0.9999995   -2.17 s
+  Vosk (small)      ~10 s    89      0.9999992   -2.39 s   <- default recommended
+  Whisper (tiny.en) ~13 s    93      0.9999995   -2.45 s   <- opt-in, most accurate
+  All three converge on the same solution (~ -2.2..-2.45 s, ~1.0x). Engine is
+  user-selectable (settings 'speechEngine' / CLI --engine). Effort auto-drops to
+  0.15 for Vosk/Whisper (they are far more word-dense than Sphinx).
+
+
 

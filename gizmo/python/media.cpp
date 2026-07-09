@@ -14,6 +14,10 @@
 #include "media/voskrec.h"
 #endif
 
+#ifdef WITH_WHISPER
+#include "media/whisperrec.h"
+#endif
+
 namespace py = pybind11;
 
 using namespace std;
@@ -97,6 +101,22 @@ void initMediaWrapper(py::module &m)
 	voskRec.def("setMinWordLen", &VoskSpeechRecognition::setMinWordLen);
 	voskRec.def("addWordsListener", &VoskSpeechRecognition::addWordsListener);
 	voskRec.def("removeWordsListener", &VoskSpeechRecognition::removeWordsListener,
+			py::arg("listener") = nullptr);
+#endif
+
+#ifdef WITH_WHISPER
+	/*** class WhisperSpeechRecognition ***/
+	py::class_<WhisperSpeechRecognition, shared_ptr<WhisperSpeechRecognition>>
+		whisperRec(m, "WhisperSpeechRecognition", audioOut);
+	whisperRec.def(py::init<>());
+	whisperRec.def("setModel", &WhisperSpeechRecognition::setModel);
+	whisperRec.def("setSampleRate", &WhisperSpeechRecognition::setSampleRate);
+	whisperRec.def("setLanguage", &WhisperSpeechRecognition::setLanguage);
+	whisperRec.def("setThreads", &WhisperSpeechRecognition::setThreads);
+	whisperRec.def("setMinWordProb", &WhisperSpeechRecognition::setMinWordProb);
+	whisperRec.def("setMinWordLen", &WhisperSpeechRecognition::setMinWordLen);
+	whisperRec.def("addWordsListener", &WhisperSpeechRecognition::addWordsListener);
+	whisperRec.def("removeWordsListener", &WhisperSpeechRecognition::removeWordsListener,
 			py::arg("listener") = nullptr);
 #endif
 

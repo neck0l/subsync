@@ -27,6 +27,13 @@ def loadSpeechModel(lang, engine=None):
             return model
         logger.warning('no Vosk model for language %s, falling back to sphinx', lang)
 
+    if engine == 'whisper':
+        model = loadWhisperModel(lang)
+        if model is not None:
+            logger.debug('whisper model ready: %s', model)
+            return model
+        logger.warning('no Whisper model for language %s, falling back to sphinx', lang)
+
     asset = assets.getAsset('speech', [lang])
     if asset.localVersion():
         model = asset.readSpeechModel()
@@ -62,6 +69,29 @@ def loadVoskModel(lang):
     return model
 
 
+def loadWhisperModel(lang):
+    """Load a Whisper model descriptor (<lang>.whisper.speech) from the assets dir."""
+    path = os.path.join(config.assetdir, 'speech', lang + '.whisper.speech')
+    if not os.path.isfile(path):
+        return None
+
+    with open(path, encoding='utf8') as fp:
+        model = json.load(fp)
+
+    model['engine'] = 'whisper'
+    model.setdefault('sampleformat', 'FLT')
+    model.setdefault('samplerate', '16000')
+
+    dirname = os.path.abspath(os.path.dirname(path))
+    whisper = model.get('whisper')
+    if isinstance(whisper, dict):
+        mdl = whisper.get('model')
+        if mdl and mdl.startswith('./'):
+            whisper['model'] = os.path.join(dirname, *mdl.split('/')[1:])
+
+    return model
+
+
 def createSpeechRec(model):
     engine = model.get('engine', 'sphinx')
 
@@ -76,6 +106,21 @@ def createSpeechRec(model):
         speechRec.setModel(modelDir)
         sampleRate = model.get('samplerate', 16000)
         speechRec.setSampleRate(int(sampleRate))
+        return speechRec
+
+    if engine == 'whisper':
+        if not hasattr(gizmo, 'WhisperSpeechRecognition'):
+            raise error.Error(_('This build has no Whisper speech engine support'))
+        speechRec = gizmo.WhisperSpeechRecognition()
+        whisper = model.get('whisper', {})
+        modelFile = whisper.get('model') or model.get('dir')
+        if not modelFile:
+            raise error.Error(_('Whisper model path is missing'))
+        speechRec.setModel(modelFile)
+        speechRec.setSampleRate(int(model.get('samplerate', 16000)))
+        speechRec.setLanguage(whisper.get('language', 'en'))
+        if whisper.get('threads'):
+            speechRec.setThreads(int(whisper['threads']))
         return speechRec
 
     speechRec = gizmo.SpeechRecognition()

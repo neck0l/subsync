@@ -60,6 +60,9 @@ class build_ext(setuptools.command.build_ext.build_ext):
         # Segment G: optional Vosk engine (WITH_VOSK=1, VOSK_DIR=path to SDK).
         self.vosk_dir         = os.environ.get('VOSK_DIR')
         self.with_vosk        = os.environ.get('WITH_VOSK') in ('1', 'yes', 'true')
+        # Segment H: optional Whisper engine (WITH_WHISPER=1, WHISPER_DIR=path).
+        self.whisper_dir      = os.environ.get('WHISPER_DIR')
+        self.with_whisper     = os.environ.get('WITH_WHISPER') in ('1', 'yes', 'true')
 
     def finalize_options(self):
         super().finalize_options()
@@ -138,6 +141,16 @@ class build_ext(setuptools.command.build_ext.build_ext):
                 if 'gizmo/media/voskrec.cpp' not in ext.sources:
                     ext.sources.append('gizmo/media/voskrec.cpp')
                 ext.define_macros.append(('WITH_VOSK', '1'))
+
+        # Segment H: wire the optional Whisper engine into the extension build.
+        if self.with_whisper:
+            self.include_dirs += self.get_paths(self.whisper_dir, '', 'include')
+            self.library_dirs += self.get_paths(self.whisper_dir, '', 'lib')
+            self.libraries    += [ 'whisper' ]
+            for ext in self.extensions:
+                if 'gizmo/media/whisperrec.cpp' not in ext.sources:
+                    ext.sources.append('gizmo/media/whisperrec.cpp')
+                ext.define_macros.append(('WITH_WHISPER', '1'))
 
     def build_extensions(self):
         if self.compiler.compiler_type in ['unix', 'cygwin', 'mingw32']:
