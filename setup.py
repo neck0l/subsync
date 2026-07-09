@@ -373,19 +373,19 @@ setup(
             ],
         entry_points = {'gui_scripts': ['subsync=subsync.__main__:subsync']},
         setup_requires = [
-            'pybind11>=2.4',
+            'pybind11>=2.10',
             ],
         install_requires = [
             'certifi',
-            'pysubs2>=0.2.4',
-            'pycryptodome>=3.9;platform_system!="Darwin"',
-            'cryptography>=2.8;platform_system=="Darwin"',
-            'PyYAML',
-            'pybind11>=2.4',
-            'requests>=2.0',
+            'pysubs2>=1.6',
+            'pycryptodome>=3.19;platform_system!="Darwin"',
+            'cryptography>=42.0;platform_system=="Darwin"',
+            'PyYAML>=6.0',
+            'pybind11>=2.10',
+            'requests>=2.31',
             ],
         extras_require = {
-            'GUI': [ 'wxPython>=4.0' ],
+            'GUI': [ 'wxPython>=4.2' ],
             },
         scripts = ['bin/subsync'],
         cmdclass = {
