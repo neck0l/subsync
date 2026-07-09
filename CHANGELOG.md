@@ -9,6 +9,23 @@ Format: newest entries on top. Dates are local.
 
 ## [Unreleased] — modernize branch
 
+### GUI modernization fixes — wxPython 4.2 / Python 3 (DONE, simulated)
+Python 3's `/` yields floats where wxPython 4.2 requires `int`, which crashed
+several windows. All wrapped in `int()`:
+- `gui/mainwin.py` — max-distance `Slider.SetValue`.
+- `gui/batchwin.py` — max-distance/effort sliders + current/total progress gauges.
+- `gui/syncwin.py` — progress gauge.
+- `gui/busydlg.py` — `wx.Timer.Start` interval (this crashed drag-and-drop of a
+  reference file).
+- `gui/settingswin.py` — log-level `SetSelection` (fixed alongside Segment M).
+
+**Simulated headlessly** (real MKV + Croatian SRT) to verify the full workflow:
+- All standalone dialogs construct (About/Settings/Fps/Languages/CharEnc/OutPattern/Error).
+- MainWin + BatchWin construct.
+- Drag-drop reference → OpenWin renders all streams (incl. 6-ch audio) + ChannelsWin.
+- Start → SyncWin correlates (formula `1.0000x−2.393`) and Save writes a valid output.
+No remaining type errors in the common path.
+
 ### Segment H — Whisper engine (opt-in) (DONE, verified end-to-end)
 - **Added** `gizmo/media/whisperrec.{h,cpp}` — `WhisperSpeechRecognition` (whisper.cpp),
   a chunked `AVOutput` (buffers 16 kHz mono float32, decodes in 30 s chunks, emits
