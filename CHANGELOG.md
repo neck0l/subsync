@@ -9,6 +9,46 @@ Format: newest entries on top. Dates are local.
 
 ## [Unreleased] — modernize branch
 
+### Segment D — FFmpeg 6/7 compatibility (DONE)
+- **Added** `gizmo/media/ffmpeg-channel-compat.h` — a compat shim that translates
+  SubSync's legacy `uint64_t` channel-layout bitmasks to/from the modern
+  `AVChannelLayout` API (introduced in FFmpeg 5.1, mandatory in 7.0).
+- **Migrated** `gizmo/media/stream.cpp`, `audiodec.cpp`, `resampler.cpp` off the
+  removed helpers (`av_get_default_channel_layout`, `av_get_channel_name`,
+  `av_get_channel_description`, `av_get_channel_layout_channel_index`,
+  `swr_alloc_set_opts`, and the `channels`/`channel_layout` struct fields).
+- The Python-facing `AudioFormat` API is unchanged (still `uint64_t` masks).
+- **Verified:** builds + links + `import gizmo` on **both FFmpeg 5.1 and FFmpeg 7.1**
+  (0 errors each). Reconnaissance confirmed `avcodec_decode_subtitle2` and
+  `av_init_packet` still exist in 7.1, so no subtitle-decode rewrite was needed.
+- Active runtime restored to the known-good FFmpeg 5.1 build.
+
+### Segment E — C++17 modernization (DONE)
+- **Replaced** all dynamic exception specifications `throw()` with `noexcept` in
+  `gizmo/general/exception.{h,cpp}` (removed in C++17).
+- **Enabled C++17**: `setup.py` now passes `/std:c++17` (MSVC) / `-std=c++17`
+  (unix, with c++14/c++11 fallback), and — importantly — actually applies the MSVC
+  compile flags to the extension (previously `setup_msvc` set them but never
+  assigned them, so only the compiler default was used).
+- **Verified:** clean rebuild with `/std:c++17`, `import gizmo` OK, app runs.
+
+### Segment C — Build-system modernization (DONE)
+- **Migrated** `setup.py` off `distutils` (removed in Python 3.12) to `setuptools`
+  equivalents (`setuptools.Command`, `setuptools.command.build_py`,
+  `setuptools.errors.CompileError`), with a guarded fallback for old setuptools.
+- **Added** `pyproject.toml` (PEP 517 build metadata: setuptools + pybind11 + wheel).
+- **Bumped** `python_requires` from `>=3.5` to `>=3.9`.
+- **Verified:** clean rebuild, `import gizmo` OK, `run --version` OK.
+
+### Segment L — Dependency updates (DONE)
+- **Raised** dependency floors in `setup.py` and `requirements.txt`:
+  `pysubs2>=1.6`, `PyYAML>=6.0`, `requests>=2.31`, `pybind11>=2.10`,
+  `pycryptodome>=3.19`, `cryptography>=42.0` (Darwin), `wxPython>=4.2`.
+- Confirmed YAML loading already uses `yaml.safe_load` (no unsafe `yaml.load`).
+- **Verified** against installed versions (pysubs2 1.8.1, PyYAML 6.0.3,
+  requests 2.34.2, pycryptodome 3.23.0, wxPython 4.2.5, pybind11 3.0.4): imports OK,
+  app runs.
+
 ### Segment B — Reproduce the known-good build on modern Python (DONE)
 **Goal:** build the native `gizmo` C++ extension from source on Python 3.11 against the
 proven stack (FFmpeg 5.1 + classic PocketSphinx), with **zero C++ source changes**.

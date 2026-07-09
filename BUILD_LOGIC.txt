@@ -116,3 +116,59 @@ Segment C: setup.py distutils->setuptools + pyproject.toml.
 Segment D: FFmpeg 6/7 subtitle+channel-layout migration (version-gated).
 Segment E: C++17 (throw()->noexcept).
 Segments F/G/H/I: multi-engine speech (Vosk default, Whisper opt-in, Sphinx fallback).
+
+=====================================================================
+SEGMENT C - BUILD SYSTEM MODERNIZATION                       [DONE]
+=====================================================================
+- setup.py: removed 'import distutils...'; now uses setuptools.Command,
+  setuptools.command.build_py.build_py, setuptools.errors.CompileError
+  (guarded fallback to distutils for very old setuptools). gen_gui/gen_locales/
+  gen_version/gen_doc rebased on setuptools.Command.
+- Added pyproject.toml (PEP 517: setuptools>=64, wheel, pybind11>=2.10).
+- python_requires >=3.5 -> >=3.9.
+- Verified: rebuild OK, import gizmo OK, run --version = 0.16.1.
+
+=====================================================================
+SEGMENT E - C++17 MODERNIZATION                              [DONE]
+=====================================================================
+- gizmo/general/exception.{h,cpp}: all throw() -> noexcept.
+- setup.py setup_unix: prefer -std=c++17 (fallback c++14/c++11).
+- setup.py setup_msvc: add /EHsc /std:c++17 AND actually assign
+  ext.extra_compile_args/extra_link_args (previously MSVC flags were computed
+  but never applied - only the compiler default was used).
+- Verified: rebuild shows /std:c++17 on the compile line, 0 errors, import OK.
+
+=====================================================================
+SEGMENT L - DEPENDENCY UPDATES                               [DONE]
+=====================================================================
+- setup.py install_requires + requirements.txt floors raised:
+  pysubs2>=1.6, PyYAML>=6.0, requests>=2.31, pybind11>=2.10,
+  pycryptodome>=3.19, cryptography>=42.0 (Darwin), wxPython>=4.2.
+- Confirmed yaml.safe_load already used in synchro/task.py (no unsafe load).
+- Verified against installed versions; imports + run OK.
+
+=====================================================================
+SEGMENT D - FFMPEG 6/7 COMPATIBILITY                         [DONE]
+=====================================================================
+- Reconnaissance against FFmpeg 7.1 headers (BtbN, avcodec-61):
+    * STILL PRESENT: avcodec_decode_subtitle2, av_init_packet (no rewrite needed).
+    * REMOVED: av_get_default_channel_layout, av_get_channel_name,
+      av_get_channel_description, av_get_channel_layout_channel_index,
+      swr_alloc_set_opts, and AVFrame/AVCodecContext channels/channel_layout fields.
+    * The replacement AVChannelLayout / av_channel_layout_* / swr_alloc_set_opts2
+      API exists in BOTH 5.1 and 7.1.
+- Added gizmo/media/ffmpeg-channel-compat.h: inline helpers that keep the internal
+  uint64_t channel-layout bitmask but talk to the new struct API at the FFmpeg
+  boundary (su_get_channels, su_get_channel_layout, su_get_default_channel_layout,
+  su_set_frame_layout, su_ensure_frame_layout, su_get_channel_name/description,
+  su_get_channel_index, su_swr_set_opts). Python AudioFormat API unchanged.
+- Migrated stream.cpp, audiodec.cpp, resampler.cpp to the helpers.
+- Downloaded FFmpeg 7.1 dev libs to C:\subsync-deps\ffmpeg-7.1 (import libs present).
+- Verified: 0-error build + import on FFmpeg 5.1 AND FFmpeg 7.1. Restored the
+  known-good FFmpeg 5.1 build + DLLs as the active runtime.
+
+NEXT (per roadmap, NOT yet started)
+-----------------------------------
+Segments F/G/H/I: multi-engine speech (Vosk default, Whisper opt-in, Sphinx fallback).
+Segment J: sync-precision improvements. Segment K: asset hosting for new models.
+Segment M: GUI engine selector. Segment N: installers (full + portable). Segment O: tests.
