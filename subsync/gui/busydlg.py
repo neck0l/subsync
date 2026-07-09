@@ -58,7 +58,7 @@ class BusyDlg(wx.Dialog):
         self.condCb = condCb
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.checkCond, self.timer)
-        self.timer.Start(checkInterval * 1000)
+        self.timer.Start(int(checkInterval * 1000))
         return self.ShowModal()
 
     def checkCond(self, event):
