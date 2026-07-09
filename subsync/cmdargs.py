@@ -226,6 +226,8 @@ def options():
         _('Synchronization options:'),
         { 'name': 'fromFile', 'alias': '--import', 'metavar': 'PATH' },
         { 'group': 'options', 'name': 'minEffort', 'alias': '--effort', 'type': float },
+        { 'group': 'options', 'name': 'speechEngine', 'alias': '--engine', 'parser': parseEnum,
+            'values': ['sphinx', 'vosk'] },
         { 'group': 'options', 'name': 'overwrite', 'parser': parseConst },
         { 'group': 'options', 'name': 'jobsNo',          'type': int, 'aliases': ['--jobs', '-j'], 'metavar': 'NO' },
         { 'group': 'options', 'name': 'window-size',     'type': float },

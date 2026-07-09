@@ -1,5 +1,7 @@
 import gizmo
+import os, json
 from subsync import assets
+from subsync import config
 from subsync import error
 from subsync.translations import _
 
@@ -7,8 +9,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def loadSpeechModel(lang):
-    logger.info('loading speech recognition model for language %s', lang)
+def loadSpeechModel(lang, engine=None):
+    if engine is None:
+        try:
+            from subsync.settings import settings
+            engine = settings().get('speechEngine') or 'sphinx'
+        except Exception:
+            engine = 'sphinx'
+
+    logger.info('loading speech recognition model for language %s (engine=%s)',
+            lang, engine)
+
+    if engine == 'vosk':
+        model = loadVoskModel(lang)
+        if model is not None:
+            logger.debug('vosk model ready: %s', model)
+            return model
+        logger.warning('no Vosk model for language %s, falling back to sphinx', lang)
 
     asset = assets.getAsset('speech', [lang])
     if asset.localVersion():
@@ -18,6 +35,31 @@ def loadSpeechModel(lang):
 
     raise error.Error(_('There is no speech recognition model for language {}')
             .format(lang)).add('language', lang)
+
+
+def loadVoskModel(lang):
+    """Load a Vosk model descriptor (<lang>.vosk.speech) from the assets dir.
+
+    This is kept separate from the (PocketSphinx) '<lang>.speech' asset so that
+    the classic installed application is never affected by fork-only files.
+    """
+    path = os.path.join(config.assetdir, 'speech', lang + '.vosk.speech')
+    if not os.path.isfile(path):
+        return None
+
+    with open(path, encoding='utf8') as fp:
+        model = json.load(fp)
+
+    model['engine'] = 'vosk'
+
+    dirname = os.path.abspath(os.path.dirname(path))
+    vosk = model.get('vosk')
+    if isinstance(vosk, dict):
+        mdl = vosk.get('model')
+        if mdl and mdl.startswith('./'):
+            vosk['model'] = os.path.join(dirname, *mdl.split('/')[1:])
+
+    return model
 
 
 def createSpeechRec(model):

@@ -23,6 +23,7 @@ persistent = {
         'minWordsSim': 0.6,
         'minEffort': 0.5,
         'outTimeOffset': 0.0,
+        'speechEngine': 'sphinx',
         'preventSystemSuspend': False,
         'lastdir': '',
         'lastSubLang': None,
@@ -162,6 +163,11 @@ class Settings(object):
         options = { key: self.get(key) for key in synchronizationOptions }
         options['jobsNo'] = self.getJobsNo()
         options['overwrite'] = self.overwriteExistingFiles or self.overwrite
+        # Engine-aware effort: Vosk is ~4x more word-dense than PocketSphinx, so it
+        # reaches a confident correlation with far less audio. If the user left the
+        # effort at its default, lower it for Vosk (big speed win, same accuracy).
+        if self.get('speechEngine') == 'vosk' and self.minEffort == persistent['minEffort']:
+            options['minEffort'] = 0.15
         return options
 
     def getJobsNo(self):
