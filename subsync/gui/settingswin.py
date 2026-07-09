@@ -32,6 +32,30 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
             self.m_autoUpdate.Hide()
             self.m_askForUpdate.Hide()
 
+        # Segment M: speech-engine selector (added programmatically so the
+        # generated layout file stays untouched). Named 'm_choiceSpeechEngine'
+        # so it is NOT auto-handled by settingsFieldsGen (wx.Choice has no
+        # Get/SetValue) - it is handled explicitly in get/setSettings.
+        self._speechEngines = ['sphinx', 'vosk']
+        synchroSizer = self.m_panelSynchro.GetSizer()  # wxGridBagSizer
+        self.m_labelSpeechEngine = wx.StaticText(self.m_panelSynchro,
+                label=_('Speech recognition engine:'))
+        self.m_choiceSpeechEngine = wx.Choice(self.m_panelSynchro,
+                choices=[_('PocketSphinx (classic)'), _('Vosk (recommended)')])
+
+        row = 0
+        for child in synchroSizer.GetChildren():
+            try:
+                pos = child.GetPos()
+                span = child.GetSpan()
+                row = max(row, pos.GetRow() + span.GetRowspan())
+            except Exception:
+                pass
+        synchroSizer.Add(self.m_labelSpeechEngine, wx.GBPosition(row, 0),
+                wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+        synchroSizer.Add(self.m_choiceSpeechEngine, wx.GBPosition(row, 1),
+                wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+
         self.setSettings(settings())
 
         self.m_panelSynchro.Fit()
@@ -41,6 +65,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         self.settings = Settings(settings)
 
         self.m_jobsNo.SetValue(settings.getJobsNo())
+
+        engine = settings.get('speechEngine') or 'sphinx'
+        self.m_choiceSpeechEngine.SetSelection(
+                self._speechEngines.index(engine) if engine in self._speechEngines else 0)
 
         for field, key, val in self.settingsFieldsGen():
             if val != None:
@@ -53,7 +81,7 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         self.m_checkAutoJobsNo.SetValue(jobsNo == None)
         self.m_jobsNo.Enable(jobsNo != None)
 
-        logLevel = self.settings.logLevel / 10
+        logLevel = int(self.settings.logLevel // 10)
         if logLevel >= 0 and logLevel < self.m_choiceLogLevel.GetCount():
             self.m_choiceLogLevel.SetSelection(logLevel)
 
@@ -71,6 +99,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
     def getSettings(self):
         for field, key, val in self.settingsFieldsGen():
             setattr(self.settings, key, field.GetValue())
+
+        sel = self.m_choiceSpeechEngine.GetSelection()
+        if sel != wx.NOT_FOUND:
+            self.settings.speechEngine = self._speechEngines[sel]
 
         self.settings.appendLangCode = False
         if self.m_appendLangCode2.IsChecked():
