@@ -1,0 +1,9 @@
+[build-system]
+# Segment C: modern PEP 517 build metadata. The custom native build logic
+# (FFmpeg / PocketSphinx linking) still lives in setup.py's build_ext.
+requires = [
+    "setuptools>=64",
+    "wheel",
+    "pybind11>=2.10",
+]
+build-backend = "setuptools.build_meta"

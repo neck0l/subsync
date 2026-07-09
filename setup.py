@@ -1,12 +1,19 @@
 import sys, os, glob, re, subprocess, shutil
-import distutils.cmd, distutils.command.build_py
 import setuptools
 import setuptools.command.build_ext
-from setuptools import setup, Extension
+import setuptools.command.build_py
+from setuptools import setup, Extension, Command as _Command
 import sysconfig, subprocess, tempfile
 
+# Segment C: prefer setuptools over the removed-in-3.12 distutils. Fall back to
+# distutils for very old setuptools that lack these shims (fully reversible).
+try:
+    from setuptools.errors import CompileError as _CompileError
+except Exception:  # pragma: no cover - old setuptools
+    from distutils.errors import CompileError as _CompileError
 
-class build_py(distutils.command.build_py.build_py):
+
+class build_py(setuptools.command.build_py.build_py):
     def run(self):
         try:
             config_path = os.path.join('subsync', 'config.py')
@@ -201,12 +208,12 @@ class build_ext(setuptools.command.build_ext.build_ext):
             f.write('int main (int argc, char **argv) { return 0; }')
             try:
                 self.compiler.compile([f.name], extra_postargs=[flagname])
-            except setuptools.distutils.errors.CompileError:
+            except _CompileError:
                 return False
         return True
 
 
-class gen_gui(distutils.cmd.Command):
+class gen_gui(_Command):
     description = 'Generate GUI files'
     user_options = [
             ('wxformbuilder=', None, 'path to wxFormBuilder binary'),
@@ -247,7 +254,7 @@ class gen_gui(distutils.cmd.Command):
         return re.compile(pattern)
 
 
-class gen_locales(distutils.cmd.Command):
+class gen_locales(_Command):
     description = 'Generate locales file'
     user_options = [
             ('xgettext=', None, 'path to xgettext binary'),
@@ -272,7 +279,7 @@ class gen_locales(distutils.cmd.Command):
             raise
 
 
-class gen_version(distutils.cmd.Command):
+class gen_version(_Command):
     description = 'Generate version file'
     user_options = [
             ('out=', None, 'path to version file')
@@ -289,7 +296,7 @@ class gen_version(distutils.cmd.Command):
         write_version_file(version_long, version, self.out_path)
 
 
-class gen_doc(distutils.cmd.Command):
+class gen_doc(_Command):
     description = 'Generate API documentation'
     user_options = []
 
@@ -347,7 +354,7 @@ setup(
         url = 'https://github.com/sc0ty/subsync',
         description = 'Subtitle Speech Synchronizer',
         license='GPLv3',
-        python_requires = '>=3.5',
+        python_requires = '>=3.9',
         packages = [
             'subsync',
             'subsync.synchro',
