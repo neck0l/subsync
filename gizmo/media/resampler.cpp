@@ -1,5 +1,6 @@
 #include "resampler.h"
 #include "avout.h"
+#include "ffmpeg-channel-compat.h"
 #include "general/exception.h"
 
 using namespace std;
@@ -34,8 +35,7 @@ void Resampler::connectOutput(shared_ptr<AVOutput> output,
 
 	m_outFrame = av_frame_alloc();
 	m_outFrame->format = format.sampleFormat;
-	m_outFrame->channels = format.channelsNo;
-	m_outFrame->channel_layout = format.channelLayout;
+	su_set_frame_layout(m_outFrame, format.channelLayout, format.channelsNo);
 	m_outFrame->sample_rate = format.sampleRate;
 	m_outFrame->nb_samples = bufferSize;
 
@@ -83,11 +83,11 @@ static vector<double> makeMixMap(const AudioFormat &out, const AudioFormat &in,
 
 	for (const auto &ch : channelsMap)
 	{
-		int i = av_get_channel_layout_channel_index(
+		int i = su_get_channel_index(
 				in.channelLayout,
 				get<0>(ch.first));
 
-		int o = av_get_channel_layout_channel_index(
+		int o = su_get_channel_index(
 				out.channelLayout,
 				get<1>(ch.first));
 
@@ -103,14 +103,13 @@ void Resampler::initSwrContext(const AudioFormat &out, const AudioFormat &in)
 	if (swr_is_initialized(m_swr))
 		swr_close(m_swr);
 
-	m_swr = swr_alloc_set_opts(m_swr,
+	int optsRes = su_swr_set_opts(&m_swr,
 			out.channelLayout, out.sampleFormat, out.sampleRate,
-			in.channelLayout,  in.sampleFormat,  in.sampleRate,
-			0, NULL);
+			in.channelLayout,  in.sampleFormat,  in.sampleRate);
 
-	if (m_swr == NULL)
+	if (optsRes < 0 || m_swr == NULL)
 		throw EXCEPTION("can't initialize resampler context")
-			.module("Resampler", "swr_alloc_set_opts")
+			.module("Resampler", "swr_alloc_set_opts2")
 			.add("input", in.toString())
 			.add("output", out.toString());
 

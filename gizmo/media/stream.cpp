@@ -1,4 +1,5 @@
 #include "stream.h"
+#include "ffmpeg-channel-compat.h"
 #include <string>
 #include <sstream>
 
@@ -144,11 +145,11 @@ AudioFormat::AudioFormat(const AVCodecContext *ctx)
 	{
 		sampleFormat  = ctx->sample_fmt;
 		sampleRate    = ctx->sample_rate;
-		channelsNo    = ctx->channels;
-		channelLayout = ctx->channel_layout;
+		channelsNo    = su_get_channels(ctx);
+		channelLayout = su_get_channel_layout(ctx);
 
 		if (channelLayout == 0)
-			channelLayout = av_get_default_channel_layout(ctx->channels);
+			channelLayout = su_get_default_channel_layout(su_get_channels(ctx));
 	}
 }
 
@@ -163,11 +164,11 @@ AudioFormat::AudioFormat(const AVFrame *frame)
 	{
 		sampleFormat  = (AVSampleFormat) frame->format;
 		sampleRate    = frame->sample_rate;
-		channelsNo    = frame->channels;
-		channelLayout = frame->channel_layout;
+		channelsNo    = su_get_channels(frame);
+		channelLayout = su_get_channel_layout(frame);
 
 		if (channelLayout == 0)
-			channelLayout = av_get_default_channel_layout(frame->channels);
+			channelLayout = su_get_default_channel_layout(su_get_channels(frame));
 	}
 }
 
@@ -226,12 +227,12 @@ string AudioFormat::toString() const
 
 const char *AudioFormat::getChannelName(uint64_t id)
 {
-	return av_get_channel_name(id);
+	return su_get_channel_name(id);
 }
 
 const char *AudioFormat::getChannelDescription(uint64_t id)
 {
-	return av_get_channel_description(id);
+	return su_get_channel_description(id);
 }
 
 uint64_t AudioFormat::getChannelIdByName(const char *name)
@@ -239,7 +240,7 @@ uint64_t AudioFormat::getChannelIdByName(const char *name)
 	for (int i = 0; i <= 63; i++)
 	{
 		const uint64_t id = 1ull << i;
-		const char *n = av_get_channel_name(id);
+		const char *n = su_get_channel_name(id);
 		if (n && strcmp(name, n) == 0)
 			return id;
 	}

@@ -1,6 +1,7 @@
 #include "audiodec.h"
 #include "demux.h"
 #include "avout.h"
+#include "ffmpeg-channel-compat.h"
 #include "general/logger.h"
 #include "general/exception.h"
 
@@ -100,9 +101,7 @@ bool AudioDec::feed(const AVPacket *packet)
 				.module("AudioDec", "avcodec_receive_frame")
 				.time(m_timeBase * packet->pts);
 
-		if (m_frame->channel_layout == 0)
-			m_frame->channel_layout
-				= av_get_default_channel_layout(m_frame->channels);
+		su_ensure_frame_layout(m_frame);
 
 		if (m_output)
 			m_output->feed(m_frame);
