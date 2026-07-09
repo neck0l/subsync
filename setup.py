@@ -412,6 +412,7 @@ setup(
         package_data = {
             'subsync': [
                 'key.pub',
+                'fork.pub',
                 os.path.join('img', '*.png'),
                 os.path.join('img', '*.ico'),
                 os.path.join('locale', '*', 'LC_MESSAGES', '*.mo'),
