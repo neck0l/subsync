@@ -141,7 +141,9 @@ class build_ext(setuptools.command.build_ext.build_ext):
         if sys.platform == 'darwin':
             self.cflags += ['-stdlib=libc++', '-mmacosx-version-min=10.7']
 
-        if self.has_flag('-std=c++14'):
+        if self.has_flag('-std=c++17'):
+            self.cflags += ['-std=c++17']
+        elif self.has_flag('-std=c++14'):
             self.cflags += ['-std=c++14']
         else:
             self.cflags += ['-std=c++11']
@@ -159,7 +161,10 @@ class build_ext(setuptools.command.build_ext.build_ext):
             ext.extra_link_args    = self.ldflags
 
     def setup_msvc(self):
-        self.cflags += [ '/EHsc' ]
+        self.cflags += [ '/EHsc', '/std:c++17' ]
+        for ext in self.extensions:
+            ext.extra_compile_args = self.cflags
+            ext.extra_link_args    = self.ldflags
 
     def get_paths(self, base_dir, *suffixes):
         if base_dir:

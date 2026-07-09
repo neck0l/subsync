@@ -12,10 +12,10 @@ extern "C"
 using namespace std;
 
 
-static string averrorCodeName(int code) throw();
-static void registerException(const Exception *e) throw();
-static void unregisterException(const Exception *e) throw();
-static const Exception *getRegisteredException() throw();
+static string averrorCodeName(int code) noexcept;
+static void registerException(const Exception *e) noexcept;
+static void unregisterException(const Exception *e) noexcept;
+static const Exception *getRegisteredException() noexcept;
 
 #ifdef TRACK_EXCEPTIONS
 static list<const Exception*> g_exceptions;
@@ -29,33 +29,33 @@ const Exception *Exception::getCurrentException()
 	return getRegisteredException();
 }
 
-Exception::Exception() throw()
+Exception::Exception() noexcept
 {
 	registerException(this);
 }
 
-Exception::Exception(const string &msg) throw() : msg(msg)
+Exception::Exception(const string &msg) noexcept : msg(msg)
 {
 	registerException(this);
 }
 
-Exception::Exception(const string &msg, const string &detail) throw()
+Exception::Exception(const string &msg, const string &detail) noexcept
 {
 	registerException(this);
 	this->msg = msg + ": " + detail;
 }
 
-Exception::Exception(const Exception &ex) throw() : msg(ex.msg), vals(ex.vals)
+Exception::Exception(const Exception &ex) noexcept : msg(ex.msg), vals(ex.vals)
 {
 	registerException(this);
 }
 
-Exception::~Exception() throw()
+Exception::~Exception() noexcept
 {
 	unregisterException(this);
 }
 
-const char* Exception::what() const throw()
+const char* Exception::what() const noexcept
 {
 	if (str.empty())
 	{
@@ -67,35 +67,35 @@ const char* Exception::what() const throw()
 	return str.c_str();
 }
 
-const char *Exception::message() const throw()
+const char *Exception::message() const noexcept
 {
 	return msg.c_str();
 }
 
-const map<string, string> &Exception::fields() const throw()
+const map<string, string> &Exception::fields() const noexcept
 {
 	return vals;
 }
 
-string &Exception::operator[] (const string &field) throw()
+string &Exception::operator[] (const string &field) noexcept
 {
 	str.clear();
 	return vals[field];
 }
 
-const string &Exception::operator[] (const string &field) const throw()
+const string &Exception::operator[] (const string &field) const noexcept
 {
 	return get(field);
 }
 
-Exception &Exception::add(const string &field, const string &val) throw()
+Exception &Exception::add(const string &field, const string &val) noexcept
 {
 	vals[field] = val;
 	str.clear();
 	return *this;
 }
 
-const string &Exception::get(const string &field) const throw()
+const string &Exception::get(const string &field) const noexcept
 {
 	auto it = vals.find(field);
 	if (it == vals.end())
@@ -106,7 +106,7 @@ const string &Exception::get(const string &field) const throw()
 	return it->second;
 }
 
-Exception &Exception::module(const string &m) throw()
+Exception &Exception::module(const string &m) noexcept
 {
 	string &mod = vals["module"];
 	if (!mod.empty())
@@ -117,7 +117,7 @@ Exception &Exception::module(const string &m) throw()
 }
 
 Exception &Exception::module(const string &m1, const string &m2,
-		const string &m3, const string &m4) throw()
+		const string &m3, const string &m4) noexcept
 {
 	module(m1);
 	module(m2);
@@ -127,12 +127,12 @@ Exception &Exception::module(const string &m1, const string &m2,
 	return *this;
 }
 
-Exception &Exception::code(int code) throw()
+Exception &Exception::code(int code) noexcept
 {
 	return add("code", code);
 }
 
-Exception &Exception::averror(int errnum) throw()
+Exception &Exception::averror(int errnum) noexcept
 {
 	code(errnum);
 	const string name = averrorCodeName(errnum);
@@ -141,17 +141,17 @@ Exception &Exception::averror(int errnum) throw()
 	return *this;
 }
 
-Exception &Exception::file(const string &file) throw()
+Exception &Exception::file(const string &file) noexcept
 {
 	return add("file", file);
 }
 
-Exception &Exception::line(const string &line) throw()
+Exception &Exception::line(const string &line) noexcept
 {
 	return add("line", line);
 }
 
-Exception &Exception::time(double timestamp) throw()
+Exception &Exception::time(double timestamp) noexcept
 {
 	double ip, fp;
 	fp = modf(timestamp, &ip) * 1000.0;
@@ -169,27 +169,27 @@ Exception &Exception::time(double timestamp) throw()
 
 
 /*** ExceptionTerminated class ***/
-ExceptionTerminated::ExceptionTerminated() throw()
+ExceptionTerminated::ExceptionTerminated() noexcept
 {}
 
-ExceptionTerminated::ExceptionTerminated(const Exception &ex) throw()
+ExceptionTerminated::ExceptionTerminated(const Exception &ex) noexcept
 	: Exception(ex)
 {}
 
-ExceptionTerminated::~ExceptionTerminated() throw()
+ExceptionTerminated::~ExceptionTerminated() noexcept
 {}
 
 
 /*** Helper functions ***/
 
-string makeSourceString(const char *file, int line, const char *func) throw()
+string makeSourceString(const char *file, int line, const char *func) noexcept
 {
 	stringstream ss;
 	ss << file << ":" << line << "  " << func;
 	return ss.str();
 }
 
-string ffmpegCodeDescription(int code) throw()
+string ffmpegCodeDescription(int code) noexcept
 {
 	string res;
 	switch (code)
@@ -255,7 +255,7 @@ string ffmpegCodeDescription(int code) throw()
 	return res;
 }
 
-string averrorCodeName(int code) throw()
+string averrorCodeName(int code) noexcept
 {
 	switch (code)
 	{
@@ -292,7 +292,7 @@ string averrorCodeName(int code) throw()
 
 #ifdef TRACK_EXCEPTIONS
 
-void registerException(const Exception *exc) throw()
+void registerException(const Exception *exc) noexcept
 {
 	for (const Exception *e : g_exceptions)
 	{
@@ -302,29 +302,29 @@ void registerException(const Exception *exc) throw()
 	g_exceptions.push_front(exc);
 }
 
-void unregisterException(const Exception *exc) throw()
+void unregisterException(const Exception *exc) noexcept
 {
 	g_exceptions.remove(exc);
 }
 
-const Exception *getRegisteredException() throw()
+const Exception *getRegisteredException() noexcept
 {
 	return g_exceptions.empty() ? nullptr : g_exceptions.front();
 }
 
 #else // TRACK_EXCEPTIONS
 
-void registerException(const Exception *exc) throw()
+void registerException(const Exception *exc) noexcept
 {
 	(void) exc;
 }
 
-void unregisterException(const Exception *exc) throw()
+void unregisterException(const Exception *exc) noexcept
 {
 	(void) exc;
 }
 
-const Exception *getRegisteredException() throw()
+const Exception *getRegisteredException() noexcept
 {
 	return nullptr;
 }

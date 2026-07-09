@@ -12,41 +12,41 @@
 class Exception : public std::exception
 {
 	public:
-		Exception() throw();
-		Exception(const std::string &msg) throw();
-		Exception(const std::string &msg, const std::string &detail) throw();
-		Exception(const Exception &ex) throw();
-		virtual ~Exception() throw();
+		Exception() noexcept;
+		Exception(const std::string &msg) noexcept;
+		Exception(const std::string &msg, const std::string &detail) noexcept;
+		Exception(const Exception &ex) noexcept;
+		virtual ~Exception() noexcept;
 
 		static const Exception *getCurrentException();
 
-		virtual const char* what() const throw();
-		const char *message() const throw();
-		const std::map<std::string, std::string> &fields() const throw();
+		virtual const char* what() const noexcept;
+		const char *message() const noexcept;
+		const std::map<std::string, std::string> &fields() const noexcept;
 
-		std::string &operator[] (const std::string &field) throw();
-		const std::string &operator[] (const std::string &field) const throw();
+		std::string &operator[] (const std::string &field) noexcept;
+		const std::string &operator[] (const std::string &field) const noexcept;
 
-		Exception &add(const std::string &field, const std::string &val) throw();
+		Exception &add(const std::string &field, const std::string &val) noexcept;
 
 		template <typename T>
-			Exception &add(const std::string &field, const T &val) throw()
+			Exception &add(const std::string &field, const T &val) noexcept
 			{
 				std::stringstream ss;
 				ss << val;
 				return add(field, ss.str());
 			}
 
-		Exception &module(const std::string &m) throw();
+		Exception &module(const std::string &m) noexcept;
 		Exception &module(const std::string &m1, const std::string &m2,
-				const std::string &m3="", const std::string &m4="") throw();
-		Exception &code(int code) throw();
-		Exception &averror(int errnum) throw();
-		Exception &file(const std::string &file) throw();
-		Exception &line(const std::string &line) throw();
-		Exception &time(double timestamp) throw();
+				const std::string &m3="", const std::string &m4="") noexcept;
+		Exception &code(int code) noexcept;
+		Exception &averror(int errnum) noexcept;
+		Exception &file(const std::string &file) noexcept;
+		Exception &line(const std::string &line) noexcept;
+		Exception &time(double timestamp) noexcept;
 
-		const std::string &get(const std::string &field) const throw();
+		const std::string &get(const std::string &field) const noexcept;
 
 	private:
 		std::string msg;
@@ -60,14 +60,14 @@ class Exception : public std::exception
 class ExceptionTerminated : public Exception
 {
 	public:
-		ExceptionTerminated() throw();
-		ExceptionTerminated(const Exception &ex) throw();
-		virtual ~ExceptionTerminated() throw();
+		ExceptionTerminated() noexcept;
+		ExceptionTerminated(const Exception &ex) noexcept;
+		virtual ~ExceptionTerminated() noexcept;
 };
 
 
-std::string makeSourceString(const char *file, int line, const char *func) throw();
-std::string ffmpegCodeDescription(int code) throw();
+std::string makeSourceString(const char *file, int line, const char *func) noexcept;
+std::string ffmpegCodeDescription(int code) noexcept;
 
 #define EXCEPTION_ADD_SOURCE \
 	add("source", makeSourceString(__FILE__, __LINE__, BOOST_CURRENT_FUNCTION))
