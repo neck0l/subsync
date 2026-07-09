@@ -1,0 +1,23 @@
+GOLDEN REFERENCE RESULTS
+========================
+Objective sync results captured with tools/golden_sync.py, used to verify that
+modernization / engine changes do not regress accuracy. Compare new runs against
+these numbers (higher R, more points, similar formula = good).
+
+Test asset:
+  sub : Liar.Liar.1997.720p.BrRip.x264.Deceit.YIFY.srt   (Croatian, hrv)
+  ref : Liar.Liar.1997.BluRay.1080p.DDP.5.1.x264-hallowed.mkv  (English E-AC3 audio, stream 1)
+  assets used: speech/eng (PocketSphinx cmusphinx-en-us) + dict/eng-hrv
+
+-----------------------------------------------------------------------
+ENGINE: PocketSphinx (classic, baseline)     build: FFmpeg 5.1 / Py3.11
+-----------------------------------------------------------------------
+  correlated : True
+  factor (R) : 0.9999995085518463
+  points     : 83
+  maxChange  : 2.26953125 s
+  formula    : ref = 0.99998009 * sub + (-2.1700)
+  elapsed    : ~20 s
+
+Interpretation: the Croatian subtitle (timed for the 720p BrRip release) is
+shifted ~ -2.17 s versus the BluRay mkv, at ~1.0x rate. Very high correlation.
