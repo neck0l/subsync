@@ -37,11 +37,10 @@ class FfmpegNoiseFilter(logging.Filter):
     """
     _patterns = (
         'Could not find codec parameters',
+        'The "sub_text_format" option is deprecated',
     )
 
     def filter(self, record):
-        if not str(record.name).startswith('gizmo'):
-            return True
         try:
             msg = record.getMessage()
         except Exception:
