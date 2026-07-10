@@ -45,7 +45,7 @@ modernization roadmap.
   progress (via the `ITaskbarList3` COM interface through ctypes, since wxPython
   4.2 doesn't expose it). Fully defensive — silent no-op on any failure / non
   -Windows. Wired into the sync progress window (set on update, cleared on close).
-- **#165(c)** — dark theme (experimental, opt-in): new `darkMode` setting
+- **#165(c)** — dark theme (experimental, opt-in): [...]
   (Light / Dark / System) + Settings dropdown. wxWidgets 3.2 has no native
   dark-mode switch, so the theme sets the Windows process dark app-mode + a dark
   DWM title bar and recolors controls recursively (dark frame/panels + light text
