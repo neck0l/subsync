@@ -13,6 +13,23 @@ First release of the modernized fork: builds and runs on Python 3.11 with
 FFmpeg 5.1/7.1, C++17, wxPython 4.2, and a selectable multi-engine speech backend
 (PocketSphinx / Vosk / Whisper). Segments A–O of the modernization roadmap.
 
+### Upstream issue fixes
+- **#150** — Czech now accepts the correct ISO 639-3 code `ces` (added as an
+  alias for `cze`).
+- **#97 / #182** — literal output paths containing `[...]` release tags or
+  `{`/`}` braces no longer crash as "invalid output pattern"; a path with no real
+  placeholder is treated literally.
+- **#167** — fixed wxPython 4.1+ `wxLocale::GetInfo` C-locale assertion on
+  Windows/Py3.8+ (GUI `wx.App.InitLocale` pins the C locale).
+- **#160 / #120** — CLI now explains *why* a sync failed (points found + best
+  correlation + hints) and prints a goodness-of-fit line on success (points,
+  correlation, max change).
+- **#169** — verified already working: `--sub-lang`/`--ref-lang` accept 2-letter
+  codes (`en`→`eng`, `hr`→`hrv`); no change needed.
+- **#194 / #187 / #179 / #85 / #52** — "can't sync language X / need model for X"
+  is addressed by the multilingual Whisper engine (one model, ~99 languages);
+  Whisper language is auto-derived from the reference language.
+
 ### GUI modernization fixes — wxPython 4.2 / Python 3 (DONE, simulated)
 Python 3's `/` yields floats where wxPython 4.2 requires `int`, which crashed
 several windows. All wrapped in `int()`:

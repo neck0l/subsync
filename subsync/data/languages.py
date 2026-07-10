@@ -24,7 +24,7 @@ languages = [
         mkLanguage( 'bul', 'bg', _('Bulgarian'), ['Windows-1251', 'ISO-8859-5'] ),
         mkLanguage( 'cat', 'ca', _('Catalan'), ['Windows-1252', 'ISO-8859-1'] ),
         mkLanguage( 'chi', 'zh', _('Chinese'), ['GB18030'], ngrams=2, extraCodes=[ 'cht', 'chs', 'cmn' ] ),
-        mkLanguage( 'cze', 'cs', _('Czech'), ['Windows-1250', 'ISO-8859-2'] ),
+        mkLanguage( 'cze', 'cs', _('Czech'), ['Windows-1250', 'ISO-8859-2'], extraCodes=[ 'ces' ] ),
         mkLanguage( 'dan', 'da', _('Danish'), ['Windows-1252', 'ISO-8859-1'] ),
         mkLanguage( 'dut', 'nl', _('Dutch'), ['Windows-1252', 'ISO-8859-1'], extraCodes=[ 'nld' ] ),
         mkLanguage( 'eng', 'en', _('English'), ['Windows-1252', 'ISO-8859-1'] ),

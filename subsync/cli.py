@@ -170,10 +170,19 @@ class App(object):
         if status and not result.terminated:
             self.printStats(status, finished=True)
         if result.success:
+            if status:
+                pr.println(1, '[+] fit: {} points, correlation {:.4f}, max change {}'.format(
+                        status.points, status.factor,
+                        utils.timeStampFractionFmt(status.maxChange)))
             pr.println(1, '[+] done, saved to {}'.format(result.path))
             self.succeeded += 1
         elif not result.terminated:
             pr.println(0, '[-] couldn\'t synchronize!')
+            if status:
+                pr.println(0, '    only {} correlation points found (best correlation {:.4f})'
+                        .format(status.points, status.factor))
+                pr.println(0, '    the audio/subtitle may not match, or the reference '
+                        'language/stream is wrong; you can also lower --min-points-no')
         pr.println(1, '')
 
     def printStats(self, status, finished=False):

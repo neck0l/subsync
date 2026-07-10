@@ -54,13 +54,24 @@ def gui(sync=None, fromFile=None, batch=False, options={}, **args):
     from subsync.gui.batchwin import BatchWin
     from subsync.gui.errorwin import showExceptionDlg
 
+    class _App(wx.App):
+        def InitLocale(self):
+            # #167: wxPython >= 4.1 on Windows / Python >= 3.8 can abort with
+            # 'assert strcmp(setlocale(0,0), "C") == 0' in wxLocale::GetInfo().
+            # Pin the C locale to satisfy wx (harmless for this app).
+            import locale
+            try:
+                locale.setlocale(locale.LC_ALL, 'C')
+            except Exception:
+                pass
+
     try:
         settings().load()
     except Exception as e:
         logger.warning('settings load failed, %r', e, exc_info=True)
 
     try:
-        app = wx.App()
+        app = _App()
         _init(options)
         tasks = _loadTasks(sync, fromFile)
 

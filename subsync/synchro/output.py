@@ -131,12 +131,27 @@ def _formatPattern(pattern, formatter):
             'if_not': ConditionalFormatter(formatter, inverted=True)
             })
 
-    except KeyError as e:
+    except (KeyError, ValueError, IndexError) as e:
+        # #97/#182: a plain output path may legitimately contain characters that
+        # str.format treats specially (e.g. literal '{' / '}' braces, or square
+        # brackets in release names). If the path contains no real placeholder,
+        # treat it as a literal path instead of failing.
+        if not _hasPlaceholder(pattern, formatter):
+            return pattern
         raise Error(_('Invalid output pattern, invalid keyword: {}').format(e),
                 pattern=pattern)
 
     except Exception as e:
         raise Error(_('Invalid output pattern, {}').format(e), pattern=pattern)
+
+
+def _hasPlaceholder(pattern, formatter):
+    import re
+    known = set(formatter.keys()) | { 'if', 'if_not' }
+    for m in re.finditer(r'\{([^}:!]+)', pattern):
+        if m.group(1).strip() in known:
+            return True
+    return False
 
 
 class ConditionalFormatter(object):
