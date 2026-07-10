@@ -47,9 +47,13 @@ modernization roadmap.
   -Windows. Wired into the sync progress window (set on update, cleared on close).
 - **#165(c)** — dark theme (experimental, opt-in): new `darkMode` setting
   (Light / Dark / System) + Settings dropdown. wxWidgets 3.2 has no native
-  dark-mode switch, so a dark palette is applied recursively to the windows;
-  default is Light so nothing changes unless chosen. Applied to Main/Batch/Sync/
-  Settings windows.
+  dark-mode switch, so the theme sets the Windows process dark app-mode + a dark
+  DWM title bar and recolors controls recursively (dark frame/panels + light text
+  + dark inputs/buttons). Applied to Main / Batch / Sync / Settings / Open windows,
+  not just Settings. Default Light so nothing changes unless chosen.
+  (Note: an early build had a bug where referencing the non-existent
+  `wx.HyperlinkCtrl` threw for every widget that reached it, so only Settings
+  looked dark; fixed — now all listed windows recolor fully.)
 - **#165(b)** — default launch view: new `startView` setting (Basic / Batch) with a
   dropdown in Settings → General; the app opens the chosen view on startup.
 - **#165(a)** — default language: already served by the existing `lastSubLang` /
