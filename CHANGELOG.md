@@ -15,6 +15,9 @@ multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of t
 modernization roadmap.
 
 ### Upstream issue fixes
+- **noise** — benign FFmpeg `Could not find codec parameters` warnings (from the
+  MKV's bitmap/PGS subtitle tracks that SubSync never decodes) are now filtered
+  out of the log; real FFmpeg errors and all other messages still pass through.
 - **#150** — Czech now accepts the correct ISO 639-3 code `ces` (added as an
   alias for `cze`).
 - **#97 / #182** — literal output paths containing `[...]` release tags or

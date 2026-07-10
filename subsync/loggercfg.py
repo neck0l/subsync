@@ -27,6 +27,31 @@ initialized = False
 _activeFilter = None
 
 
+class FfmpegNoiseFilter(logging.Filter):
+    """Drop benign FFmpeg probing warnings for streams SubSync never decodes.
+
+    Bitmap subtitle tracks (e.g. hdmv_pgs_subtitle) make FFmpeg emit
+    'Could not find codec parameters for stream N ...'. SubSync only reads text
+    streams, so these are harmless noise. Only the gizmo/ffmpeg logger is
+    affected; every other message passes through unchanged.
+    """
+    _patterns = (
+        'Could not find codec parameters',
+    )
+
+    def filter(self, record):
+        if not str(record.name).startswith('gizmo'):
+            return True
+        try:
+            msg = record.getMessage()
+        except Exception:
+            return True
+        for p in self._patterns:
+            if p in msg:
+                return False
+        return True
+
+
 def init(level=None, path=None):
     logging.captureWarnings(True)
     numLevel = parseLevel(level)
@@ -51,6 +76,9 @@ def init(level=None, path=None):
 
     sys.excepthook = excepthook
     setup_thread_excepthook()
+
+    for handler in logging.root.handlers:
+        handler.addFilter(FfmpegNoiseFilter())
 
     gizmo.setDebugLevel(numLevel)
 
