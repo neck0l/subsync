@@ -12,7 +12,6 @@ from subsync import subtitle
 from subsync.settings import settings
 from subsync import utils
 from subsync import error
-import pysubs2.exceptions
 import os
 import time
 

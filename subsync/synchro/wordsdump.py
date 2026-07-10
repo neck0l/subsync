@@ -1,6 +1,5 @@
 from subsync.subtitle import SubtitlesCollector
 from subsync.utils import timeStampFractionFmt
-import pysubs2
 
 
 class WordsFileDump(object):

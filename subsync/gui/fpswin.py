@@ -1,5 +1,4 @@
 import subsync.gui.layout.fpswin
-import wx
 
 
 class FpsWin(subsync.gui.layout.fpswin.FpsWin):

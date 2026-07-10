@@ -153,7 +153,7 @@ class AssetManager(object):
         for id, remote in assets.items():
             if item.validateRemoteData(remote):
                 asset = self.getAsset(id)
-                self.getAsset(id)._setRemoteData(remote)
+                asset._setRemoteData(remote)
             else:
                 logger.warning('invalid asset remote data: %r', remote)
                 self.getAsset(id)._setRemoteData({})

@@ -66,7 +66,6 @@ def verify_crypto(hash, sig):
 
 
 try:
-    import Crypto
     from Crypto.Hash import SHA256
     verify = verify_crypto
     sha256 = SHA256.new

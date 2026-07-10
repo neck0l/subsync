@@ -25,7 +25,7 @@ class TaskbarProgress:
             return
         try:
             import ctypes
-            from ctypes import wintypes, byref, POINTER, c_void_p
+            from ctypes import byref, POINTER, c_void_p
 
             class GUID(ctypes.Structure):
                 _fields_ = [("Data1", ctypes.c_ulong),
@@ -62,7 +62,6 @@ class TaskbarProgress:
             self._itbl = None
 
     def _call(self, index, argtypes=(), args=()):
-        import ctypes
         from ctypes import c_void_p, HRESULT, WINFUNCTYPE
         func = self._vtbl[index]
         proto = WINFUNCTYPE(HRESULT, c_void_p, *argtypes)

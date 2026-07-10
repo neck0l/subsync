@@ -5,7 +5,6 @@ from subsync.gui.components import popups
 from subsync.assets import assetManager
 from subsync.data import descriptions
 from subsync.settings import settings
-from subsync.error import Error
 
 
 def validateAssets(parent, tasks, updateAssets=True, askForLang=True, autoSave=False):
