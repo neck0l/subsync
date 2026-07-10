@@ -83,6 +83,8 @@ def gui(sync=None, fromFile=None, batch=False, options={}, **args):
                 task = tasks[0]
             win = MainWin(None, task)
 
+        from subsync.gui import theme
+        theme.apply(win)
         win.Show()
         app.MainLoop()
         return 0

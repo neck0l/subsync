@@ -26,6 +26,9 @@ class SyncWin(subsync.gui.layout.syncwin.SyncWin):
 
         self.m_buttonDebugMenu.SetLabel(u'\u22ee') # 2630
 
+        from subsync.gui import theme
+        theme.apply(self)
+
         if settings().debugOptions:
             self.m_buttonDebugMenu.Show()
 

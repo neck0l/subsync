@@ -25,6 +25,7 @@ persistent = {
         'outTimeOffset': 0.0,
         'speechEngine': 'sphinx',
         'startView': 'basic',
+        'darkMode': 'light',
         'preventSystemSuspend': False,
         'lastdir': '',
         'lastSubLang': None,

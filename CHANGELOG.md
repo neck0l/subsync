@@ -27,6 +27,11 @@ modernization roadmap.
   — the gain didn't justify the overfitting risk. Documented as a known limitation.
 
 ### Upstream issue fixes
+- **#165(c)** — dark theme (experimental, opt-in): new `darkMode` setting
+  (Light / Dark / System) + Settings dropdown. wxWidgets 3.2 has no native
+  dark-mode switch, so a dark palette is applied recursively to the windows;
+  default is Light so nothing changes unless chosen. Applied to Main/Batch/Sync/
+  Settings windows.
 - **#165(b)** — default launch view: new `startView` setting (Basic / Batch) with a
   dropdown in Settings → General; the app opens the chosen view on startup.
 - **#165(a)** — default language: already served by the existing `lastSubLang` /

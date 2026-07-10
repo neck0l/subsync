@@ -59,11 +59,17 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
 
         # #165(b): default launch view (basic / batch). Added to the General panel.
         self._startViews = ['basic', 'batch']
+        # #165(c): dark theme (best-effort, opt-in).
+        self._darkModes = ['light', 'dark', 'system']
         genSizer = self.m_panelGeneral.GetSizer()
         self.m_labelStartView = wx.StaticText(self.m_panelGeneral,
                 label=_('Start view:'))
         self.m_choiceStartView = wx.Choice(self.m_panelGeneral,
                 choices=[_('Basic'), _('Batch')])
+        self.m_labelDarkMode = wx.StaticText(self.m_panelGeneral,
+                label=_('Theme:'))
+        self.m_choiceDarkMode = wx.Choice(self.m_panelGeneral,
+                choices=[_('Light'), _('Dark (experimental)'), _('System')])
         try:
             grow = 0
             for child in genSizer.GetChildren():
@@ -75,15 +81,23 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
                     wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
             genSizer.Add(self.m_choiceStartView, wx.GBPosition(grow, 1),
                     wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_labelDarkMode, wx.GBPosition(grow + 1, 0),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+            genSizer.Add(self.m_choiceDarkMode, wx.GBPosition(grow + 1, 1),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
         except Exception:
             # General panel sizer is not a GridBagSizer - append at the end
-            genSizer.Add(self.m_labelStartView, 0, wx.ALL, 5)
-            genSizer.Add(self.m_choiceStartView, 0, wx.ALL, 5)
+            for w in (self.m_labelStartView, self.m_choiceStartView,
+                    self.m_labelDarkMode, self.m_choiceDarkMode):
+                genSizer.Add(w, 0, wx.ALL, 5)
 
         self.setSettings(settings())
 
         self.m_panelSynchro.Fit()
         self.Fit()
+
+        from subsync.gui import theme
+        theme.apply(self)
 
     def setSettings(self, settings):
         self.settings = Settings(settings)
@@ -97,6 +111,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         startView = settings.get('startView') or 'basic'
         self.m_choiceStartView.SetSelection(
                 self._startViews.index(startView) if startView in self._startViews else 0)
+
+        darkMode = settings.get('darkMode') or 'light'
+        self.m_choiceDarkMode.SetSelection(
+                self._darkModes.index(darkMode) if darkMode in self._darkModes else 0)
 
         for field, key, val in self.settingsFieldsGen():
             if val != None:
@@ -135,6 +153,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         selv = self.m_choiceStartView.GetSelection()
         if selv != wx.NOT_FOUND:
             self.settings.startView = self._startViews[selv]
+
+        seld = self.m_choiceDarkMode.GetSelection()
+        if seld != wx.NOT_FOUND:
+            self.settings.darkMode = self._darkModes[seld]
 
         self.settings.appendLangCode = False
         if self.m_appendLangCode2.IsChecked():
