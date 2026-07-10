@@ -64,11 +64,11 @@ git -C pocketsphinx checkout last-pre-1.0
 
 ### 3.2 Import libraries (generated from the working DLLs)
 The runtime DLLs come from the working install copy
-(`C:\Users\ki\Desktop\subsync-master\subsync\{sphinxbase,pocketsphinx}.dll`).
+(from an existing SubSync installation, e.g. `C:\Program Files\subsync\{sphinxbase,pocketsphinx}.dll`).
 `setup.py` expects them under `<dep>\bin\Release\x64\`.
 
 ```powershell
-$inst = "C:\Users\ki\Desktop\subsync-master\subsync"
+$inst = "C:\Program Files\subsync"
 New-Item -ItemType Directory -Force C:\subsync-deps\sphinxbase\bin\Release\x64 | Out-Null
 New-Item -ItemType Directory -Force C:\subsync-deps\pocketsphinx\bin\Release\x64 | Out-Null
 Copy-Item "$inst\sphinxbase.dll"   C:\subsync-deps\sphinxbase\bin\Release\x64\   -Force
@@ -107,7 +107,7 @@ C:\subsync-deps\
 
 ## 4. Build the extension
 
-From the repo root (`...\subsync-master\subsync-master`):
+From the repo root:
 ```powershell
 $env:FFMPEG_DIR       = "C:\subsync-deps\ffmpeg-5.1"
 $env:SPHINXBASE_DIR   = "C:\subsync-deps\sphinxbase"
@@ -128,7 +128,7 @@ py -3.11 setup.py build_py          # generates subsync\config.py and subsync\ve
 `gizmo.pyd` dynamically links FFmpeg/Sphinx, so their DLLs must sit beside it
 (the repo root) or be added via `os.add_dll_directory`:
 ```powershell
-cd C:\Users\ki\Desktop\subsync-master\subsync-master
+cd C:\path\to\subsync
 Copy-Item C:\subsync-deps\ffmpeg-5.1\bin\*.dll .                                   -Force
 Copy-Item C:\subsync-deps\sphinxbase\bin\Release\x64\sphinxbase.dll     .          -Force
 Copy-Item C:\subsync-deps\pocketsphinx\bin\Release\x64\pocketsphinx.dll .          -Force
