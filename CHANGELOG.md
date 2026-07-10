@@ -15,6 +15,12 @@ multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of t
 modernization roadmap.
 
 ### Known limitations
+- **#55** (batch stuck on "Queued") — investigated: batch tasks run sequentially
+  and a per-task error is caught so it won't queue-lock the rest; "all stuck"
+  indicates a blocking hang (extraction/asset step) that isn't reproducible here
+  and is an old report. Not changed speculatively; batch robustness is improved by
+  #139 (keep-trying) and #149 (encoding) plus modern FFmpeg. Reopen with a sample
+  if it recurs.
 - **#164** (small/variable delay) — investigated with a ground-truth test: the
   perfect Croatian srt was distorted with a known +0.4s/+1.6s step and re-synced.
   SubSync recovers **constant** offsets perfectly (a +0.6s offset was recovered as
