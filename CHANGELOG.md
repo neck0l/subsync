@@ -15,6 +15,12 @@ multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of t
 modernization roadmap.
 
 ### Upstream issue fixes
+- **#189** — preserve original subtitle formatting: for an external subtitle
+  file the timing formula is now applied to the **original file** (positioning
+  `{\an8}`, italics, colors, styles, HTML tags all kept) instead of the
+  FFmpeg-decoded reconstruction. Embedded/other sources fall back to the decoded
+  collector. Verified: tags preserved + timings shifted; real sync keeps all 834
+  events and text intact.
 - **#191** — headless CLI on Windows no longer unconditionally spawns a new
   console window: if a terminal is already present its output stays there
   (piped output preserved); it attaches to the launching terminal when possible,

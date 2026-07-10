@@ -1,5 +1,7 @@
 import gizmo
+import os
 from subsync import subtitle
+from subsync.data import filetypes
 from subsync.synchro import pipeline, dictionary, encdetect, wordsdump, controller
 import threading
 
@@ -197,7 +199,35 @@ class Synchronizer(object):
     def getSynchronizedSubtitles(self):
         with self.statsLock:
             formula = self.stats.formula
+
+        # #189: for an external subtitle file, apply the timing to the ORIGINAL
+        # file so all original formatting is preserved (positioning tags, styles,
+        # colors, HTML tags, etc.) instead of the FFmpeg-decoded reconstruction.
+        # Embedded/other sources fall back to the decoded collector.
+        original = self._loadOriginalSubtitles()
+        if original is not None:
+            logger.info('applying sync to original subtitle file (preserving formatting)')
+            return original.synchronize(formula)
+
         return self.subtitlesCollector.getSynchronizedSubtitles(formula)
+
+    def _loadOriginalSubtitles(self):
+        try:
+            path = self.sub.path
+            if not path or self.sub.type != 'subtitle/text':
+                return None
+            ext = os.path.splitext(path)[1].lower()
+            knownExts = { t['ext'] for t in filetypes.subtitleTypes }
+            if ext not in knownExts:
+                return None
+            subs = subtitle.Subtitles.load(path, encoding=(self.sub.enc or 'utf-8'), fps=self.sub.fps)
+            if len(subs) == 0:
+                return None
+            return subs
+        except Exception as e:
+            logger.warning('could not load original subtitle file, falling back to '
+                    'decoded subtitles: %r', e)
+            return None
 
     def onStatsUpdate(self, stats):
         logger.debug(stats)
