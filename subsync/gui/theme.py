@@ -118,6 +118,14 @@ def _style(win):
                               wx.Slider)):
             win.SetForegroundColour(FG)
             _maybeBg(win, BG)
+            # StaticBox draws a light etched border/label on Windows; dim it so it
+            # blends into the dark instead of a bright frame.
+            if isinstance(win, wx.StaticBox):
+                try:
+                    win.SetBackgroundColour(BG)
+                    win.SetForegroundColour(wx.Colour(150, 150, 150))
+                except Exception:
+                    pass
         # Containers.
         elif isinstance(win, (wx.Frame, wx.Dialog, wx.Panel, wx.ScrolledWindow,
                               wx.Notebook, wx.Choicebook)):
