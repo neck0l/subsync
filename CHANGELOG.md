@@ -15,6 +15,10 @@ multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of t
 modernization roadmap.
 
 ### Upstream issue fixes
+- **#191** — headless CLI on Windows no longer unconditionally spawns a new
+  console window: if a terminal is already present its output stays there
+  (piped output preserved); it attaches to the launching terminal when possible,
+  and only allocates a console as a last resort (e.g. double-clicked GUI exe).
 - **#144** — WebVTT (`.vtt`) support: added to the subtitle format list, so `.vtt`
   can be selected as input and output. Verified end-to-end (read `.vtt` sub →
   sync → save `.vtt`).

@@ -96,18 +96,43 @@ def gui(sync=None, fromFile=None, batch=False, options={}, **args):
         settings().save()
 
 
+def _setupWindowsConsole():
+    """Ensure a usable console on Windows for headless/CLI mode (#191).
+
+    - If the process already has a console (launched from a terminal), use it
+      as-is so output stays in that terminal and piped stdout is preserved.
+    - Otherwise attach to the launching terminal if there is one; only when
+      there is none (e.g. double-clicked GUI exe) allocate a new console.
+
+    Returns one of 'existing', 'attached', 'allocated', 'skipped'.
+    """
+    if sys.platform != 'win32':
+        return 'skipped'
+
+    import ctypes
+    kernel32 = ctypes.windll.kernel32
+    if kernel32.GetConsoleWindow() != 0:
+        return 'existing'
+
+    ATTACH_PARENT_PROCESS = -1
+    how = 'attached' if kernel32.AttachConsole(ATTACH_PARENT_PROCESS) else None
+    if how is None:
+        kernel32.AllocConsole()
+        how = 'allocated'
+
+    sys.stdout = open('CONOUT$', 'w')
+    sys.stderr = open('CONOUT$', 'w')
+    sys.stdin = open('CONIN$', 'r')
+    return how
+
+
 def cli(sync=None, fromFile=None, verbose=1, offline=False, options={}, **args):
     from subsync import cli
 
-    if sys.platform == 'win32':
-        try:
-            import ctypes
-            ctypes.windll.kernel32.AllocConsole()
-            sys.stdout = open('CONOUT$', 'w')
-            sys.stderr = open('CONOUT$', 'w')
-            sys.stdin = open('CONIN$', 'r')
-        except Exception as err:
-            cli.pr.printException(0, err, 'console allocation failed')
+    try:
+        _setupWindowsConsole()
+    except Exception as err:
+        cli.pr.printException(0, err, 'console allocation failed')
 
     try:
         _init(options)
