@@ -27,6 +27,10 @@ modernization roadmap.
   — the gain didn't justify the overfitting risk. Documented as a known limitation.
 
 ### Upstream issue fixes
+- **#146** — confirmed multi-core works in this fork: `--jobs N` creates N parallel
+  reference pipelines (verified 8/8 job windows + threads Pipeline0–8), each in its
+  own GIL-releasing native thread. The old single-core report was an old
+  Linux/docker build; no change needed here.
 - **#149** — batch/CLI output encoding no longer forced to UTF-8. `OutputFile`
   previously defaulted `enc` to `'UTF-8'`, so the controller's
   `out.enc → outputCharEnc → sub.enc` chain always short-circuited to UTF-8,
