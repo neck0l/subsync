@@ -29,6 +29,12 @@ class SyncWin(subsync.gui.layout.syncwin.SyncWin):
         from subsync.gui import theme
         theme.apply(self)
 
+        from subsync.gui.taskbarprogress import TaskbarProgress
+        try:
+            self._taskbar = TaskbarProgress(self.GetHandle())
+        except Exception:
+            self._taskbar = None
+
         if settings().debugOptions:
             self.m_buttonDebugMenu.Show()
 
@@ -76,6 +82,9 @@ class SyncWin(subsync.gui.layout.syncwin.SyncWin):
             self.m_gaugeProgress.SetValue(100)
         else:
             self.m_gaugeProgress.SetValue(int(100 * status.progress))
+
+        if self._taskbar:
+            self._taskbar.set(1.0 if finished else status.progress)
 
         if status.correlated and not self.m_bitmapTick.IsShown():
             self.m_bitmapCross.Hide()
@@ -149,6 +158,9 @@ class SyncWin(subsync.gui.layout.syncwin.SyncWin):
         if not self.closing:
             self.closing = True
             self.stop()
+
+            if self._taskbar:
+                self._taskbar.clear()
 
             if self.sync.isRunning():
                 with busydlg.BusyDlg(self, _('Terminating, please wait...')) as dlg:

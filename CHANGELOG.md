@@ -27,6 +27,10 @@ modernization roadmap.
   — the gain didn't justify the overfitting risk. Documented as a known limitation.
 
 ### Upstream issue fixes
+- **#102** — Windows taskbar progress: the app's taskbar icon now shows sync
+  progress (via the `ITaskbarList3` COM interface through ctypes, since wxPython
+  4.2 doesn't expose it). Fully defensive — silent no-op on any failure / non
+  -Windows. Wired into the sync progress window (set on update, cleared on close).
 - **#165(c)** — dark theme (experimental, opt-in): new `darkMode` setting
   (Light / Dark / System) + Settings dropdown. wxWidgets 3.2 has no native
   dark-mode switch, so a dark palette is applied recursively to the windows;
