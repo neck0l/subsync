@@ -54,6 +54,11 @@ modernization roadmap.
   (Note: an early build had a bug where referencing the non-existent
   `wx.HyperlinkCtrl` threw for every widget that reached it, so only Settings
   looked dark; fixed — now all listed windows recolor fully.)
+  All secondary dialogs (Channels / Fps / About / Output-pattern / Stream-select /
+  Download / Error) are also auto-themed via a ShowModal/Show hook. Group boxes
+  blend into the dark (dimmed label, panel-matched background). Theme changes take
+  effect on app restart. A fully *native* dark mode needs wxWidgets 3.3
+  (wxPython 4.3), which is not yet on PyPI — the notebook tab strip stays light.
 - **#165(b)** — default launch view: new `startView` setting (Basic / Batch) with a
   dropdown in Settings → General; the app opens the chosen view on startup.
 - **#165(a)** — default language: already served by the existing `lastSubLang` /
