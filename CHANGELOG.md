@@ -7,11 +7,12 @@ Format: newest entries on top. Dates are local.
 
 ---
 
-## [1.0.0] — 2026-07-09 (fork: modernized + multi-engine)
+## [0.17.0] — 2026-07-09 (fork: modernized + multi-engine)
 
-First release of the modernized fork: builds and runs on Python 3.11 with
-FFmpeg 5.1/7.1, C++17, wxPython 4.2, and a selectable multi-engine speech backend
-(PocketSphinx / Vosk / Whisper). Segments A–O of the modernization roadmap.
+First release of the modernized fork, continuing upstream's 0.17 line: builds and
+runs on Python 3.11 with FFmpeg 5.1/7.1, C++17, wxPython 4.2, and a selectable
+multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of the
+modernization roadmap.
 
 ### Upstream issue fixes
 - **#150** — Czech now accepts the correct ISO 639-3 code `ces` (added as an
