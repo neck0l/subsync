@@ -15,6 +15,9 @@ multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of t
 modernization roadmap.
 
 ### Upstream issue fixes
+- **#144** — WebVTT (`.vtt`) support: added to the subtitle format list, so `.vtt`
+  can be selected as input and output. Verified end-to-end (read `.vtt` sub →
+  sync → save `.vtt`).
 - **noise** — benign FFmpeg `Could not find codec parameters` warnings (from the
   MKV's bitmap/PGS subtitle tracks that SubSync never decodes) are now filtered
   out of the log; real FFmpeg errors and all other messages still pass through.

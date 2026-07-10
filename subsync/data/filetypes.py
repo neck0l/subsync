@@ -2,6 +2,7 @@ subtitleTypes = [
         { 'type': 'srt', 'ext': '.srt', 'name': 'SubRIP' },
         { 'type': 'ssa', 'ext': '.ssa', 'name': 'Sub Station Alpha' },
         { 'type': 'ass', 'ext': '.ass', 'name': 'Advanced SSA' },
+        { 'type': 'vtt', 'ext': '.vtt', 'name': 'WebVTT' },
         { 'type': 'microdvd', 'ext': '.sub', 'name': 'MicroDVD' },
         { 'type': 'tmp', 'ext': '.txt', 'name': 'TMP' },
 ]
