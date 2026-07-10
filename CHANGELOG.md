@@ -14,6 +14,18 @@ runs on Python 3.11 with FFmpeg 5.1/7.1, C++17, wxPython 4.2, and a selectable
 multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of the
 modernization roadmap.
 
+### Known limitations
+- **#164** (small/variable delay) — investigated with a ground-truth test: the
+  perfect Croatian srt was distorted with a known +0.4s/+1.6s step and re-synced.
+  SubSync recovers **constant** offsets perfectly (a +0.6s offset was recovered as
+  −0.6001s), but uses a **single linear fit** `ref = a·sub + b`, so a delay that
+  *drifts through the video* is averaged (≈1.07s max residual on the step test).
+  A piecewise/changepoint approach was prototyped and ground-truth tested: it
+  located the breakpoint but only marginally/inconsistently improved accuracy
+  (≈0.7s), because the underlying word-correlation points carry ~0.4–0.7s of
+  inherent noise (subtitle display time ≠ speech time). Conclusion: not integrated
+  — the gain didn't justify the overfitting risk. Documented as a known limitation.
+
 ### Upstream issue fixes
 - **#149** — batch/CLI output encoding no longer forced to UTF-8. `OutputFile`
   previously defaulted `enc` to `'UTF-8'`, so the controller's
