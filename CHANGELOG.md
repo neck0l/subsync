@@ -7,7 +7,7 @@ Format: newest entries on top. Dates are local.
 
 ---
 
-## [0.17.0] — 2026-07-09 (fork: modernized + multi-engine)
+## [0.19.0] — 2026-07-09 (fork: modernized + multi-engine)
 
 First release of the modernized fork, continuing upstream's 0.17 line: builds and
 runs on Python 3.11 with FFmpeg 5.1/7.1, C++17, wxPython 4.2, and a selectable
