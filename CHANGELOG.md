@@ -27,6 +27,12 @@ modernization roadmap.
   — the gain didn't justify the overfitting risk. Documented as a known limitation.
 
 ### Upstream issue fixes
+- **#165(b)** — default launch view: new `startView` setting (Basic / Batch) with a
+  dropdown in Settings → General; the app opens the chosen view on startup.
+- **#165(a)** — default language: already served by the existing `lastSubLang` /
+  `lastRefLang` settings (the file-open dialog pre-fills the last-used language);
+  documented rather than duplicated.
+- Settings engine dropdown now also lists **Whisper** (was missing sphinx/vosk only).
 - **#146** — confirmed multi-core works in this fork: `--jobs N` creates N parallel
   reference pipelines (verified 8/8 job windows + threads Pipeline0–8), each in its
   own GIL-releasing native thread. The old single-core report was an old

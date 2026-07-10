@@ -24,6 +24,7 @@ persistent = {
         'minEffort': 0.5,
         'outTimeOffset': 0.0,
         'speechEngine': 'sphinx',
+        'startView': 'basic',
         'preventSystemSuspend': False,
         'lastdir': '',
         'lastSubLang': None,

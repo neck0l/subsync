@@ -75,7 +75,7 @@ def gui(sync=None, fromFile=None, batch=False, options={}, **args):
         _init(options)
         tasks = _loadTasks(sync, fromFile)
 
-        if batch or len(tasks) > 1:
+        if batch or len(tasks) > 1 or settings().get('startView') == 'batch':
             win = BatchWin(None, tasks)
         else:
             task = None

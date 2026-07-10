@@ -36,12 +36,13 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         # generated layout file stays untouched). Named 'm_choiceSpeechEngine'
         # so it is NOT auto-handled by settingsFieldsGen (wx.Choice has no
         # Get/SetValue) - it is handled explicitly in get/setSettings.
-        self._speechEngines = ['sphinx', 'vosk']
+        self._speechEngines = ['sphinx', 'vosk', 'whisper']
         synchroSizer = self.m_panelSynchro.GetSizer()  # wxGridBagSizer
         self.m_labelSpeechEngine = wx.StaticText(self.m_panelSynchro,
                 label=_('Speech recognition engine:'))
         self.m_choiceSpeechEngine = wx.Choice(self.m_panelSynchro,
-                choices=[_('PocketSphinx (classic)'), _('Vosk (recommended)')])
+                choices=[_('PocketSphinx (classic)'), _('Vosk (recommended)'),
+                    _('Whisper (most accurate)')])
 
         row = 0
         for child in synchroSizer.GetChildren():
@@ -56,6 +57,29 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         synchroSizer.Add(self.m_choiceSpeechEngine, wx.GBPosition(row, 1),
                 wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
 
+        # #165(b): default launch view (basic / batch). Added to the General panel.
+        self._startViews = ['basic', 'batch']
+        genSizer = self.m_panelGeneral.GetSizer()
+        self.m_labelStartView = wx.StaticText(self.m_panelGeneral,
+                label=_('Start view:'))
+        self.m_choiceStartView = wx.Choice(self.m_panelGeneral,
+                choices=[_('Basic'), _('Batch')])
+        try:
+            grow = 0
+            for child in genSizer.GetChildren():
+                try:
+                    grow = max(grow, child.GetPos().GetRow() + child.GetSpan().GetRowspan())
+                except Exception:
+                    pass
+            genSizer.Add(self.m_labelStartView, wx.GBPosition(grow, 0),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+            genSizer.Add(self.m_choiceStartView, wx.GBPosition(grow, 1),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+        except Exception:
+            # General panel sizer is not a GridBagSizer - append at the end
+            genSizer.Add(self.m_labelStartView, 0, wx.ALL, 5)
+            genSizer.Add(self.m_choiceStartView, 0, wx.ALL, 5)
+
         self.setSettings(settings())
 
         self.m_panelSynchro.Fit()
@@ -69,6 +93,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         engine = settings.get('speechEngine') or 'sphinx'
         self.m_choiceSpeechEngine.SetSelection(
                 self._speechEngines.index(engine) if engine in self._speechEngines else 0)
+
+        startView = settings.get('startView') or 'basic'
+        self.m_choiceStartView.SetSelection(
+                self._startViews.index(startView) if startView in self._startViews else 0)
 
         for field, key, val in self.settingsFieldsGen():
             if val != None:
@@ -103,6 +131,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         sel = self.m_choiceSpeechEngine.GetSelection()
         if sel != wx.NOT_FOUND:
             self.settings.speechEngine = self._speechEngines[sel]
+
+        selv = self.m_choiceStartView.GetSelection()
+        if selv != wx.NOT_FOUND:
+            self.settings.startView = self._startViews[selv]
 
         self.settings.appendLangCode = False
         if self.m_appendLangCode2.IsChecked():
