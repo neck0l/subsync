@@ -15,6 +15,12 @@ multi-engine speech backend (PocketSphinx / Vosk / Whisper). Segments A–O of t
 modernization roadmap.
 
 ### Upstream issue fixes
+- **#149** — batch/CLI output encoding no longer forced to UTF-8. `OutputFile`
+  previously defaulted `enc` to `'UTF-8'`, so the controller's
+  `out.enc → outputCharEnc → sub.enc` chain always short-circuited to UTF-8,
+  ignoring the *Output Encoding* setting and the source encoding. `enc` now
+  defaults to `None`, so the setting (and "same as input") are respected.
+  Verified: `outputCharEnc='cp1250'` yields a cp1250 file; `'UTF-8'` stays UTF-8.
 - **#189** — preserve original subtitle formatting: for an external subtitle
   file the timing formula is now applied to the **original file** (positioning
   `{\an8}`, italics, colors, styles, HTML tags all kept) instead of the

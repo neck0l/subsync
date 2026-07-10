@@ -50,7 +50,7 @@ class OutputFile(object):
         `{sub_dir}/{sub_name}-out.ssa`
         """
         self.path = path
-        self.enc  = enc or 'UTF-8'
+        self.enc  = enc
         self.fps  = fps
         self.pathFormatter = None
 
