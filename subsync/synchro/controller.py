@@ -347,7 +347,8 @@ class SyncController(object):
                 lastTime = time.monotonic() - timeout
 
             while not self._terminated and sync.isRunning() \
-                    and (interactive or minEffort >= 1.0 or status.effort < minEffort):
+                    and (interactive or minEffort >= 1.0 or status.effort < minEffort
+                            or (not status.correlated and status.effort < 1.0)):
                 self._semaphore.acquire(timeout=timeout)
                 status = sync.getStatus()
 

@@ -27,6 +27,11 @@ modernization roadmap.
   — the gain didn't justify the overfitting risk. Documented as a known limitation.
 
 ### Upstream issue fixes
+- **#139** — batch reliability: batch (non-interactive) previously stopped at
+  `minEffort` even when it hadn't correlated yet, so harder files failed in batch
+  though they'd succeed in single (interactive) sync. Batch now keeps processing
+  until it correlates (or effort is exhausted). Files that correlate early are
+  unaffected. Verified a 2-task batch still correlates + saves both.
 - **#174** — batch: new context-menu item **"Use as reference for all rows"** on a
   reference cell copies that reference file to every row — no more dropping the
   same episode/video onto 12+ subtitle rows one by one. Verified.
