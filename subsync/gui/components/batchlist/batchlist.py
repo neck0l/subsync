@@ -41,6 +41,8 @@ class BatchList(ulc.UltimateListCtrl):
         self.m_contextMenu = wx.Menu()
         self.m_menuItemLanguage = wx.MenuItem(self.m_contextMenu, wx.ID_ANY, _('&Language'))
         self.m_contextMenu.Append(self.m_menuItemLanguage)
+        self.m_menuItemRefForAll = wx.MenuItem(self.m_contextMenu, wx.ID_ANY, _('Use as &reference for all rows'))
+        self.m_contextMenu.Append(self.m_menuItemRefForAll)
         self.m_menuItemEncoding = wx.MenuItem(self.m_contextMenu, wx.ID_ANY, _('Character &encoding'))
         self.m_contextMenu.Append(self.m_menuItemEncoding)
         self.m_menuItemEncoding.Enable(False)
@@ -503,9 +505,15 @@ class BatchList(ulc.UltimateListCtrl):
             self.m_menuItemEncoding.Enable('subtitle/text' in types)
             self.m_menuItemChannels.Enable('audio' in types)
 
+            # #174: "use as reference for all rows" only for a reference cell.
+            coords = self.getCellCoords(cell) if cell else None
+            isRef = bool(coords and coords[1] == 1 and getattr(cell, 'item', None) is not None)
+            self.m_menuItemRefForAll.Enable(isRef)
+
             menuHandlers = [
                     (self.m_menuItemLanguage.GetId(),  self.onMenuLanguageClick),
                     (self.m_menuItemLanguage.GetId(),  self.onMenuLanguageClick),
+                    (self.m_menuItemRefForAll.GetId(), self.onMenuRefForAllClick),
                     (self.m_menuItemEncoding.GetId(),  self.onMenuEncodingClick),
                     (self.m_menuItemChannels.GetId(),  self.onMenuChannelsClick),
                     (self.m_menuItemAutoSort.GetId(),  partial(wx.CallAfter, self.onMenuAutoSortClick)),
@@ -521,6 +529,20 @@ class BatchList(ulc.UltimateListCtrl):
             finally:
                 for id, _ in menuHandlers:
                     self.Unbind(wx.EVT_MENU, id=id)
+
+    @error_dlg
+    def onMenuRefForAllClick(self, event, cell=None):
+        from copy import copy
+        coords = self.getCellCoords(cell) if cell else None
+        if not coords or coords[1] != 1 or getattr(cell, 'item', None) is None:
+            return
+        src = cell.item
+        with updateLocker(self):
+            for row in range(self.GetItemCount()):
+                refCell = self.GetItemWindow(row, 1)
+                if refCell is not None and refCell is not cell:
+                    refCell.setState(copy(src), selected=False, force=True)
+            self.updateOutputs()
 
     @error_dlg
     def onMenuLanguageClick(self, event, cell=None):

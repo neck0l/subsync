@@ -27,6 +27,9 @@ modernization roadmap.
   — the gain didn't justify the overfitting risk. Documented as a known limitation.
 
 ### Upstream issue fixes
+- **#174** — batch: new context-menu item **"Use as reference for all rows"** on a
+  reference cell copies that reference file to every row — no more dropping the
+  same episode/video onto 12+ subtitle rows one by one. Verified.
 - **#102** — Windows taskbar progress: the app's taskbar icon now shows sync
   progress (via the `ITaskbarList3` COM interface through ctypes, since wxPython
   4.2 doesn't expose it). Fully defensive — silent no-op on any failure / non
