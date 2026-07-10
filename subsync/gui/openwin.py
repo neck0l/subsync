@@ -50,6 +50,9 @@ class OpenWin(subsync.gui.layout.openwin.OpenWin):
         self.Fit()
         self.Layout()
 
+        from subsync.gui import theme
+        theme.apply(self)
+
     @error_dlg
     def openStream(self, file=None, path=None):
         if path:

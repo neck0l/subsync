@@ -1,13 +1,68 @@
+# #165(c): dark theme for wxWidgets 3.2 on Windows.
+#
+# wxWidgets 3.2 has no native dark-mode switch (that arrived in 3.3), so we:
+#   1. enable the Windows process dark app-mode (undocumented uxtheme ordinals),
+#   2. darken each top-level window's title bar via DWM,
+#   3. recolor controls recursively - setting BOTH background and foreground per
+#      control type so text is light on dark (the previous version only set a dark
+#      background, leaving dark text -> unreadable).
+
 import wx
+import sys
 
-# #165(c): best-effort dark theme. wxWidgets 3.2 has no native dark-mode switch
-# (that arrived in 3.3), so we apply a dark palette recursively. This is opt-in
-# (Settings -> darkMode), default 'light', because manual theming on Windows is
-# imperfect for some native controls.
+_WIN = sys.platform == 'win32'
 
-DARK_BG   = wx.Colour(45, 45, 48)
-DARK_PANEL= wx.Colour(37, 37, 38)
-DARK_FG   = wx.Colour(220, 220, 220)
+# palette
+FG       = wx.Colour(230, 230, 230)   # light text
+BG       = wx.Colour(32, 32, 32)      # window / panel background
+CTRL_BG  = wx.Colour(52, 52, 56)      # input controls
+BORDERV  = wx.Colour(70, 70, 74)
+
+_APP_DARK_INITED = False
+
+
+def _initWindowsDarkApp():
+    """Enable process-wide dark mode using the (undocumented) uxtheme ordinals.
+    Best-effort: silently ignored if unavailable."""
+    global _APP_DARK_INITED
+    if not _WIN or _APP_DARK_INITED:
+        return
+    try:
+        import ctypes
+        uxtheme = ctypes.windll.uxtheme
+        # SetPreferredAppMode is ordinal #135 (Win10 1903+); 1 = AllowDark, 2 = ForceDark
+        try:
+            SetPreferredAppMode = uxtheme[135]
+            SetPreferredAppMode(2)
+        except Exception:
+            # older builds: AllowDarkModeForApp is ordinal #135 too / #133
+            try:
+                uxtheme[133](True)
+            except Exception:
+                pass
+        try:
+            uxtheme[136]()  # FlushMenuThemes
+        except Exception:
+            pass
+        _APP_DARK_INITED = True
+    except Exception:
+        pass
+
+
+def _darkTitleBar(hwnd):
+    if not _WIN or not hwnd:
+        return
+    try:
+        import ctypes
+        val = ctypes.c_int(1)
+        for attr in (20, 19):  # 20 = Win10 1809+, 19 = older insider builds
+            try:
+                ctypes.windll.dwmapi.DwmSetWindowAttribute(
+                        hwnd, attr, ctypes.byref(val), ctypes.sizeof(val))
+            except Exception:
+                pass
+    except Exception:
+        pass
 
 
 def isDarkEnabled():
@@ -26,22 +81,61 @@ def isDarkEnabled():
     return False
 
 
-def apply(window):
-    """Apply the dark palette to a top-level window and its children, if enabled."""
+def enable():
+    """One-time process setup (call once at app start)."""
+    if isDarkEnabled():
+        _initWindowsDarkApp()
+
+
+def apply(top):
+    """Apply dark appearance to a top-level window and all descendants."""
     if not isDarkEnabled():
         return
-    _applyDark(window)
     try:
-        window.Refresh()
+        _darkTitleBar(top.GetHandle())
+    except Exception:
+        pass
+    _style(top)
+    try:
+        top.Refresh()
     except Exception:
         pass
 
 
-def _applyDark(win):
+def _style(win):
     try:
-        win.SetBackgroundColour(DARK_BG)
-        win.SetForegroundColour(DARK_FG)
+        # Input-like controls: dark field + light text.
+        if isinstance(win, (wx.TextCtrl, wx.SpinCtrl, wx.Choice, wx.ComboBox,
+                            wx.ListBox, wx.ListCtrl, wx.CheckListBox)):
+            win.SetBackgroundColour(CTRL_BG)
+            win.SetForegroundColour(FG)
+        elif isinstance(win, wx.Button):
+            win.SetBackgroundColour(CTRL_BG)
+            win.SetForegroundColour(FG)
+        # Labels / checkboxes / radios: keep parent bg, just lighten text.
+        elif isinstance(win, (wx.StaticText, wx.CheckBox, wx.RadioButton,
+                              wx.StaticBox, wx.RadioBox, wx.Gauge, wx.StaticLine,
+                              wx.Slider)):
+            win.SetForegroundColour(FG)
+            _maybeBg(win, BG)
+        # Containers.
+        elif isinstance(win, (wx.Frame, wx.Dialog, wx.Panel, wx.ScrolledWindow,
+                              wx.Notebook, wx.Choicebook)):
+            win.SetBackgroundColour(BG)
+            win.SetForegroundColour(FG)
+        else:
+            win.SetForegroundColour(FG)
+            _maybeBg(win, BG)
     except Exception:
         pass
+
     for child in win.GetChildren():
-        _applyDark(child)
+        _style(child)
+
+
+def _maybeBg(win, colour):
+    # StaticText etc. render better with the container colour behind them.
+    try:
+        win.SetBackgroundColour(colour)
+    except Exception:
+        pass
