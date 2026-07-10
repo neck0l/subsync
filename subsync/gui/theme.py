@@ -85,6 +85,48 @@ def enable():
     """One-time process setup (call once at app start)."""
     if isDarkEnabled():
         _initWindowsDarkApp()
+        _installShowHooks()
+
+
+_HOOKS_INSTALLED = False
+
+
+def _installShowHooks():
+    """Auto-apply the dark theme to every dialog/frame right before it is shown,
+    so dynamically-built content is covered and no per-dialog edits are needed."""
+    global _HOOKS_INSTALLED
+    if _HOOKS_INSTALLED:
+        return
+    _HOOKS_INSTALLED = True
+
+    _origDialogShowModal = wx.Dialog.ShowModal
+    def _dialogShowModal(self):
+        try:
+            apply(self)
+        except Exception:
+            pass
+        return _origDialogShowModal(self)
+    wx.Dialog.ShowModal = _dialogShowModal
+
+    _origDialogShow = wx.Dialog.Show
+    def _dialogShow(self, show=True):
+        if show:
+            try:
+                apply(self)
+            except Exception:
+                pass
+        return _origDialogShow(self, show)
+    wx.Dialog.Show = _dialogShow
+
+    if hasattr(wx.Frame, 'ShowModal'):
+        _origFrameShowModal = wx.Frame.ShowModal
+        def _frameShowModal(self):
+            try:
+                apply(self)
+            except Exception:
+                pass
+            return _origFrameShowModal(self)
+        wx.Frame.ShowModal = _frameShowModal
 
 
 def apply(top):
