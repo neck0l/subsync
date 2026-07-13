@@ -1,733 +1,739 @@
+#
 msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "&Language"
-msgstr "&Language"
+msgstr "&Jezik"
 
 msgid "&Properties"
-msgstr "&Properties"
+msgstr "&Svojstva"
 
 msgid "&Remove"
-msgstr "&Remove"
+msgstr "&Ukloniti"
 
 msgid "(none)"
-msgstr "(none)"
+msgstr "(ništa)"
 
 msgid ", {} points"
-msgstr ", {} points"
+msgstr ", {} bodova"
 
 msgid "0 for auto."
-msgstr "0 for auto."
+msgstr "0 za auto."
 
 msgid "1 minute"
-msgstr "1 minute"
+msgstr "1 minuta"
 
 msgid "<auto>"
 msgstr "<auto>"
 
 msgid "<empty>"
-msgstr "<empty>"
+msgstr "<prazno>"
 
 msgid "<other>"
-msgstr "<other>"
+msgstr "<ostalo>"
 
 msgid "<undefined>"
-msgstr "<undefined>"
+msgstr "<nedefinirano>"
 
 msgid "AI polish translated output"
-msgstr "AI polish translated output"
+msgstr "AI poljski preveden izlaz"
 
 msgid "ASS subtitle position:"
-msgstr "ASS subtitle position:"
+msgstr "ASS pozicija titla:"
 
 msgid "Albanian"
-msgstr "Albanian"
+msgstr "albanski"
 
 msgid "All files"
-msgstr "All files"
+msgstr "Sve datoteke"
 
 msgid "All supported files"
-msgstr "All supported files"
+msgstr "Sve podržane datoteke"
 
 msgid "Also translate output to:"
-msgstr "Also translate output to:"
+msgstr "Također prevedi izlaz na:"
 
 msgid "Another update in progress"
-msgstr "Another update in progress"
+msgstr "Još jedno ažuriranje u tijeku"
 
 msgid "Application upgrade"
-msgstr "Application upgrade"
+msgstr "Nadogradnja aplikacije"
 
 msgid "Arabic"
-msgstr "Arabic"
+msgstr "arapski"
 
 msgid "Are you sure you want to overwrite output files if they exist?"
-msgstr "Are you sure you want to overwrite output files if they exist?"
+msgstr "Jeste li sigurni da želite prebrisati izlazne datoteke ako postoje?"
 
 msgid "Are you sure you want to reset settings to defaults?"
-msgstr "Are you sure you want to reset settings to defaults?"
+msgstr "Jeste li sigurni da želite vratiti postavke na zadane?"
 
 msgid "Asset installation failed"
-msgstr "Asset installation failed"
+msgstr "Instalacija sredstva nije uspjela"
 
 msgid "Au&to sort"
-msgstr "Au&to sort"
+msgstr "Automatsko sortiranje"
 
 msgid "Audio &channels"
-msgstr "Audio &channels"
+msgstr "Audio &kanali"
 
 msgid "Auto detect"
-msgstr "Auto detect"
+msgstr "Automatsko otkrivanje"
 
 msgid "Basic"
-msgstr "Basic"
+msgstr "Osnovno"
 
 msgid "Batch"
-msgstr "Batch"
+msgstr "Serija"
 
 msgid "Belarusian"
-msgstr "Belarusian"
+msgstr "bjeloruski"
 
 msgid "Bulgarian"
-msgstr "Bulgarian"
+msgstr "bugarski"
 
-msgid "Can\\'t save subtitle file"
-msgstr "Can\\'t save subtitle file"
+msgid "Can\\\\'t save subtitle file"
+msgstr "Ne mogu spremiti datoteku titlova"
 
 msgid "Cancel"
-msgstr "Odustani"
+msgstr "Otkazati"
 
 msgid "Cannot load settings file, {}"
-msgstr "Cannot load settings file, {}"
+msgstr "Ne mogu učitati datoteku postavki, {}"
 
 msgid "Catalan"
-msgstr "Catalan"
+msgstr "katalonski"
 
 msgid "Character &encoding"
-msgstr "Character &encoding"
+msgstr "&kodiranje znakova"
 
 msgid "Character encoding"
-msgstr "Character encoding"
+msgstr "Kodiranje znakova"
 
 msgid "Checking for update..."
-msgstr "Checking for update..."
+msgstr "Provjera ažuriranja..."
 
 msgid "Chinese"
-msgstr "Chinese"
+msgstr "kineski"
 
-msgid "Couldn\\'t save synchronized subtitles"
-msgstr "Couldn\\'t save synchronized subtitles"
+msgid "Couldn\\\\'t save synchronized subtitles"
+msgstr "Nije moguće spremiti sinkronizirane titlove"
 
-msgid "Couldn\\'t synchronize"
-msgstr "Couldn\\'t synchronize"
+msgid "Couldn\\\\'t synchronize"
+msgstr "Sinkronizacija nije uspjela"
 
 msgid "Croatian"
-msgstr "Croatian"
+msgstr "hrvatski"
 
 msgid "Czech"
-msgstr "Czech"
+msgstr "češki"
 
 msgid "Danish"
-msgstr "Danish"
+msgstr "danski"
 
 msgid "Dark (experimental)"
-msgstr "Dark (experimental)"
+msgstr "Tamno (eksperimentalno)"
 
 msgid "Debug options:"
-msgstr "Debug options:"
+msgstr "Opcije otklanjanja pogrešaka:"
 
 msgid "DeepL"
-msgstr "DeepL"
+msgstr "DubokoL"
 
 msgid "Do you want to clear all items?"
-msgstr "Do you want to clear all items?"
+msgstr "Želite li izbrisati sve stavke?"
 
 msgid "Download assets"
-msgstr "Download assets"
+msgstr "Preuzmite sredstva"
 
 msgid "Download now?"
-msgstr "Download now?"
+msgstr "Preuzeti sada?"
 
 msgid "Downloading assets list..."
-msgstr "Downloading assets list..."
+msgstr "Preuzimanje popisa imovine..."
 
 msgid "Dutch"
-msgstr "Dutch"
+msgstr "nizozemski"
 
 msgid "ETA:"
 msgstr "ETA:"
 
 msgid "Elapsed:"
-msgstr "Elapsed:"
+msgstr "Proteklo:"
 
 msgid "English"
-msgstr "English"
+msgstr "engleski"
 
 msgid "Error"
-msgstr "Error"
+msgstr "Greška"
 
 msgid "Error during reference read"
-msgstr "Error during reference read"
+msgstr "Pogreška tijekom čitanja reference"
 
 msgid "Error during subtitles read"
-msgstr "Error during subtitles read"
+msgstr "Pogreška tijekom čitanja titlova"
 
 msgid "Estonian"
-msgstr "Estonian"
+msgstr "estonski"
 
 msgid "Everything synchronized successfully"
-msgstr "Everything synchronized successfully"
+msgstr "Sve je uspješno sinkronizirano"
 
 msgid "Everything synchronized, but got errors"
-msgstr "Everything synchronized, but got errors"
+msgstr "Sve je sinkronizirano, ali ima grešaka"
 
 msgid "Faroese"
-msgstr "Faroese"
+msgstr "farski"
 
 msgid "Finnish"
-msgstr "Finnish"
+msgstr "finski"
 
 msgid "Following assets could be updated:"
-msgstr "Following assets could be updated:"
+msgstr "Sljedeća sredstva mogu se ažurirati:"
 
 msgid "Following assets must be download to continue:"
-msgstr "Following assets must be download to continue:"
+msgstr "Sljedeća sredstva moraju se preuzeti za nastavak:"
 
 msgid "Following files could not be added:"
-msgstr "Following files could not be added:"
+msgstr "Sljedeće datoteke ne mogu se dodati:"
 
 msgid "French"
-msgstr "French"
+msgstr "francuski"
 
 msgid "GUI options:"
-msgstr "GUI options:"
+msgstr "GUI opcije:"
 
 msgid "Gaelic"
-msgstr "Gaelic"
+msgstr "galski"
 
 msgid "Galician"
-msgstr "Galician"
+msgstr "galicijski"
 
 msgid "General options:"
-msgstr "General options:"
+msgstr "Opće opcije:"
 
 msgid "German"
-msgstr "German"
+msgstr "njemački"
 
 msgid "Google Translate"
-msgstr "Google Translate"
+msgstr "Google prevoditelj"
 
 msgid "Got errors, synchronization failed"
-msgstr "Got errors, synchronization failed"
+msgstr "Došlo je do pogrešaka, sinkronizacija nije uspjela"
 
 msgid "Greek"
-msgstr "Greek"
+msgstr "grčki"
 
 msgid "Headless options:"
-msgstr "Headless options:"
+msgstr "Opcije bez glave:"
 
 msgid "Hebrew"
-msgstr "Hebrew"
+msgstr "hebrejski"
 
 msgid "Hungarian"
-msgstr "Hungarian"
+msgstr "mađarski"
 
 msgid "Icelandic"
-msgstr "Icelandic"
+msgstr "islandski"
 
 msgid "In seconds."
-msgstr "In seconds."
+msgstr "U sekundi."
 
 msgid "Indonesian"
-msgstr "Indonesian"
+msgstr "indonezijski"
 
 msgid "Info"
 msgstr "Info"
 
 msgid "Initializing..."
-msgstr "Initializing..."
+msgstr "Inicijalizacija..."
 
 msgid "Invalid output pattern"
-msgstr "Invalid output pattern"
+msgstr "Nevažeći uzorak izlaza"
 
 msgid "Invalid output pattern, invalid keyword: {}"
-msgstr "Invalid output pattern, invalid keyword: {}"
+msgstr "Nevažeći uzorak izlaza, nevažeća ključna riječ: {}"
 
 msgid "Invalid output pattern, {}"
-msgstr "Invalid output pattern, {}"
+msgstr "Nevažeći uzorak izlaza, {}"
 
 msgid "Invalid speech audio format"
-msgstr "Invalid speech audio format"
+msgstr "Nevažeći audio format govora"
 
 msgid "Italian"
-msgstr "Italian"
+msgstr "talijanski"
 
 msgid "Japanese"
-msgstr "Japanese"
+msgstr "japanski"
 
 msgid "Korean"
-msgstr "Korean"
+msgstr "korejski"
 
 msgid "Language changes will take effect after application restart"
-msgstr "Language changes will take effect after application restart"
+msgstr ""
+"Promjene jezika stupit će na snagu nakon ponovnog pokretanja aplikacije"
 
 msgid "Languages"
-msgstr "Languages"
+msgstr "jezici"
 
 msgid "Latin"
-msgstr "Latin"
+msgstr "latinski"
 
 msgid "Latvian"
-msgstr "Latvian"
+msgstr "latvijski"
 
 msgid "Light"
-msgstr "Light"
+msgstr "Svjetlo"
 
 msgid "Lithuanian"
-msgstr "Lithuanian"
+msgstr "litvanski"
 
 msgid "Loading, please wait..."
-msgstr "Loading, please wait..."
+msgstr "Učitavanje, molimo pričekajte..."
 
 msgid "Malagasy"
-msgstr "Malagasy"
+msgstr "malgaški"
 
 msgid "Malay"
-msgstr "Malay"
+msgstr "malajski"
 
 msgid "Maltese"
-msgstr "Maltese"
+msgstr "malteški"
 
 msgid "New version is available. Update now?"
-msgstr "New version is available. Update now?"
+msgstr "Nova verzija je dostupna. Ažurirati sada?"
 
 msgid "No language selected"
-msgstr "No language selected"
+msgstr "Jezik nije odabran"
 
 msgid "No language selected for:"
-msgstr "No language selected for:"
+msgstr "Nije odabran jezik za:"
 
 msgid "No need to synchronize"
-msgstr "Nije potrebno sinkronizirati"
+msgstr "Nema potrebe za sinkronizacijom"
 
 msgid "Norwegian"
-msgstr "Norwegian"
+msgstr "norveški"
 
 msgid "Not supported stream type"
-msgstr "Not supported stream type"
+msgstr "Nije podržana vrsta streama"
 
 msgid "Off (no translation)"
-msgstr "Off (no translation)"
+msgstr "Isključeno (bez prijevoda)"
 
 msgid "Opaque background box"
-msgstr "Opaque background box"
+msgstr "Okvir neprozirne pozadine"
 
 msgid "Output file not set"
-msgstr "Output file not set"
+msgstr "Izlazna datoteka nije postavljena"
 
 msgid "Overwrite files?"
-msgstr "Overwrite files?"
+msgstr "Prebrisati datoteke?"
 
 msgid "Persian"
-msgstr "Persian"
+msgstr "perzijski"
 
 msgid "PocketSphinx (classic)"
-msgstr "PocketSphinx (classic)"
+msgstr "PocketSphinx (klasično)"
 
 msgid "Polish"
-msgstr "Polish"
+msgstr "Polirati"
 
 msgid "Portuguese"
-msgstr "Portuguese"
+msgstr "portugalski"
 
 msgid "Reference file not set"
-msgstr "Reference file not set"
+msgstr "Referentna datoteka nije postavljena"
 
 msgid "Remove items"
-msgstr "Remove items"
+msgstr "Ukloni stavke"
 
 msgid "Restore defaults"
-msgstr "Restore defaults"
+msgstr "Vrati zadane postavke"
 
 msgid "Romanian"
-msgstr "Romanian"
+msgstr "rumunjski"
 
 msgid "Russian"
-msgstr "Russian"
+msgstr "ruski"
 
 msgid "Select &stream"
-msgstr "Select &stream"
+msgstr "Odaberite &stream"
 
 msgid "Select character encoding"
-msgstr "Select character encoding"
+msgstr "Odaberite kodiranje znakova"
 
 msgid "Select directory"
-msgstr "Select directory"
+msgstr "Odaberite imenik"
 
 msgid "Select file"
-msgstr "Select file"
+msgstr "Odaberite datoteku"
 
 msgid "Select language"
-msgstr "Select language"
+msgstr "Odaberite jezik"
 
 msgid "Select output directory"
-msgstr "Select output directory"
+msgstr "Odaberite izlazni direktorij"
 
 msgid "Select reference language first"
-msgstr "Select reference language first"
+msgstr "Prvo odaberite referentni jezik"
 
 msgid "Serbian"
-msgstr "Serbian"
+msgstr "srpski"
 
 msgid "Settings"
 msgstr "Postavke"
 
 msgid "Signature verification failed"
-msgstr "Signature verification failed"
+msgstr "Provjera potpisa nije uspjela"
 
 msgid "Slovak"
-msgstr "Slovak"
+msgstr "slovački"
 
 msgid "Slovenian"
-msgstr "Slovenian"
+msgstr "slovenski"
 
-msgid "Some reference subtitles can\\'t be decoded (invalid encoding?)"
-msgstr "Some reference subtitles can\\'t be decoded (invalid encoding?)"
+msgid "Some reference subtitles can\\\\'t be decoded (invalid encoding?)"
+msgstr "Neki referentni titlovi ne mogu se dekodirati (nevažeće kodiranje?)"
 
-msgid "Some subtitles can\\'t be decoded (invalid encoding?)"
-msgstr "Some subtitles can\\'t be decoded (invalid encoding?)"
+msgid "Some subtitles can\\\\'t be decoded (invalid encoding?)"
+msgstr "Neki se titlovi ne mogu dekodirati (nevažeće kodiranje?)"
 
-msgid "Some tasks couldn\\'t be synchronized"
-msgstr "Some tasks couldn\\'t be synchronized"
+msgid "Some tasks couldn\\\\'t be synchronized"
+msgstr "Neki se zadaci nisu mogli sinkronizirati"
 
 msgid "Spanish"
-msgstr "Spanish"
+msgstr "španjolski"
 
 msgid "Speech recognition engine:"
-msgstr "Speech recognition engine:"
+msgstr "Motor za prepoznavanje govora:"
 
 msgid "Start view:"
 msgstr "Početni prikaz:"
 
 msgid "Subtitle files"
-msgstr "Subtitle files"
+msgstr "Datoteke titlova"
 
-msgid "Subtitles can\\'t be the same as reference"
-msgstr "Subtitles can\\'t be the same as reference"
+msgid "Subtitles can\\\\'t be the same as reference"
+msgstr "Titlovi ne mogu biti isti kao referenca"
 
 msgid "Subtitles not set"
-msgstr "Subtitles not set"
+msgstr "Titlovi nisu postavljeni"
 
 msgid "Subtitles synchronized"
 msgstr "Titlovi sinkronizirani"
 
 msgid "Swedish"
-msgstr "Swedish"
+msgstr "švedski"
 
 msgid "Synchronization between languages {} is currently not supported."
-msgstr "Synchronization between languages {} is currently not supported."
+msgstr "Sinkronizacija između jezika {} trenutno nije podržana."
 
 msgid "Synchronization job:"
-msgstr "Synchronization job:"
+msgstr "Posao sinkronizacije:"
 
 msgid "Synchronization options:"
-msgstr "Synchronization options:"
+msgstr "Mogućnosti sinkronizacije:"
 
 msgid "Synchronization terminated"
-msgstr "Synchronization terminated"
+msgstr "Sinkronizacija prekinuta"
 
 msgid "Synchronization with {} audio is currently not supported."
-msgstr "Synchronization with {} audio is currently not supported."
+msgstr "Sinkronizacija sa {} zvukom trenutno nije podržana."
 
 msgid "Synchronization: {} points"
-msgstr "Synchronization: {} points"
+msgstr "Sinkronizacija: {} bodova"
 
 msgid "Synchronizing..."
 msgstr "Sinkronizacija..."
 
 msgid "System"
-msgstr "System"
+msgstr "sustav"
 
 msgid "Task:"
-msgstr "Task:"
+msgstr "Zadatak:"
 
 msgid "Terminating, please wait..."
-msgstr "Terminating, please wait..."
+msgstr "Ukidanje, pričekajte..."
 
 msgid "Terminating..."
-msgstr "Terminating..."
+msgstr "Ukidanje..."
 
 msgid "Theme:"
-msgstr "Theme:"
+msgstr "Tema:"
 
 msgid "There are no usable streams"
-msgstr "There are no usable streams"
+msgstr "Nema upotrebljivih tokova"
 
 msgid "There is no dictionary for transaltion from {} to {}"
-msgstr "There is no dictionary for transaltion from {} to {}"
+msgstr "Ne postoji rječnik za prijevod s {} na {}"
 
 msgid "There is no matching stream in {}"
-msgstr "There is no matching stream in {}"
+msgstr "Ne postoji odgovarajući tok u {}"
 
 msgid "There is no speech recognition model for language {}"
-msgstr "There is no speech recognition model for language {}"
+msgstr "Ne postoji model prepoznavanja govora za jezik {}"
 
 msgid "This build has no Vosk speech engine support"
-msgstr "This build has no Vosk speech engine support"
+msgstr "Ova verzija nema podršku za Vosk govorni mehanizam"
 
 msgid "This build has no Whisper speech engine support"
-msgstr "This build has no Whisper speech engine support"
+msgstr "Ova verzija nema podršku za Whisper govorni mehanizam"
 
 msgid "Total failure"
-msgstr "Total failure"
+msgstr "Totalni promašaj"
 
 msgid "Translation engine:"
-msgstr "Translation engine:"
+msgstr "Prevoditelj:"
 
 msgid "Turkish"
-msgstr "Turkish"
+msgstr "turski"
 
 msgid "Ukrainian"
-msgstr "Ukrainian"
+msgstr "ukrajinski"
 
 msgid "Unexpected error occurred"
-msgstr "Unexpected error occurred"
+msgstr "Došlo je do neočekivane pogreške"
 
 msgid "Unknown file extension"
-msgstr "Unknown file extension"
+msgstr "Nepoznati nastavak datoteke"
 
 msgid "Update assets"
-msgstr "Update assets"
+msgstr "Ažurirajte sredstva"
 
 msgid "Update instalation failed miserably"
-msgstr "Update instalation failed miserably"
+msgstr "Instalacija ažuriranja nije uspjela"
 
 msgid "Update not available"
-msgstr "Update not available"
+msgstr "Ažuriranje nije dostupno"
 
 msgid "Update now?"
-msgstr "Update now?"
+msgstr "Ažurirati sada?"
 
 msgid "Upgrade"
-msgstr "Upgrade"
+msgstr "Nadogradnja"
 
 msgid "Usage: {} [OPTIONS]"
-msgstr "Usage: {} [OPTIONS]"
+msgstr "Upotreba: {} [OPCIJE]"
 
 msgid "Use as &reference for all rows"
-msgstr "Use as &reference for all rows"
+msgstr "Koristi kao &referencu za sve retke"
 
 msgid "Video files"
-msgstr "Video files"
+msgstr "Video datoteke"
 
 msgid "Vosk (recommended)"
-msgstr "Vosk (recommended)"
+msgstr "Vosk (preporučeno)"
 
 msgid "Vosk model path is missing"
-msgstr "Vosk model path is missing"
+msgstr "Nedostaje staza modela Vosk"
 
 msgid "Whisper (most accurate)"
-msgstr "Whisper (most accurate)"
+msgstr "Šapat (najtočnije)"
 
 msgid "Whisper model path is missing"
-msgstr "Whisper model path is missing"
+msgstr "Nedostaje put modela Whisper"
 
 msgid "Your version is up to date"
-msgstr "Your version is up to date"
+msgstr "Vaša verzija je ažurna"
 
 msgid "all channels"
-msgstr "all channels"
+msgstr "svi kanali"
 
 msgid "and {} more"
-msgstr "and {} more"
+msgstr "i još {}"
 
 msgid "auto"
 msgstr "auto"
 
-msgid "couldn\\'t synchronize"
-msgstr "couldn\\'t synchronize"
+msgid "couldn\\\\'t synchronize"
+msgstr "ne može se sinkronizirati"
 
 msgid "default"
-msgstr "default"
+msgstr "zadana vrijednost"
 
 msgid "define synchronization task, can be repeated multiple times"
-msgstr "define synchronization task, can be repeated multiple times"
+msgstr "definirati zadatak sinkronizacije, može se ponoviti više puta"
 
 msgid "description"
-msgstr "description"
+msgstr "opis"
 
 msgid "dictionary {} / {}"
-msgstr "dictionary {} / {}"
+msgstr "rječnik {} / {}"
 
 msgid "display this help text and exit"
-msgstr "display this help text and exit"
+msgstr "prikazati ovaj tekst pomoći i izaći"
 
 msgid "display version information and exit"
-msgstr "display version information and exit"
+msgstr "prikazati informacije o verziji i izaći"
 
-msgid "don\\'t attempt to contact remote server to get missing assets"
-msgstr "don\\'t attempt to contact remote server to get missing assets"
+msgid "don\\\\'t attempt to contact remote server to get missing assets"
+msgstr ""
+"ne pokušavajte kontaktirati udaljeni poslužitelj kako biste dobili sredstva "
+"koja nedostaju"
 
-msgid "don\\'t show this message again"
-msgstr "don\\'t show this message again"
+msgid "don\\\\'t show this message again"
+msgstr "nemoj više prikazivati ​​ovu poruku"
 
 msgid "done"
-msgstr "done"
+msgstr "učinjeno"
 
 msgid "downloading"
-msgstr "downloading"
+msgstr "preuzimanje"
 
 msgid "drop here"
-msgstr "drop here"
+msgstr "spusti ovdje"
 
 msgid "dump logs to specified file"
-msgstr "dump logs to specified file"
+msgstr "dump zapise u određenu datoteku"
 
-msgid "dump words to file, or to standard output if there is no PATH, SRC is one of:  "
-msgstr "dump words to file, or to standard output if there is no PATH, SRC is one of:  "
+msgid ""
+"dump words to file, or to standard output if there is no PATH, SRC is one "
+"of:  "
+msgstr ""
+"izbaci riječi u datoteku ili u standardni izlaz ako nema PATH, SRC je jedno "
+"od:"
 
 msgid "fps"
 msgstr "fps"
 
 msgid "how hard to try (0.0 - 1.0)"
-msgstr "how hard to try (0.0 - 1.0)"
+msgstr "koliko je teško pokušati (0,0 - 1,0)"
 
 msgid "import list of tasks from YAML file"
-msgstr "import list of tasks from YAML file"
+msgstr "uvoz popisa zadataka iz YAML datoteke"
 
 msgid "language"
-msgstr "Jezik"
+msgstr "jezik"
 
 msgid "less than minute"
-msgstr "less than minute"
+msgstr "manje od minute"
 
 msgid "missing assets:"
-msgstr "missing assets:"
+msgstr "sredstva koja nedostaju:"
 
 msgid "name"
-msgstr "name"
+msgstr "ime"
 
 msgid "open batch processing window"
-msgstr "open batch processing window"
+msgstr "otvorite prozor skupne obrade"
 
 msgid "operation failed"
-msgstr "operation failed"
+msgstr "operacija nije uspjela"
 
 msgid "operation finished successfully"
-msgstr "operation finished successfully"
+msgstr "operacija uspješno završena"
 
 msgid "output character encoding"
-msgstr "output character encoding"
+msgstr "kodiranje izlaznih znakova"
 
 msgid "output file path or pattern"
-msgstr "output file path or pattern"
+msgstr "staza ili uzorak izlazne datoteke"
 
 msgid "output framerate (for FPS-based subtitles)"
-msgstr "output framerate (for FPS-based subtitles)"
+msgstr "izlazni broj sličica u sekundi (za titlove temeljene na FPS-u)"
 
 msgid "outputs"
-msgstr "outputs"
+msgstr "izlazi"
 
 msgid "overwrite existing files"
-msgstr "overwrite existing files"
+msgstr "prepisati postojeće datoteke"
 
 msgid "path to reference file"
-msgstr "path to reference file"
+msgstr "put do referentne datoteke"
 
 msgid "path to subtitle file"
-msgstr "path to subtitle file"
+msgstr "put do datoteke titlova"
 
 msgid "queued..."
-msgstr "queued..."
+msgstr "u redu čekanja..."
 
 msgid "reference audio channels mapping (for audio references)"
-msgstr "reference audio channels mapping (for audio references)"
+msgstr "mapiranje referentnih audio kanala (za audio reference)"
 
 msgid "reference character encoding (for subtitle references)"
-msgstr "reference character encoding (for subtitle references)"
+msgstr "referentno kodiranje znakova (za reference titlova)"
 
 msgid "reference framerate"
-msgstr "reference framerate"
+msgstr "referentni broj sličica u sekundi"
 
 msgid "reference language (2- or 3-letter ISO code)"
-msgstr "reference language (2- or 3-letter ISO code)"
+msgstr "referentni jezik (2- ili 3-slovni ISO kod)"
 
 msgid "reference stream no"
-msgstr "reference stream no"
+msgstr "referentni tok br"
 
 msgid "references"
-msgstr "references"
+msgstr "reference"
 
 msgid "references: "
-msgstr "references: "
+msgstr "reference:"
 
 msgid "run in headless mode (without GUI)"
-msgstr "run in headless mode (without GUI)"
+msgstr "pokrenuti u bezglavom načinu rada (bez GUI-ja)"
 
 msgid "same as input subtitles"
-msgstr "same as input subtitles"
+msgstr "isto kao i unos titlova"
 
 msgid "select reference stream by language (3-letter ISO code)"
-msgstr "select reference stream by language (3-letter ISO code)"
+msgstr "odaberite referentni tok po jeziku (3-slovni ISO kod)"
 
 msgid "select reference stream by type"
-msgstr "select reference stream by type"
+msgstr "odaberite referentni tok prema vrsti"
 
 msgid "select subtitle stream by language (3-letter ISO code)"
-msgstr "select subtitle stream by language (3-letter ISO code)"
+msgstr "odabir streama titlova po jeziku (ISO kod od 3 slova)"
 
 msgid "set logging level"
-msgstr "set logging level"
+msgstr "postaviti razinu zapisivanja"
 
 msgid "stream"
-msgstr "stream"
+msgstr "potok"
 
 msgid "subtitle character encoding"
-msgstr "subtitle character encoding"
+msgstr "kodiranje znakova titlova"
 
 msgid "subtitle framerate (for FPS-based subtitles)"
-msgstr "subtitle framerate (for FPS-based subtitles)"
+msgstr "broj sličica u sekundi titla (za titlove temeljene na FPS-u)"
 
 msgid "subtitle language (2- or 3-letter ISO code)"
-msgstr "subtitle language (2- or 3-letter ISO code)"
+msgstr "jezik titla (ISO kod od 2 ili 3 slova)"
 
 msgid "subtitle stream no"
-msgstr "subtitle stream no"
+msgstr "titl stream br"
 
 msgid "subtitles"
-msgstr "subtitles"
+msgstr "titlovi"
 
 msgid "subtitles: "
-msgstr "subtitles: "
+msgstr "titlovi:"
 
 msgid "synchronizing"
-msgstr "synchronizing"
+msgstr "sinkronizirajući"
 
 msgid "terminated"
-msgstr "terminated"
+msgstr "prekinuti"
 
 msgid "type"
-msgstr "type"
+msgstr "tip"
 
 msgid "user interface language (2-letter ISO code)"
-msgstr "user interface language (2-letter ISO code)"
+msgstr "jezik korisničkog sučelja (dvoslovni ISO kod)"
 
 msgid "verbosity level (0 - 3)"
-msgstr "verbosity level (0 - 3)"
+msgstr "razina opširnosti (0 - 3)"
 
 msgid "version "
-msgstr "version "
+msgstr "verzija"
 
 msgid "{} hours"
-msgstr "{} hours"
+msgstr "{} sati"
 
 msgid "{} min"
 msgstr "{} min"
 
 msgid "{} minutes"
-msgstr "{} minutes"
+msgstr "{} minuta"
 
 msgid "{} speech recognition model"
-msgstr "{} speech recognition model"
-
+msgstr "{} model prepoznavanja govora"

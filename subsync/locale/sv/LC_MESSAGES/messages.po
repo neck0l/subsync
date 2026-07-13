@@ -1,733 +1,737 @@
+#
 msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "&Language"
-msgstr "&Language"
+msgstr "&Språk"
 
 msgid "&Properties"
-msgstr "&Properties"
+msgstr "&Egenskaper"
 
 msgid "&Remove"
-msgstr "&Remove"
+msgstr "&Ta bort"
 
 msgid "(none)"
-msgstr "(none)"
+msgstr "(ingen)"
 
 msgid ", {} points"
-msgstr ", {} points"
+msgstr ", {} poäng"
 
 msgid "0 for auto."
-msgstr "0 for auto."
+msgstr "0 för auto."
 
 msgid "1 minute"
-msgstr "1 minute"
+msgstr "1 minut"
 
 msgid "<auto>"
 msgstr "<auto>"
 
 msgid "<empty>"
-msgstr "<empty>"
+msgstr "<tom>"
 
 msgid "<other>"
-msgstr "<other>"
+msgstr "<annat>"
 
 msgid "<undefined>"
-msgstr "<undefined>"
+msgstr "<odefinierad>"
 
 msgid "AI polish translated output"
-msgstr "AI polish translated output"
+msgstr "AI polish översatt utdata"
 
 msgid "ASS subtitle position:"
-msgstr "ASS subtitle position:"
+msgstr "ASS undertextposition:"
 
 msgid "Albanian"
-msgstr "Albanian"
+msgstr "albanska"
 
 msgid "All files"
-msgstr "All files"
+msgstr "Alla filer"
 
 msgid "All supported files"
-msgstr "All supported files"
+msgstr "Alla filer som stöds"
 
 msgid "Also translate output to:"
-msgstr "Also translate output to:"
+msgstr "Översätt också utdata till:"
 
 msgid "Another update in progress"
-msgstr "Another update in progress"
+msgstr "Ännu en uppdatering på gång"
 
 msgid "Application upgrade"
-msgstr "Application upgrade"
+msgstr "Applikationsuppgradering"
 
 msgid "Arabic"
-msgstr "Arabic"
+msgstr "arabiska"
 
 msgid "Are you sure you want to overwrite output files if they exist?"
-msgstr "Are you sure you want to overwrite output files if they exist?"
+msgstr "Är du säker på att du vill skriva över utdatafiler om de finns?"
 
 msgid "Are you sure you want to reset settings to defaults?"
-msgstr "Are you sure you want to reset settings to defaults?"
+msgstr ""
+"Är du säker på att du vill återställa inställningarna till standardvärdena?"
 
 msgid "Asset installation failed"
-msgstr "Asset installation failed"
+msgstr "Installation av tillgångar misslyckades"
 
 msgid "Au&to sort"
-msgstr "Au&to sort"
+msgstr "Au&att sortera"
 
 msgid "Audio &channels"
-msgstr "Audio &channels"
+msgstr "Ljud &kanaler"
 
 msgid "Auto detect"
-msgstr "Auto detect"
+msgstr "Autoavkänning"
 
 msgid "Basic"
-msgstr "Basic"
+msgstr "Grundläggande"
 
 msgid "Batch"
-msgstr "Batch"
+msgstr "Sats"
 
 msgid "Belarusian"
-msgstr "Belarusian"
+msgstr "vitryska"
 
 msgid "Bulgarian"
-msgstr "Bulgarian"
+msgstr "bulgariska"
 
-msgid "Can\\'t save subtitle file"
-msgstr "Can\\'t save subtitle file"
+msgid "Can\\\\'t save subtitle file"
+msgstr "Kan inte spara undertextfilen"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Avboka"
 
 msgid "Cannot load settings file, {}"
-msgstr "Cannot load settings file, {}"
+msgstr "Det går inte att ladda inställningsfilen, {}"
 
 msgid "Catalan"
-msgstr "Catalan"
+msgstr "katalanska"
 
 msgid "Character &encoding"
-msgstr "Character &encoding"
+msgstr "Tecken &kodning"
 
 msgid "Character encoding"
-msgstr "Character encoding"
+msgstr "Teckenkodning"
 
 msgid "Checking for update..."
-msgstr "Checking for update..."
+msgstr "Söker efter uppdatering..."
 
 msgid "Chinese"
-msgstr "Chinese"
+msgstr "kinesiska"
 
-msgid "Couldn\\'t save synchronized subtitles"
-msgstr "Couldn\\'t save synchronized subtitles"
+msgid "Couldn\\\\'t save synchronized subtitles"
+msgstr "Det gick inte att spara synkroniserade undertexter"
 
-msgid "Couldn\\'t synchronize"
-msgstr "Couldn\\'t synchronize"
+msgid "Couldn\\\\'t synchronize"
+msgstr "Kunde inte synkronisera"
 
 msgid "Croatian"
-msgstr "Croatian"
+msgstr "Kroatisk"
 
 msgid "Czech"
-msgstr "Czech"
+msgstr "tjeckiska"
 
 msgid "Danish"
-msgstr "Danish"
+msgstr "danska"
 
 msgid "Dark (experimental)"
-msgstr "Dark (experimental)"
+msgstr "Mörk (experimentell)"
 
 msgid "Debug options:"
-msgstr "Debug options:"
+msgstr "Felsökningsalternativ:"
 
 msgid "DeepL"
 msgstr "DeepL"
 
 msgid "Do you want to clear all items?"
-msgstr "Do you want to clear all items?"
+msgstr "Vill du rensa alla objekt?"
 
 msgid "Download assets"
-msgstr "Download assets"
+msgstr "Ladda ner tillgångar"
 
 msgid "Download now?"
-msgstr "Download now?"
+msgstr "Ladda ner nu?"
 
 msgid "Downloading assets list..."
-msgstr "Downloading assets list..."
+msgstr "Laddar ned tillgångslista..."
 
 msgid "Dutch"
-msgstr "Dutch"
+msgstr "holländska"
 
 msgid "ETA:"
 msgstr "ETA:"
 
 msgid "Elapsed:"
-msgstr "Elapsed:"
+msgstr "Förfluten:"
 
 msgid "English"
-msgstr "English"
+msgstr "engelska"
 
 msgid "Error"
-msgstr "Error"
+msgstr "Fel"
 
 msgid "Error during reference read"
-msgstr "Error during reference read"
+msgstr "Fel under referensläsning"
 
 msgid "Error during subtitles read"
-msgstr "Error during subtitles read"
+msgstr "Fel under läsning av undertexter"
 
 msgid "Estonian"
-msgstr "Estonian"
+msgstr "estniska"
 
 msgid "Everything synchronized successfully"
-msgstr "Everything synchronized successfully"
+msgstr "Allt har synkroniserats framgångsrikt"
 
 msgid "Everything synchronized, but got errors"
-msgstr "Everything synchronized, but got errors"
+msgstr "Allt synkroniserade, men fick fel"
 
 msgid "Faroese"
-msgstr "Faroese"
+msgstr "färöiska"
 
 msgid "Finnish"
-msgstr "Finnish"
+msgstr "finska"
 
 msgid "Following assets could be updated:"
-msgstr "Following assets could be updated:"
+msgstr "Följande tillgångar kan uppdateras:"
 
 msgid "Following assets must be download to continue:"
-msgstr "Following assets must be download to continue:"
+msgstr "Följande tillgångar måste laddas ned för att fortsätta:"
 
 msgid "Following files could not be added:"
-msgstr "Following files could not be added:"
+msgstr "Följande filer kunde inte läggas till:"
 
 msgid "French"
-msgstr "French"
+msgstr "franska"
 
 msgid "GUI options:"
-msgstr "GUI options:"
+msgstr "GUI-alternativ:"
 
 msgid "Gaelic"
-msgstr "Gaelic"
+msgstr "Gaeliska"
 
 msgid "Galician"
-msgstr "Galician"
+msgstr "galiciska"
 
 msgid "General options:"
-msgstr "General options:"
+msgstr "Allmänna alternativ:"
 
 msgid "German"
-msgstr "German"
+msgstr "tyska"
 
 msgid "Google Translate"
-msgstr "Google Translate"
+msgstr "Google Översätt"
 
 msgid "Got errors, synchronization failed"
-msgstr "Got errors, synchronization failed"
+msgstr "Fick fel, synkroniseringen misslyckades"
 
 msgid "Greek"
-msgstr "Greek"
+msgstr "grekiska"
 
 msgid "Headless options:"
-msgstr "Headless options:"
+msgstr "Huvudlösa alternativ:"
 
 msgid "Hebrew"
-msgstr "Hebrew"
+msgstr "hebreiska"
 
 msgid "Hungarian"
-msgstr "Hungarian"
+msgstr "ungerska"
 
 msgid "Icelandic"
-msgstr "Icelandic"
+msgstr "isländska"
 
 msgid "In seconds."
-msgstr "In seconds."
+msgstr "På några sekunder."
 
 msgid "Indonesian"
-msgstr "Indonesian"
+msgstr "indonesiska"
 
 msgid "Info"
 msgstr "Info"
 
 msgid "Initializing..."
-msgstr "Initializing..."
+msgstr "Initierar..."
 
 msgid "Invalid output pattern"
-msgstr "Invalid output pattern"
+msgstr "Ogiltigt utdatamönster"
 
 msgid "Invalid output pattern, invalid keyword: {}"
-msgstr "Invalid output pattern, invalid keyword: {}"
+msgstr "Ogiltigt utdatamönster, ogiltigt sökord: {}"
 
 msgid "Invalid output pattern, {}"
-msgstr "Invalid output pattern, {}"
+msgstr "Ogiltigt utdatamönster, {}"
 
 msgid "Invalid speech audio format"
-msgstr "Invalid speech audio format"
+msgstr "Ogiltigt talljudformat"
 
 msgid "Italian"
-msgstr "Italian"
+msgstr "italienska"
 
 msgid "Japanese"
-msgstr "Japanese"
+msgstr "japanska"
 
 msgid "Korean"
-msgstr "Korean"
+msgstr "koreanska"
 
 msgid "Language changes will take effect after application restart"
-msgstr "Language changes will take effect after application restart"
+msgstr "Språkändringar träder i kraft efter omstart av programmet"
 
 msgid "Languages"
-msgstr "Languages"
+msgstr "Språk"
 
 msgid "Latin"
-msgstr "Latin"
+msgstr "latin"
 
 msgid "Latvian"
-msgstr "Latvian"
+msgstr "lettiska"
 
 msgid "Light"
-msgstr "Light"
+msgstr "Ljus"
 
 msgid "Lithuanian"
-msgstr "Lithuanian"
+msgstr "litauiska"
 
 msgid "Loading, please wait..."
-msgstr "Loading, please wait..."
+msgstr "Laddar, vänta..."
 
 msgid "Malagasy"
-msgstr "Malagasy"
+msgstr "Madagaskar"
 
 msgid "Malay"
-msgstr "Malay"
+msgstr "malajiska"
 
 msgid "Maltese"
-msgstr "Maltese"
+msgstr "maltesiska"
 
 msgid "New version is available. Update now?"
-msgstr "New version is available. Update now?"
+msgstr "Ny version är tillgänglig. Uppdatera nu?"
 
 msgid "No language selected"
-msgstr "No language selected"
+msgstr "Inget språk valt"
 
 msgid "No language selected for:"
-msgstr "No language selected for:"
+msgstr "Inget språk valt för:"
 
 msgid "No need to synchronize"
-msgstr "No need to synchronize"
+msgstr "Inget behov av att synkronisera"
 
 msgid "Norwegian"
-msgstr "Norwegian"
+msgstr "norska"
 
 msgid "Not supported stream type"
-msgstr "Not supported stream type"
+msgstr "Stöds inte strömtyp"
 
 msgid "Off (no translation)"
-msgstr "Off (no translation)"
+msgstr "Av (ingen översättning)"
 
 msgid "Opaque background box"
-msgstr "Opaque background box"
+msgstr "Ogenomskinlig bakgrundslåda"
 
 msgid "Output file not set"
-msgstr "Output file not set"
+msgstr "Utdatafil inte inställd"
 
 msgid "Overwrite files?"
-msgstr "Overwrite files?"
+msgstr "Vill du skriva över filer?"
 
 msgid "Persian"
-msgstr "Persian"
+msgstr "persiska"
 
 msgid "PocketSphinx (classic)"
-msgstr "PocketSphinx (classic)"
+msgstr "PocketSphinx (klassisk)"
 
 msgid "Polish"
-msgstr "Polish"
+msgstr "polska"
 
 msgid "Portuguese"
-msgstr "Portuguese"
+msgstr "portugisiska"
 
 msgid "Reference file not set"
-msgstr "Reference file not set"
+msgstr "Referensfil inte inställd"
 
 msgid "Remove items"
-msgstr "Remove items"
+msgstr "Ta bort föremål"
 
 msgid "Restore defaults"
-msgstr "Restore defaults"
+msgstr "Återställ standardinställningar"
 
 msgid "Romanian"
-msgstr "Romanian"
+msgstr "rumänska"
 
 msgid "Russian"
-msgstr "Russian"
+msgstr "ryska"
 
 msgid "Select &stream"
-msgstr "Select &stream"
+msgstr "Välj &ström"
 
 msgid "Select character encoding"
-msgstr "Select character encoding"
+msgstr "Välj teckenkodning"
 
 msgid "Select directory"
-msgstr "Select directory"
+msgstr "Välj katalog"
 
 msgid "Select file"
-msgstr "Select file"
+msgstr "Välj fil"
 
 msgid "Select language"
-msgstr "Select language"
+msgstr "Välj språk"
 
 msgid "Select output directory"
-msgstr "Select output directory"
+msgstr "Välj utdatakatalog"
 
 msgid "Select reference language first"
-msgstr "Select reference language first"
+msgstr "Välj referensspråk först"
 
 msgid "Serbian"
-msgstr "Serbian"
+msgstr "serbiska"
 
 msgid "Settings"
-msgstr "Settings"
+msgstr "Inställningar"
 
 msgid "Signature verification failed"
-msgstr "Signature verification failed"
+msgstr "Signaturverifiering misslyckades"
 
 msgid "Slovak"
-msgstr "Slovak"
+msgstr "slovakiska"
 
 msgid "Slovenian"
-msgstr "Slovenian"
+msgstr "slovenska"
 
-msgid "Some reference subtitles can\\'t be decoded (invalid encoding?)"
-msgstr "Some reference subtitles can\\'t be decoded (invalid encoding?)"
+msgid "Some reference subtitles can\\\\'t be decoded (invalid encoding?)"
+msgstr "Vissa referensundertexter kan inte avkodas (ogiltig kodning?)"
 
-msgid "Some subtitles can\\'t be decoded (invalid encoding?)"
-msgstr "Some subtitles can\\'t be decoded (invalid encoding?)"
+msgid "Some subtitles can\\\\'t be decoded (invalid encoding?)"
+msgstr "Vissa undertexter kan inte avkodas (ogiltig kodning?)"
 
-msgid "Some tasks couldn\\'t be synchronized"
-msgstr "Some tasks couldn\\'t be synchronized"
+msgid "Some tasks couldn\\\\'t be synchronized"
+msgstr "Vissa uppgifter kunde inte synkroniseras"
 
 msgid "Spanish"
-msgstr "Spanish"
+msgstr "spanska"
 
 msgid "Speech recognition engine:"
-msgstr "Speech recognition engine:"
+msgstr "Taligenkänningsmotor:"
 
 msgid "Start view:"
-msgstr "Start view:"
+msgstr "Startvy:"
 
 msgid "Subtitle files"
-msgstr "Subtitle files"
+msgstr "Undertextfiler"
 
-msgid "Subtitles can\\'t be the same as reference"
-msgstr "Subtitles can\\'t be the same as reference"
+msgid "Subtitles can\\\\'t be the same as reference"
+msgstr "Undertexter kan inte vara detsamma som referens"
 
 msgid "Subtitles not set"
-msgstr "Subtitles not set"
+msgstr "Undertexter ej inställda"
 
 msgid "Subtitles synchronized"
-msgstr "Subtitles synchronized"
+msgstr "Undertexter synkroniserade"
 
 msgid "Swedish"
-msgstr "Swedish"
+msgstr "svenska"
 
 msgid "Synchronization between languages {} is currently not supported."
-msgstr "Synchronization between languages {} is currently not supported."
+msgstr "Synkronisering mellan språken {} stöds för närvarande inte."
 
 msgid "Synchronization job:"
-msgstr "Synchronization job:"
+msgstr "Synkroniseringsjobb:"
 
 msgid "Synchronization options:"
-msgstr "Synchronization options:"
+msgstr "Synkroniseringsalternativ:"
 
 msgid "Synchronization terminated"
-msgstr "Synchronization terminated"
+msgstr "Synkroniseringen avbröts"
 
 msgid "Synchronization with {} audio is currently not supported."
-msgstr "Synchronization with {} audio is currently not supported."
+msgstr "Synkronisering med {} ljud stöds för närvarande inte."
 
 msgid "Synchronization: {} points"
-msgstr "Synchronization: {} points"
+msgstr "Synkronisering: {} poäng"
 
 msgid "Synchronizing..."
-msgstr "Synchronizing..."
+msgstr "Synkroniserar..."
 
 msgid "System"
 msgstr "System"
 
 msgid "Task:"
-msgstr "Task:"
+msgstr "Uppgift:"
 
 msgid "Terminating, please wait..."
-msgstr "Terminating, please wait..."
+msgstr "Avslutar, vänta..."
 
 msgid "Terminating..."
-msgstr "Terminating..."
+msgstr "Avslutar..."
 
 msgid "Theme:"
-msgstr "Theme:"
+msgstr "Tema:"
 
 msgid "There are no usable streams"
-msgstr "There are no usable streams"
+msgstr "Det finns inga användbara strömmar"
 
 msgid "There is no dictionary for transaltion from {} to {}"
-msgstr "There is no dictionary for transaltion from {} to {}"
+msgstr "Det finns ingen ordbok för översättning från {} till {}"
 
 msgid "There is no matching stream in {}"
-msgstr "There is no matching stream in {}"
+msgstr "Det finns ingen matchande ström i {}"
 
 msgid "There is no speech recognition model for language {}"
-msgstr "There is no speech recognition model for language {}"
+msgstr "Det finns ingen taligenkänningsmodell för språk {}"
 
 msgid "This build has no Vosk speech engine support"
-msgstr "This build has no Vosk speech engine support"
+msgstr "Denna konstruktion har inget stöd för Vosk-talmotor"
 
 msgid "This build has no Whisper speech engine support"
-msgstr "This build has no Whisper speech engine support"
+msgstr "Denna konstruktion har inget stöd för Whisper-talmotor"
 
 msgid "Total failure"
-msgstr "Total failure"
+msgstr "Totalt misslyckande"
 
 msgid "Translation engine:"
-msgstr "Translation engine:"
+msgstr "Översättningsmotor:"
 
 msgid "Turkish"
-msgstr "Turkish"
+msgstr "turkiska"
 
 msgid "Ukrainian"
-msgstr "Ukrainian"
+msgstr "ukrainska"
 
 msgid "Unexpected error occurred"
-msgstr "Unexpected error occurred"
+msgstr "Ett oväntat fel inträffade"
 
 msgid "Unknown file extension"
-msgstr "Unknown file extension"
+msgstr "Okänd filändelse"
 
 msgid "Update assets"
-msgstr "Update assets"
+msgstr "Uppdatera tillgångar"
 
 msgid "Update instalation failed miserably"
-msgstr "Update instalation failed miserably"
+msgstr "Uppdateringsinstallationen misslyckades totalt"
 
 msgid "Update not available"
-msgstr "Update not available"
+msgstr "Uppdatering inte tillgänglig"
 
 msgid "Update now?"
-msgstr "Update now?"
+msgstr "Uppdatera nu?"
 
 msgid "Upgrade"
-msgstr "Upgrade"
+msgstr "Uppgradera"
 
 msgid "Usage: {} [OPTIONS]"
-msgstr "Usage: {} [OPTIONS]"
+msgstr "Användning: {} [ALTERNATIV]"
 
 msgid "Use as &reference for all rows"
-msgstr "Use as &reference for all rows"
+msgstr "Använd som &referens för alla rader"
 
 msgid "Video files"
-msgstr "Video files"
+msgstr "Videofiler"
 
 msgid "Vosk (recommended)"
-msgstr "Vosk (recommended)"
+msgstr "Vosk (rekommenderas)"
 
 msgid "Vosk model path is missing"
-msgstr "Vosk model path is missing"
+msgstr "Vosk modellbana saknas"
 
 msgid "Whisper (most accurate)"
-msgstr "Whisper (most accurate)"
+msgstr "Viska (mest korrekt)"
 
 msgid "Whisper model path is missing"
-msgstr "Whisper model path is missing"
+msgstr "Viskmodellväg saknas"
 
 msgid "Your version is up to date"
-msgstr "Your version is up to date"
+msgstr "Din version är uppdaterad"
 
 msgid "all channels"
-msgstr "all channels"
+msgstr "alla kanaler"
 
 msgid "and {} more"
-msgstr "and {} more"
+msgstr "och {} till"
 
 msgid "auto"
-msgstr "auto"
+msgstr "bil"
 
-msgid "couldn\\'t synchronize"
-msgstr "couldn\\'t synchronize"
+msgid "couldn\\\\'t synchronize"
+msgstr "kunde inte synkronisera"
 
 msgid "default"
-msgstr "default"
+msgstr "standard"
 
 msgid "define synchronization task, can be repeated multiple times"
-msgstr "define synchronization task, can be repeated multiple times"
+msgstr "definiera synkroniseringsuppgift, kan upprepas flera gånger"
 
 msgid "description"
-msgstr "description"
+msgstr "beskrivning"
 
 msgid "dictionary {} / {}"
-msgstr "dictionary {} / {}"
+msgstr "ordbok {} / {}"
 
 msgid "display this help text and exit"
-msgstr "display this help text and exit"
+msgstr "visa denna hjälptext och avsluta"
 
 msgid "display version information and exit"
-msgstr "display version information and exit"
+msgstr "visa versionsinformation och avsluta"
 
-msgid "don\\'t attempt to contact remote server to get missing assets"
-msgstr "don\\'t attempt to contact remote server to get missing assets"
+msgid "don\\\\'t attempt to contact remote server to get missing assets"
+msgstr "försök inte kontakta fjärrservern för att få tillgångar som saknas"
 
-msgid "don\\'t show this message again"
-msgstr "don\\'t show this message again"
+msgid "don\\\\'t show this message again"
+msgstr "visa inte detta meddelande igen"
 
 msgid "done"
-msgstr "done"
+msgstr "gjort"
 
 msgid "downloading"
-msgstr "downloading"
+msgstr "laddar ner"
 
 msgid "drop here"
-msgstr "drop here"
+msgstr "släpp här"
 
 msgid "dump logs to specified file"
-msgstr "dump logs to specified file"
+msgstr "dumpa loggar till angiven fil"
 
-msgid "dump words to file, or to standard output if there is no PATH, SRC is one of:  "
-msgstr "dump words to file, or to standard output if there is no PATH, SRC is one of:  "
+msgid ""
+"dump words to file, or to standard output if there is no PATH, SRC is one "
+"of:  "
+msgstr ""
+"dumpa ord till fil eller till standardutdata om det inte finns någon PATH, "
+"SRC är en av:"
 
 msgid "fps"
 msgstr "fps"
 
 msgid "how hard to try (0.0 - 1.0)"
-msgstr "how hard to try (0.0 - 1.0)"
+msgstr "hur svårt att försöka (0,0 - 1,0)"
 
 msgid "import list of tasks from YAML file"
-msgstr "import list of tasks from YAML file"
+msgstr "importera lista över uppgifter från YAML-fil"
 
 msgid "language"
-msgstr "language"
+msgstr "språk"
 
 msgid "less than minute"
-msgstr "less than minute"
+msgstr "mindre än minut"
 
 msgid "missing assets:"
-msgstr "missing assets:"
+msgstr "saknade tillgångar:"
 
 msgid "name"
-msgstr "name"
+msgstr "namn"
 
 msgid "open batch processing window"
-msgstr "open batch processing window"
+msgstr "öppna batchbearbetningsfönstret"
 
 msgid "operation failed"
-msgstr "operation failed"
+msgstr "operationen misslyckades"
 
 msgid "operation finished successfully"
-msgstr "operation finished successfully"
+msgstr "operationen avslutades framgångsrikt"
 
 msgid "output character encoding"
-msgstr "output character encoding"
+msgstr "utdatateckenkodning"
 
 msgid "output file path or pattern"
-msgstr "output file path or pattern"
+msgstr "utdatafilens sökväg eller mönster"
 
 msgid "output framerate (for FPS-based subtitles)"
-msgstr "output framerate (for FPS-based subtitles)"
+msgstr "utmatningshastighet (för FPS-baserad undertext)"
 
 msgid "outputs"
-msgstr "outputs"
+msgstr "utgångar"
 
 msgid "overwrite existing files"
-msgstr "overwrite existing files"
+msgstr "skriva över befintliga filer"
 
 msgid "path to reference file"
-msgstr "path to reference file"
+msgstr "sökväg till referensfil"
 
 msgid "path to subtitle file"
-msgstr "path to subtitle file"
+msgstr "sökväg till undertextfil"
 
 msgid "queued..."
-msgstr "queued..."
+msgstr "i kö..."
 
 msgid "reference audio channels mapping (for audio references)"
-msgstr "reference audio channels mapping (for audio references)"
+msgstr "referensljudkanalmappning (för ljudreferenser)"
 
 msgid "reference character encoding (for subtitle references)"
-msgstr "reference character encoding (for subtitle references)"
+msgstr "referens teckenkodning (för undertextreferenser)"
 
 msgid "reference framerate"
-msgstr "reference framerate"
+msgstr "referens framerate"
 
 msgid "reference language (2- or 3-letter ISO code)"
-msgstr "reference language (2- or 3-letter ISO code)"
+msgstr "referensspråk (2- eller 3-bokstäver ISO-kod)"
 
 msgid "reference stream no"
-msgstr "reference stream no"
+msgstr "referensström nr"
 
 msgid "references"
-msgstr "references"
+msgstr "referenser"
 
 msgid "references: "
-msgstr "references: "
+msgstr "referenser:"
 
 msgid "run in headless mode (without GUI)"
-msgstr "run in headless mode (without GUI)"
+msgstr "kör i huvudlöst läge (utan GUI)"
 
 msgid "same as input subtitles"
-msgstr "same as input subtitles"
+msgstr "samma som inmatade undertexter"
 
 msgid "select reference stream by language (3-letter ISO code)"
-msgstr "select reference stream by language (3-letter ISO code)"
+msgstr "välj referensström efter språk (3-bokstavs ISO-kod)"
 
 msgid "select reference stream by type"
-msgstr "select reference stream by type"
+msgstr "välj referensström efter typ"
 
 msgid "select subtitle stream by language (3-letter ISO code)"
-msgstr "select subtitle stream by language (3-letter ISO code)"
+msgstr "välj undertextström efter språk (3-bokstavs ISO-kod)"
 
 msgid "set logging level"
-msgstr "set logging level"
+msgstr "ställ in loggningsnivå"
 
 msgid "stream"
-msgstr "stream"
+msgstr "strömma"
 
 msgid "subtitle character encoding"
-msgstr "subtitle character encoding"
+msgstr "undertext teckenkodning"
 
 msgid "subtitle framerate (for FPS-based subtitles)"
-msgstr "subtitle framerate (for FPS-based subtitles)"
+msgstr "undertext framerate (för FPS-baserad undertext)"
 
 msgid "subtitle language (2- or 3-letter ISO code)"
-msgstr "subtitle language (2- or 3-letter ISO code)"
+msgstr "undertextspråk (2- eller 3-bokstäver ISO-kod)"
 
 msgid "subtitle stream no"
-msgstr "subtitle stream no"
+msgstr "undertextström nr"
 
 msgid "subtitles"
-msgstr "subtitles"
+msgstr "undertexter"
 
 msgid "subtitles: "
-msgstr "subtitles: "
+msgstr "undertexter:"
 
 msgid "synchronizing"
-msgstr "synchronizing"
+msgstr "synkronisering"
 
 msgid "terminated"
-msgstr "terminated"
+msgstr "avslutas"
 
 msgid "type"
-msgstr "type"
+msgstr "typ"
 
 msgid "user interface language (2-letter ISO code)"
-msgstr "user interface language (2-letter ISO code)"
+msgstr "användargränssnittsspråk (2-bokstavs ISO-kod)"
 
 msgid "verbosity level (0 - 3)"
-msgstr "verbosity level (0 - 3)"
+msgstr "verbositetsnivå (0 - 3)"
 
 msgid "version "
-msgstr "version "
+msgstr "version"
 
 msgid "{} hours"
-msgstr "{} hours"
+msgstr "{} timmar"
 
 msgid "{} min"
 msgstr "{} min"
 
 msgid "{} minutes"
-msgstr "{} minutes"
+msgstr "{} minuter"
 
 msgid "{} speech recognition model"
-msgstr "{} speech recognition model"
-
+msgstr "{} taligenkänningsmodell"
