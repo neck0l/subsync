@@ -24,7 +24,7 @@ No C++ source changes are required for this baseline build.
   py -3.11 -m pip install --upgrade pybind11 setuptools wheel
   ```
 
-All native dependencies are staged under `C:\subsync-deps\`.
+All native dependencies are staged under `%DEPS%\\`.
 
 ---
 
@@ -35,13 +35,13 @@ We need **FFmpeg 5.1** specifically: it is the last major line that still expose
 uses. Selection rule: the `bin\` must contain **`avcodec-59.dll`**.
 
 ```powershell
-New-Item -ItemType Directory -Force C:\subsync-deps | Out-Null
+New-Item -ItemType Directory -Force %DEPS% | Out-Null
 $url = "https://github.com/GyanD/codexffmpeg/releases/download/5.1.2/ffmpeg-5.1.2-full_build-shared.zip"
-Invoke-WebRequest $url -OutFile C:\subsync-deps\ffmpeg-5.1.2-shared.zip
-& "C:\Program Files\7-Zip\7z.exe" x C:\subsync-deps\ffmpeg-5.1.2-shared.zip -oC:\subsync-deps -y
-Rename-Item C:\subsync-deps\ffmpeg-5.1.2-full_build-shared C:\subsync-deps\ffmpeg-5.1
+Invoke-WebRequest $url -OutFile %DEPS%\\ffmpeg-5.1.2-shared.zip
+& "C:\Program Files\7-Zip\7z.exe" x %DEPS%\\ffmpeg-5.1.2-shared.zip -o%DEPS% -y
+Rename-Item %DEPS%\\ffmpeg-5.1.2-full_build-shared %DEPS%\\ffmpeg-5.1
 ```
-Layout produced: `C:\subsync-deps\ffmpeg-5.1\{include,lib,bin}`.
+Layout produced: `%DEPS%\\ffmpeg-5.1\{include,lib,bin}`.
 
 ---
 
@@ -53,7 +53,7 @@ import libraries from the **known-good working DLLs** (no fragile old-VS-solutio
 
 ### 3.1 Headers (from classic sources)
 ```powershell
-cd C:\subsync-deps
+cd %DEPS%
 git clone https://github.com/cmusphinx/sphinxbase.git
 git clone https://github.com/cmusphinx/pocketsphinx.git
 git -C pocketsphinx checkout last-pre-1.0
@@ -69,13 +69,13 @@ The runtime DLLs come from the working install copy
 
 ```powershell
 $inst = "C:\Program Files\subsync"
-New-Item -ItemType Directory -Force C:\subsync-deps\sphinxbase\bin\Release\x64 | Out-Null
-New-Item -ItemType Directory -Force C:\subsync-deps\pocketsphinx\bin\Release\x64 | Out-Null
-Copy-Item "$inst\sphinxbase.dll"   C:\subsync-deps\sphinxbase\bin\Release\x64\   -Force
-Copy-Item "$inst\pocketsphinx.dll" C:\subsync-deps\pocketsphinx\bin\Release\x64\ -Force
+New-Item -ItemType Directory -Force %DEPS%\\sphinxbase\bin\Release\x64 | Out-Null
+New-Item -ItemType Directory -Force %DEPS%\\pocketsphinx\bin\Release\x64 | Out-Null
+Copy-Item "$inst\sphinxbase.dll"   %DEPS%\\sphinxbase\bin\Release\x64\   -Force
+Copy-Item "$inst\pocketsphinx.dll" %DEPS%\\pocketsphinx\bin\Release\x64\ -Force
 ```
 
-Create a small MSVC helper `C:\subsync-deps\run-msvc.cmd`:
+Create a small MSVC helper `%DEPS%\\run-msvc.cmd`:
 ```bat
 @echo off
 call "C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars64.bat" >nul 2>&1
@@ -85,19 +85,19 @@ call "C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\v
 Dump exports, build `.def`, and create `.lib` (repeat for both libraries):
 ```powershell
 # Example for sphinxbase (do the same for pocketsphinx):
-$root = "C:\subsync-deps\sphinxbase\bin\Release\x64"
-cmd /c "C:\subsync-deps\run-msvc.cmd dumpbin /nologo /exports `"$root\sphinxbase.dll`"" > $root\exports.txt
+$root = "%DEPS%\\sphinxbase\bin\Release\x64"
+cmd /c "%DEPS%\\run-msvc.cmd dumpbin /nologo /exports `"$root\sphinxbase.dll`"" > $root\exports.txt
 # Parse names between the RVA column and end-of-line into a .def:
 "EXPORTS" | Set-Content $root\sphinxbase.def
 Get-Content $root\exports.txt | ForEach-Object {
   if ($_ -match '^\s+\d+\s+[0-9A-Fa-f]+\s+[0-9A-Fa-f]+\s+(\S+)') { $Matches[1] }
 } | Sort-Object -Unique | Add-Content $root\sphinxbase.def
-cmd /c "C:\subsync-deps\run-msvc.cmd lib /nologo /def:`"$root\sphinxbase.def`" /machine:x64 /out:`"$root\sphinxbase.lib`""
+cmd /c "%DEPS%\\run-msvc.cmd lib /nologo /def:`"$root\sphinxbase.def`" /machine:x64 /out:`"$root\sphinxbase.lib`""
 ```
 
 Final layout:
 ```
-C:\subsync-deps\
+%DEPS%\\
   ffmpeg-5.1\    include\  lib\  bin\
   sphinxbase\    include\  include\win32\  bin\Release\x64\ (sphinxbase.lib + .dll)
   pocketsphinx\  include\  bin\Release\x64\ (pocketsphinx.lib + .dll)
@@ -109,9 +109,9 @@ C:\subsync-deps\
 
 From the repo root:
 ```powershell
-$env:FFMPEG_DIR       = "C:\subsync-deps\ffmpeg-5.1"
-$env:SPHINXBASE_DIR   = "C:\subsync-deps\sphinxbase"
-$env:POCKETSPHINX_DIR = "C:\subsync-deps\pocketsphinx"
+$env:FFMPEG_DIR       = "%DEPS%\\ffmpeg-5.1"
+$env:SPHINXBASE_DIR   = "%DEPS%\\sphinxbase"
+$env:POCKETSPHINX_DIR = "%DEPS%\\pocketsphinx"
 
 py -3.11 setup.py build_ext --inplace
 py -3.11 setup.py build_py          # generates subsync\config.py and subsync\version.py
@@ -129,9 +129,9 @@ py -3.11 setup.py build_py          # generates subsync\config.py and subsync\ve
 (the repo root) or be added via `os.add_dll_directory`:
 ```powershell
 cd C:\path\to\subsync
-Copy-Item C:\subsync-deps\ffmpeg-5.1\bin\*.dll .                                   -Force
-Copy-Item C:\subsync-deps\sphinxbase\bin\Release\x64\sphinxbase.dll     .          -Force
-Copy-Item C:\subsync-deps\pocketsphinx\bin\Release\x64\pocketsphinx.dll .          -Force
+Copy-Item %DEPS%\\ffmpeg-5.1\bin\*.dll .                                   -Force
+Copy-Item %DEPS%\\sphinxbase\bin\Release\x64\sphinxbase.dll     .          -Force
+Copy-Item %DEPS%\\pocketsphinx\bin\Release\x64\pocketsphinx.dll .          -Force
 ```
 (These `*.dll` and `*.pyd` are covered by `.gitignore`.)
 
