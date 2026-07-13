@@ -4,7 +4,7 @@ All notable changes to this fork of SubSync are documented here.
 This fork revives and modernizes the archived upstream project (sc0ty/subsync),
 continuing the 0.17 line.
 
-## [0.19.0] — 2026-07-09
+## [0.19.3] — 2026-07-09
 
 First release of the modernized fork.
 

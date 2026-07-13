@@ -186,7 +186,47 @@ class SyncWin(subsync.gui.layout.syncwin.SyncWin):
         if settings().outTimeOffset:
             logger.info('adjusting timestamps by offset %.3f', settings().outTimeOffset)
             subs.shift(s=settings().outTimeOffset)
+        stylePreset = settings().get('subtitleStyle')
+        styleBox = not not (settings().get('subtitleStyleBox'))
+        if stylePreset:
+            from subsync.synchro import styling
+            styling.maybeStyle(subs, path, preset=stylePreset, box=styleBox)
+
         subs.save(path, encoding=enc, **kw)
+
+        translateTo = settings().get('translateTo')
+        if translateTo:
+            try:
+                from subsync.synchro import translate
+                engine = settings().get('translateEngine') or 'google'
+                source = self.task.sub and self.task.sub.lang
+                translated = translate.translateSubtitles(
+                        subs, target=translateTo, source=source, engine=engine)
+                tpath = translate.translatedOutputPath(path, translateTo)
+                if stylePreset:
+                    from subsync.synchro import styling
+                    styling.maybeStyle(translated, tpath, preset=stylePreset, box=styleBox)
+                if settings().get('aiPolish'):
+                    try:
+                        from subsync.synchro import polish
+                        srcTexts = [e.plaintext.strip() for e in subs
+                                    if not getattr(e, 'is_comment', False)]
+                        tgtTexts = [e.plaintext.strip() for e in translated
+                                 if not getattr(e, 'is_comment', False)]
+                        polished = polish.polishCues(
+                                srcTexts, tgtTexts,
+                                provider=settings().get('aiPolishProvider') or 'openrouter',
+                                model=settings().get('aiPolishModel'))
+                        for event, txt in zip(translated, polished):
+                            if not getattr(event, 'is_comment', False):
+                                event.plaintext = txt or event.plaintext
+                        logger.info('AI polish applied to translated output')
+                    except Exception as e:
+                        logger.warning('AI polish failed: %r', e, exc_info=True)
+                translated.save(tpath, encoding=enc, overwrite=True)
+                logger.info('saved translated subtitles to %s', tpath)
+            except Exception as e:
+                logger.warning('output translation failed: %r', e, exc_info=True)
 
     def selectOutputFpsIfNeeded(self, path):
         if subtitle.isFpsBased(path):

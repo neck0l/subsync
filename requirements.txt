@@ -5,3 +5,5 @@ cryptography>=42.0; platform_system == "Darwin"
 PyYAML>=6.0
 pybind11>=2.10
 requests>=2.31
+deep-translator>=1.11
+deepl>=1.18

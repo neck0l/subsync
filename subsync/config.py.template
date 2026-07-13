@@ -38,4 +38,5 @@ imgdir     = os.path.join(datadir, 'img')
 localedir  = os.path.join(datadir, 'locale')
 keypath    = os.path.join(datadir, 'key.pub')
 
-assetsurl = 'https://github.com/sc0ty/subsync/releases/download/assets/assets.json'
+assetsurl = 'https://github.com/neck0l/subsync/releases/download/assets/assets.json'
+assetsfallbackurl = 'https://github.com/sc0ty/subsync/releases/download/assets/assets.json'

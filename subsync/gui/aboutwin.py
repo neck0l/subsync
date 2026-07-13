@@ -32,10 +32,14 @@ class AboutWin(subsync.gui.layout.aboutwin.AboutWin):
         dlg.ShowModal()
 
     def onButtonWebsiteClick(self, event):
-        wx.LaunchDefaultBrowser('http://sc0ty.github.io/subsync')
+        wx.LaunchDefaultBrowser('https://github.com/neck0l/subsync')
 
 
-credits='''FFmpeg - Copyright (c) the FFmpeg developers - LGPLv2.1 or later
+credits='''Original author: Michał Szymaniak (sc0ty/subsync)
+Fork maintained by: neck0l
+License: GNU GPL v3.0
+
+FFmpeg - Copyright (c) the FFmpeg developers - LGPLv2.1 or later
 CMU Sphinx - Copyright (c) 1999-2016 Carnegie Mellon University - BSD license
 wxWindows - Copyright (c) 1998-2005 Julian Smart, Robert Roebling et al - wxWindows Library Licence
 pybind11 - Copyright (c) 2016 Wenzel Jakob - BSD license

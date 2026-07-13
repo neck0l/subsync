@@ -61,6 +61,18 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         self._startViews = ['basic', 'batch']
         # #165(c): dark theme (best-effort, opt-in).
         self._darkModes = ['light', 'dark', 'system']
+
+        # App interface language.
+        from subsync import translations
+        self._langCodes = translations.listLanguages()
+        _langNames = {'en': 'English', 'hr': 'Croatian', 'de': 'German',
+                      'pl': 'Polish', 'sv': 'Swedish', 'no': 'Norwegian',
+                      'it': 'Italian'}
+        _langLabels = [_langNames.get(c, c) for c in self._langCodes]
+        self.m_labelLanguage = wx.StaticText(self.m_panelGeneral,
+                label=_('Interface language:'))
+        self.m_choiceLanguage = wx.Choice(self.m_panelGeneral, choices=_langLabels)
+
         genSizer = self.m_panelGeneral.GetSizer()
         self.m_labelStartView = wx.StaticText(self.m_panelGeneral,
                 label=_('Start view:'))
@@ -70,6 +82,33 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
                 label=_('Theme:'))
         self.m_choiceDarkMode = wx.Choice(self.m_panelGeneral,
                 choices=[_('Light'), _('Dark (experimental)'), _('System')])
+
+        # Output translation (optional): "off" + one entry per known language.
+        from subsync.data import languages as _languages
+        self._translateCodes = [None] + [l.code3 for l in _languages.languages]
+        _translateLabels = [_('Off (no translation)')] + [
+                _languages.getName(l.code3) for l in _languages.languages]
+        self.m_labelTranslate = wx.StaticText(self.m_panelGeneral,
+                label=_('Also translate output to:'))
+        self.m_choiceTranslate = wx.Choice(self.m_panelGeneral, choices=_translateLabels)
+        self._translateEngines = ['google', 'deepl']
+        self.m_labelTranslateEngine = wx.StaticText(self.m_panelGeneral,
+                label=_('Translation engine:'))
+        self.m_choiceTranslateEngine = wx.Choice(self.m_panelGeneral,
+                choices=[_('Google Translate'), _('DeepL')])
+
+        from subsync.synchro import styling
+        _styleLabels = styling.presetLabels()
+        self._styleIds = [''] + list(_styleLabels.keys())
+        self._styleNames = [_('(none)')] + [
+                '%s (%s)' % (_styleLabels[k], k) for k in self._styleIds[1:]]
+        self.m_labelStyle = wx.StaticText(self.m_panelGeneral,
+                label=_('ASS subtitle position:'))
+        self.m_choiceStyle = wx.Choice(self.m_panelGeneral, choices=self._styleNames)
+        self.m_checkStyleBox = wx.CheckBox(self.m_panelGeneral,
+                label=_('Opaque background box'))
+        self.m_checkAiPolish = wx.CheckBox(self.m_panelGeneral,
+                label=_('AI polish translated output'))
         try:
             grow = 0
             for child in genSizer.GetChildren():
@@ -77,18 +116,43 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
                     grow = max(grow, child.GetPos().GetRow() + child.GetSpan().GetRowspan())
                 except Exception:
                     pass
-            genSizer.Add(self.m_labelStartView, wx.GBPosition(grow, 0),
+            genSizer.Add(self.m_labelLanguage, wx.GBPosition(grow, 0),
                     wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
-            genSizer.Add(self.m_choiceStartView, wx.GBPosition(grow, 1),
+            genSizer.Add(self.m_choiceLanguage, wx.GBPosition(grow, 1),
                     wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
-            genSizer.Add(self.m_labelDarkMode, wx.GBPosition(grow + 1, 0),
+            genSizer.Add(self.m_labelStartView, wx.GBPosition(grow + 1, 0),
                     wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
-            genSizer.Add(self.m_choiceDarkMode, wx.GBPosition(grow + 1, 1),
+            genSizer.Add(self.m_choiceStartView, wx.GBPosition(grow + 1, 1),
                     wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_labelDarkMode, wx.GBPosition(grow + 2, 0),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+            genSizer.Add(self.m_choiceDarkMode, wx.GBPosition(grow + 2, 1),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_labelTranslate, wx.GBPosition(grow + 3, 0),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+            genSizer.Add(self.m_choiceTranslate, wx.GBPosition(grow + 3, 1),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_labelTranslateEngine, wx.GBPosition(grow + 4, 0),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_choiceTranslateEngine, wx.GBPosition(grow + 4, 1),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_labelStyle, wx.GBPosition(grow + 5, 0),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+            genSizer.Add(self.m_choiceStyle, wx.GBPosition(grow + 5, 1),
+                    wx.GBSpan(1, 1), wx.EXPAND | wx.ALL, 5)
+            genSizer.Add(self.m_checkStyleBox, wx.GBPosition(grow + 6, 1),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+            genSizer.Add(self.m_checkAiPolish, wx.GBPosition(grow + 7, 1),
+                    wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
         except Exception:
             # General panel sizer is not a GridBagSizer - append at the end
-            for w in (self.m_labelStartView, self.m_choiceStartView,
-                    self.m_labelDarkMode, self.m_choiceDarkMode):
+            for w in (self.m_labelLanguage, self.m_choiceLanguage,
+                    self.m_labelStartView, self.m_choiceStartView,
+                    self.m_labelDarkMode, self.m_choiceDarkMode,
+                    self.m_labelTranslate, self.m_choiceTranslate,
+                    self.m_labelTranslateEngine, self.m_choiceTranslateEngine,
+                    self.m_labelStyle, self.m_choiceStyle, self.m_checkStyleBox,
+                    self.m_checkAiPolish):
                 genSizer.Add(w, 0, wx.ALL, 5)
 
         self.setSettings(settings())
@@ -108,6 +172,10 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         self.m_choiceSpeechEngine.SetSelection(
                 self._speechEngines.index(engine) if engine in self._speechEngines else 0)
 
+        lang = settings.get('language') or 'en'
+        self.m_choiceLanguage.SetSelection(
+                self._langCodes.index(lang) if lang in self._langCodes else self._langCodes.index('en'))
+
         startView = settings.get('startView') or 'basic'
         self.m_choiceStartView.SetSelection(
                 self._startViews.index(startView) if startView in self._startViews else 0)
@@ -115,6 +183,19 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         darkMode = settings.get('darkMode') or 'light'
         self.m_choiceDarkMode.SetSelection(
                 self._darkModes.index(darkMode) if darkMode in self._darkModes else 0)
+
+        translateTo = settings.get('translateTo')
+        self.m_choiceTranslate.SetSelection(
+                self._translateCodes.index(translateTo) if translateTo in self._translateCodes else 0)
+        translateEngine = settings.get('translateEngine') or 'google'
+        self.m_choiceTranslateEngine.SetSelection(
+                self._translateEngines.index(translateEngine) if translateEngine in self._translateEngines else 0)
+
+        subtitleStyle = settings.get('subtitleStyle') or ''
+        self.m_choiceStyle.SetSelection(
+                self._styleIds.index(subtitleStyle) if subtitleStyle in self._styleIds else 0)
+        self.m_checkStyleBox.SetValue(not not settings.get('subtitleStyleBox'))
+        self.m_checkAiPolish.SetValue(not not settings.get('aiPolish'))
 
         for field, key, val in self.settingsFieldsGen():
             if val != None:
@@ -157,6 +238,26 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
         seld = self.m_choiceDarkMode.GetSelection()
         if seld != wx.NOT_FOUND:
             self.settings.darkMode = self._darkModes[seld]
+
+        sell = self.m_choiceLanguage.GetSelection()
+        if sell != wx.NOT_FOUND:
+            self.settings.language = self._langCodes[sell]
+            from subsync import translations
+            translations.setLanguage(self._langCodes[sell])
+
+        selt = self.m_choiceTranslate.GetSelection()
+        if selt != wx.NOT_FOUND:
+            self.settings.translateTo = self._translateCodes[selt]
+        sele = self.m_choiceTranslateEngine.GetSelection()
+        if sele != wx.NOT_FOUND:
+            self.settings.translateEngine = self._translateEngines[sele]
+
+        sels = self.m_choiceStyle.GetSelection()
+        if sels != wx.NOT_FOUND:
+            val = self._styleIds[sels]
+            self.settings.subtitleStyle = val if val else None
+        self.settings.subtitleStyleBox = self.m_checkStyleBox.GetValue()
+        self.settings.aiPolish = self.m_checkAiPolish.GetValue()
 
         self.settings.appendLangCode = False
         if self.m_appendLangCode2.IsChecked():

@@ -75,5 +75,24 @@ class ListUpdater(object):
         except:
             logger.error('cannot download asset list from %s',
                     config.assetsurl, exc_info=True)
+            # Retry with the upstream (archived) asset URL as a fallback,
+            # so existing Sphinx models / dictionaries keep working.
+            fallback = getattr(config, 'assetsfallbackurl', None)
+            if fallback and fallback != config.assetsurl:
+                try:
+                    logger.info('retrying with fallback: %s', fallback)
+                    r = requests.get(fallback, timeout=5)
+                    r.raise_for_status()
+                    assets = r.json()
+                    self._onUpdate and self._onUpdate(assets)
+                    self._updated = True
+                    try:
+                        with open(config.assetspath, 'w', encoding='utf8') as fp:
+                            json.dump(assets, fp, indent=4)
+                    except:
+                        logger.info('cannot save asset list (fallback)', exc_info=True)
+                    return
+                except:
+                    logger.error('asset list fallback also failed', exc_info=True)
             self._exception = sys.exc_info()
 

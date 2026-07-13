@@ -52,10 +52,9 @@ def listLanguages():
         langs = os.listdir(config.localedir)
     except:
         langs = []
-
+    langs = [l for l in langs if os.path.isdir(os.path.join(config.localedir, l))]
     if 'en' not in langs:
         langs.append('en')
-
     return langs
 
 def _(msg):

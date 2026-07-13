@@ -278,10 +278,54 @@ class SyncController(object):
                 or self._options.get('outputCharEnc') \
                 or (task and task.sub and task.sub.enc) or 'UTF-8'
 
-        return subs.save(path=path or task.getOutputPath(),
+        stylePreset = self._options.get('subtitleStyle')
+        styleBox = self._options.get('subtitleStyleBox') not in (None, False)
+        savePath = path or task.getOutputPath()
+        if stylePreset:
+            from subsync.synchro import styling
+            styling.maybeStyle(subs, savePath, preset=stylePreset, box=styleBox)
+
+        outputPath = subs.save(path=savePath,
                 encoding=enc,
                 fps=task and task.out and task.out.fps,
                 overwrite=self._options.get('overwrite'))
+
+        translateTo = self._options.get('translateTo')
+        if translateTo:
+            try:
+                from subsync.synchro import translate
+                engine = self._options.get('translateEngine') or 'google'
+                source = task and task.sub and task.sub.lang
+                translated = translate.translateSubtitles(
+                        subs, target=translateTo, source=source, engine=engine)
+                tpath = translate.translatedOutputPath(outputPath, translateTo)
+                if stylePreset:
+                    from subsync.synchro import styling
+                    styling.maybeStyle(translated, tpath, preset=stylePreset, box=styleBox)
+                if self._options.get('aiPolish'):
+                    try:
+                        from subsync.synchro import polish
+                        srcTexts = [e.plaintext.strip() for e in subs
+                                    if not getattr(e, 'is_comment', False)]
+                        tgtTexts = [e.plaintext.strip() for e in translated
+                                 if not getattr(e, 'is_comment', False)]
+                        polished = polish.polishCues(
+                                srcTexts, tgtTexts,
+                                provider=self._options.get('aiPolishProvider') or 'openrouter',
+                                model=self._options.get('aiPolishModel'))
+                        for event, txt in zip(translated, polished):
+                            if not getattr(event, 'is_comment', False):
+                                event.plaintext = txt or event.plaintext
+                        logger.info('AI polish applied to translated output')
+                    except Exception as e:
+                        logger.warning('AI polish failed: %r', e, exc_info=True)
+                translated.save(tpath, encoding=enc,
+                        fps=task and task.out and task.out.fps, overwrite=True)
+                logger.info('saved translated subtitles to %s', tpath)
+            except Exception as e:
+                logger.warning('output translation failed: %r', e, exc_info=True)
+
+        return outputPath
 
     def validateTask(self, task, *, interactive=False):
         """Check if task is properly defined.

@@ -26,6 +26,13 @@ persistent = {
         'speechEngine': 'sphinx',
         'startView': 'basic',
         'darkMode': 'light',
+        'translateTo': None,
+        'translateEngine': 'google',
+        'aiPolish': False,
+        'aiPolishProvider': 'openrouter',
+        'aiPolishModel': 'openai/gpt-oss-120b:free',
+        'subtitleStyle': None,
+        'subtitleStyleBox': True,
         'preventSystemSuspend': False,
         'lastdir': '',
         'lastSubLang': None,
@@ -71,6 +78,13 @@ synchronizationOptions = [
         'outTimeOffset',
         'overwrite',
         'test',
+        'translateTo',
+        'translateEngine',
+        'aiPolish',
+        'aiPolishProvider',
+        'aiPolishModel',
+        'subtitleStyle',
+        'subtitleStyleBox',
         ]
 
 wordsDumpIds = [ 'sub', 'subPipe', 'subRaw', 'ref', 'refPipe', 'refRaw' ]
