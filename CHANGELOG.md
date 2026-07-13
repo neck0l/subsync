@@ -4,6 +4,16 @@ All notable changes to this fork of SubSync are documented here.
 This fork revives and modernizes the archived upstream project (sc0ty/subsync),
 continuing the 0.17 line.
 
+## [0.19.4] — 2026-07-13
+
+### Fixed
+- Language switching now works properly (Croatian, German, Polish, Swedish,
+  Norwegian, Italian + English). The translated .mo files were empty stubs;
+  they now contain English fallback strings and load correctly via gettext.
+  Translation-ready: edit the .po file to add real translations.
+- "Check for updates" now points to this fork's GitHub releases
+  (neck0l/subsync) instead of the archived upstream.
+
 ## [0.19.3] — 2026-07-13
 
 First release of the modernized fork.
