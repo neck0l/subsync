@@ -224,12 +224,38 @@ class SpeechAsset(Asset):
 
 
 class SelfUpdaterAsset(Asset):
-    """Application upgrade asset."""
+    """Application upgrade asset.
+
+    Checks for a newer release via the GitHub Releases API (no assets.json
+    hosting or signing required for the version check; the downloader still
+    verifies the installer signature on download).
+    """
+
+    _GITHUB_API = 'https://api.github.com/repos/neck0l/subsync/releases/latest'
 
     def __init__(self, type, params):
         super().__init__(type, params)
         self.localDir = os.path.join(config.assetdir, 'upgrade')
         self.path = os.path.join(self.localDir, 'upgrade.json')
+
+    def _checkLatestRelease(self):
+        try:
+            r = requests.get(self._GITHUB_API, timeout=10, headers={
+                'Accept': 'application/vnd.github.v3+json',
+                'User-Agent': 'SubSync-Updater/1.0',
+            })
+            r.raise_for_status()
+            data = r.json()
+            tag = str(data.get('tag_name', '')).lstrip('v')
+            if tag:
+                return utils.parseVersion(tag)
+        except Exception:
+            logger.warning('cannot check GitHub releases', exc_info=True)
+        return None
+
+    def remoteVersion(self):
+        """Check the latest GitHub release version."""
+        return self._checkLatestRelease()
 
     def localVersion(self):
         """Same as application version."""
@@ -255,30 +281,26 @@ class SelfUpdaterAsset(Asset):
         return _('Application upgrade')
 
     def hasInstaller(self):
-        """Check if installer is downloaded and could be run."""
-        local = self.localVersion()
-        installer = self.installerVersion()
-        return bool(local and installer and installer > local)
+        for f in os.listdir(self.localDir):
+            if f.endswith('-setup.exe'):
+                return True
+        return False
 
     def install(self):
-        """Run local installer.
-
-        Application must be terminated immediately to let installer work.
-        """
         with self._lock:
             try:
-                self.installerVersion()
-                instPath = os.path.join(self.localDir, self._getLocalData().get('install'))
-                logger.info('executing installer %s', instPath)
-                mode = os.stat(instPath).st_mode
-                if (mode & stat.S_IEXEC) == 0:
-                    os.chmod(instPath, mode | stat.S_IEXEC)
+                # Find any downloaded -setup.exe in the upgrade dir.
+                instPath = None
+                for f in os.listdir(self.localDir):
+                    if f.endswith('-setup.exe'):
+                        instPath = os.path.join(self.localDir, f)
+                        break
+                if not instPath or not os.path.isfile(instPath):
+                    raise Error(_('No update installer found'))
                 subprocess.Popen(instPath, cwd=self.localDir)
-
             except:
-                logger.error('cannot install update %s', self.path, exc_info=True)
-                self._removeLocalData()
-                raise Error(_('Update instalation failed miserably'))
+                logger.error('cannot install update', exc_info=True)
+                raise Error(_('Update installation failed'))
 
 
 def createAsset(typ, params=None):
