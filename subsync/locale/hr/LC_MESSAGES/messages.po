@@ -96,7 +96,7 @@ msgid "Can\\'t save subtitle file"
 msgstr "Can\\'t save subtitle file"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Odustani"
 
 msgid "Cannot load settings file, {}"
 msgstr "Cannot load settings file, {}"
@@ -309,7 +309,7 @@ msgid "No language selected for:"
 msgstr "No language selected for:"
 
 msgid "No need to synchronize"
-msgstr "No need to synchronize"
+msgstr "Nije potrebno sinkronizirati"
 
 msgid "Norwegian"
 msgstr "Norwegian"
@@ -381,7 +381,7 @@ msgid "Serbian"
 msgstr "Serbian"
 
 msgid "Settings"
-msgstr "Settings"
+msgstr "Postavke"
 
 msgid "Signature verification failed"
 msgstr "Signature verification failed"
@@ -408,7 +408,7 @@ msgid "Speech recognition engine:"
 msgstr "Speech recognition engine:"
 
 msgid "Start view:"
-msgstr "Start view:"
+msgstr "Početni prikaz:"
 
 msgid "Subtitle files"
 msgstr "Subtitle files"
@@ -420,7 +420,7 @@ msgid "Subtitles not set"
 msgstr "Subtitles not set"
 
 msgid "Subtitles synchronized"
-msgstr "Subtitles synchronized"
+msgstr "Titlovi sinkronizirani"
 
 msgid "Swedish"
 msgstr "Swedish"
@@ -444,7 +444,7 @@ msgid "Synchronization: {} points"
 msgstr "Synchronization: {} points"
 
 msgid "Synchronizing..."
-msgstr "Synchronizing..."
+msgstr "Sinkronizacija..."
 
 msgid "System"
 msgstr "System"
@@ -597,7 +597,7 @@ msgid "import list of tasks from YAML file"
 msgstr "import list of tasks from YAML file"
 
 msgid "language"
-msgstr "language"
+msgstr "Jezik"
 
 msgid "less than minute"
 msgstr "less than minute"

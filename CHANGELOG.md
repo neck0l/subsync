@@ -7,12 +7,15 @@ continuing the 0.17 line.
 ## [0.19.4] — 2026-07-13
 
 ### Fixed
-- Language switching now works properly (Croatian, German, Polish, Swedish,
-  Norwegian, Italian + English). The translated .mo files were empty stubs;
-  they now contain English fallback strings and load correctly via gettext.
-  Translation-ready: edit the .po file to add real translations.
-- "Check for updates" now points to this fork's GitHub releases
-  (neck0l/subsync) instead of the archived upstream.
+- Language switching now works properly — Croatian, German, Polish, Swedish,
+  Norwegian, Italian + English. The `_()` translation function was guarded by an
+  `initialized` flag that sometimes never got set, so translations didn't load;
+  now defers to gettext whenever available. Added 7 real Croatian translations
+  as proof. Other languages have English fallback in the .mo files (edit the
+  .po to add real translations).
+- "Check for updates" now uses the GitHub Releases API directly
+  (`/releases/latest`) instead of the old assets.json mechanism (no hosting
+  infrastructure needed — just tag a release and upload the setup.exe).
 
 ## [0.19.3] — 2026-07-13
 

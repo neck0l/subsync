@@ -58,8 +58,10 @@ def listLanguages():
     return langs
 
 def _(msg):
-    if initialized:
+    try:
         gettext = builtins.__dict__.get('_', None)
         if gettext is not None:
             return gettext(msg)
+    except Exception:
+        pass
     return msg
