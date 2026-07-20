@@ -116,6 +116,8 @@ class InputFile(object):
 
         if not self.lang or self.lang.lower() == 'und':
             self.lang = getLangFromPath(self.path)
+            if not self.lang:
+                self.lang = getLangFromContent(self.path)
 
         return stream
 
@@ -243,3 +245,59 @@ def getLangFromPath(path):
 
     if size == 2 or size == 3:
         return languages.get(name[-size:].lower()).code3
+
+
+def getLangFromContent(path):
+    """Guess the language from the text content of the first few subtitle lines."""
+    try:
+        with open(path, 'r', encoding='utf-8-sig', errors='replace') as fp:
+            text = fp.read(512 * 1024)
+    except Exception:
+        try:
+            with open(path, 'r', encoding='cp1250', errors='replace') as fp:
+                text = fp.read(512 * 1024)
+        except Exception:
+            try:
+                with open(path, 'r', encoding='cp1251', errors='replace') as fp:
+                    text = fp.read(512 * 1024)
+            except Exception:
+                return None
+
+    scripts = {'cyrillic': 0, 'arabic': 0, 'cjk': 0, 'greek': 0,
+               'hebrew': 0, 'latin': 0}
+    for ch in text:
+        code = ord(ch)
+        if 0x0400 <= code <= 0x04FF:      scripts['cyrillic'] += 1
+        elif 0x0600 <= code <= 0x06FF:     scripts['arabic'] += 1
+        elif 0x3040 <= code <= 0x30FF or 0x4E00 <= code <= 0x9FFF or 0xAC00 <= code <= 0xD7AF:
+            scripts['cjk'] += 1
+        elif 0x0370 <= code <= 0x03FF:     scripts['greek'] += 1
+        elif 0x0590 <= code <= 0x05FF:     scripts['hebrew'] += 1
+        elif ch.isalpha():                 scripts['latin'] += 1
+
+    if scripts['cyrillic'] > scripts['latin']:   return 'rus'
+    if scripts['arabic'] > 10:                    return 'ara'
+    if scripts['cjk'] > 10:                       return 'jpn'
+    if scripts['greek'] > 10:                     return 'gre'
+    if scripts['hebrew'] > 10:                    return 'heb'
+    if scripts['latin'] > 20:
+        chars = {
+            'hrv': {269, 263, 353, 382, 273},     # č, ć, š, ž, đ
+            'pol': {347, 263, 324, 378, 380, 261, 281, 322},  # ś, ć, ń, ź, ż, ą, ę, ł
+            'ger': {228, 246, 252, 223},           # ä, ö, ü, ß
+            'nor': {229, 230, 248},                # å, æ, ø
+            'ita': {224, 232, 233, 236, 242, 249}, # à, è, é, ì, ò, ù
+            'spa': {225, 233, 237, 243, 250, 241}, # á, é, í, ó, ú, ñ
+            'fre': {226, 234, 238, 244, 251, 235, 239},  # â, ê, î, ô, û, ë, ï
+        }
+        markers = {k: 0 for k in chars}
+        for ch in text:
+            code = ord(ch)
+            for lang, cset in chars.items():
+                if code in cset:
+                    markers[lang] += 1
+        best = max(markers, key=markers.get)
+        if markers[best] >= 2:
+            return best
+
+    return None
