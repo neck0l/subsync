@@ -4,15 +4,22 @@ All notable changes to this fork of SubSync are documented here.
 This fork revives and modernizes the archived upstream project (sc0ty/subsync),
 continuing the 0.17 line.
 
-## [0.19.4] — 2026-07-13
+## [0.19.5] — 2026-07-13
 
 ### Fixed
-- Language switching now works properly — Croatian, German, Polish, Swedish,
-  Norwegian, Italian + English (243 strings each, 100% machine-translated).
-- Subtitle language auto-detected from filename on open (e.g. `movie.en.srt`
-  → English), no longer overridden by the last-used language in Settings.
-- Docs: removed old `sc0ty.github.io` links, cleaned up install/architecture
-  guide references.
+- Content-based language detection now works: opens a subtitle file and detects
+  the language from text (script + diacritic markers). Croatian (cp1250), German
+  (umlauts), Russian (Cyrillic), Arabic, CJK, and more are detected when the
+  filename has no language suffix. Root cause was `utf-8-sig` with
+  `errors=replace` silently swallowing bytes instead of raising.
+- SubFile now auto-sets `lang` from detected language on open.
+
+### Changed
+- Language auto-detection from filename now takes priority over stored Settings
+  default (e.g. dropping `movie.en.srt` shows "English" even if you last used
+  Croatian).
+
+## [0.19.4] — 2026-07-13
 - "Check for updates" now uses the GitHub Releases API directly
   (`/releases/latest`) instead of the old assets.json mechanism (no hosting
   infrastructure needed — just tag a release and upload the setup.exe).

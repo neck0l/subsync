@@ -249,19 +249,20 @@ def getLangFromPath(path):
 
 def getLangFromContent(path):
     """Guess the language from the text content of the first few subtitle lines."""
-    try:
-        with open(path, 'r', encoding='utf-8-sig', errors='replace') as fp:
-            text = fp.read(512 * 1024)
-    except Exception:
+def getLangFromContent(path):
+    text = None
+    encodings = ['utf-8-sig', 'cp1250', 'cp1252', 'cp1251', 'utf-8']
+    for enc in encodings:
         try:
-            with open(path, 'r', encoding='cp1250', errors='replace') as fp:
+            with open(path, 'r', encoding=enc, errors='strict') as fp:
                 text = fp.read(512 * 1024)
+            break
+        except (UnicodeDecodeError, UnicodeError):
+            continue
         except Exception:
-            try:
-                with open(path, 'r', encoding='cp1251', errors='replace') as fp:
-                    text = fp.read(512 * 1024)
-            except Exception:
-                return None
+            continue
+    if text is None:
+        return None
 
     scripts = {'cyrillic': 0, 'arabic': 0, 'cjk': 0, 'greek': 0,
                'hebrew': 0, 'latin': 0}

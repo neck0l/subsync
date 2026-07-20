@@ -3,13 +3,13 @@
 
 [Setup]
 AppName=SubSync
-AppVersion=0.19.4
+AppVersion=0.19.5
 AppPublisher=SubSync Fork
 AppCopyright=GNU GPL v3.0
 LicenseFile=..\LICENSE
 DefaultDirName={autopf}\subsync
 DefaultGroupName=SubSync
-OutputBaseFilename=subsync-0.19.4-setup
+OutputBaseFilename=subsync-0.19.5-setup
 OutputDir=..\dist
 Compression=lzma2
 SolidCompression=yes
