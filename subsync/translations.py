@@ -25,7 +25,6 @@ def setLanguage(language):
 
         if lang == 'en':
             gettext.install('messages', localedir=config.localedir)
-
         else:
             tr = gettext.translation('messages',
                     localedir=config.localedir,
