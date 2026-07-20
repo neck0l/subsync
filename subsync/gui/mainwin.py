@@ -106,9 +106,11 @@ class MainWin(subsync.gui.layout.mainwin.MainWin):
             loggercfg.setBlacklistFilters(newSettings.logBlacklist)
 
         if settings().language != newSettings.language:
+            from subsync import translations
+            translations.setLanguage(newSettings.language)
             dlg = wx.MessageDialog(
                 self,
-                _('Language changes will take effect after application restart'),
+                _('Language changed. Reopen windows or restart to see the new language everywhere.'),
                 _('Settings'),
                 wx.OK | wx.ICON_INFORMATION)
             dlg.ShowModal()
