@@ -40,10 +40,6 @@ def setLanguage(language):
         import subsync.data.descriptions
         importlib.reload(subsync.data.descriptions)
 
-        # Reload GUI layout modules so their _() calls are re-evaluated
-        # in the new language.
-        _reloadGuiLayouts()
-
     except Exception as e:
         if language is None:
             logger.debug('translation language setup failed, %r', e, exc_info=False)
@@ -68,20 +64,3 @@ def _(msg):
     except Exception:
         pass
     return msg
-
-
-def _reloadGuiLayouts():
-    """Reload all generated layout modules so their _() calls reflect the new language."""
-    try:
-        import importlib
-        import subsync.gui.layout
-        for _path in sorted(os.listdir(os.path.dirname(subsync.gui.layout.__file__))):
-            if _path.endswith('.py') and _path != '__init__.py':
-                _modname = 'subsync.gui.layout.' + _path[:-3]
-                try:
-                    _mod = importlib.import_module(_modname)
-                    importlib.reload(_mod)
-                except Exception:
-                    pass
-    except Exception:
-        pass
