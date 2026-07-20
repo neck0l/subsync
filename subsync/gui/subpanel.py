@@ -27,6 +27,10 @@ class InputPanel(subsync.gui.layout.subpanel.SubtitlePanel):
     def showOpenWin(self, stream):
         if stream != None and stream.isOpen():
             defaultLang = settings().get(self.defaultLangKey)
+            # If the file already has a language detected (e.g. from filename),
+            # skip the stored default so auto-detection isn't overridden.
+            if getattr(stream, 'lang', None):
+                defaultLang = None
             with openwin.OpenWin(self, stream, defaultLang=defaultLang) as dlg:
                 if dlg.ShowModal() == wx.ID_OK and dlg.file.isOpen():
                     self.setStream(dlg.file)
