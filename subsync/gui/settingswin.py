@@ -244,6 +244,8 @@ class SettingsWin(subsync.gui.layout.settingswin.SettingsWin):
             self.settings.language = self._langCodes[sell]
             from subsync import translations
             translations.setLanguage(self._langCodes[sell])
+            wx.MessageBox(_('Language changed. Reopen this window or restart SubSync to see the new language everywhere.'),
+                          _('Language'), wx.OK | wx.ICON_INFORMATION)
 
         selt = self.m_choiceTranslate.GetSelection()
         if selt != wx.NOT_FOUND:
