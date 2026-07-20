@@ -4,7 +4,7 @@ All notable changes to this fork of SubSync are documented here.
 This fork revives and modernizes the archived upstream project (sc0ty/subsync),
 continuing the 0.17 line.
 
-## [0.19.5] — 2026-07-13
+## [0.19.5] — 2026-07-20
 
 ### Fixed
 - Content-based language detection now works: opens a subtitle file and detects
@@ -19,7 +19,7 @@ continuing the 0.17 line.
   default (e.g. dropping `movie.en.srt` shows "English" even if you last used
   Croatian).
 
-## [0.19.4] — 2026-07-13
+## [0.19.4] — 2026-07-20
 - "Check for updates" now uses the GitHub Releases API directly
   (`/releases/latest`) instead of the old assets.json mechanism (no hosting
   infrastructure needed — just tag a release and upload the setup.exe).
