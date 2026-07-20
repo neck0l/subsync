@@ -92,6 +92,8 @@ class MainWin(subsync.gui.layout.mainwin.MainWin):
         self.PopupMenu(self.m_menu)
 
     def onMenuItemSettingsClick(self, event):
+        from subsync import translations
+        translations.setLanguage(settings().language)
         with SettingsWin(self) as dlg:
             if dlg.ShowModal() == wx.ID_OK:
                 newSettings = dlg.getSettings()
