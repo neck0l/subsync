@@ -8,11 +8,11 @@ continuing the 0.17 line.
 
 ### Fixed
 - Language switching now works properly — Croatian, German, Polish, Swedish,
-  Norwegian, Italian + English. The `_()` translation function was guarded by an
-  `initialized` flag that sometimes never got set, so translations didn't load;
-  now defers to gettext whenever available. Added 7 real Croatian translations
-  as proof. Other languages have English fallback in the .mo files (edit the
-  .po to add real translations).
+  Norwegian, Italian + English (243 strings each, 100% machine-translated).
+- Subtitle language auto-detected from filename on open (e.g. `movie.en.srt`
+  → English), no longer overridden by the last-used language in Settings.
+- Docs: removed old `sc0ty.github.io` links, cleaned up install/architecture
+  guide references.
 - "Check for updates" now uses the GitHub Releases API directly
   (`/releases/latest`) instead of the old assets.json mechanism (no hosting
   infrastructure needed — just tag a release and upload the setup.exe).

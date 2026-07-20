@@ -1,5 +1,5 @@
 # SubSync installation
-You could download release builds from [download page](https://sc0ty.github.io/subsync/en/download.html).
+Download the latest Windows builds from the [GitHub Releases page](https://github.com/neck0l/subsync/releases).
 
 ## Prerequisites
 - C++11 compatible compiler (or better C++14);
