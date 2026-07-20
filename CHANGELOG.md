@@ -1,82 +1,72 @@
 # Changelog
 
-All notable changes to this fork of SubSync are documented here.
-This fork revives and modernizes the archived upstream project (sc0ty/subsync),
-continuing the 0.17 line.
-
 ## [0.19.5] — 2026-07-20
 
-### Fixed
-- Content-based language detection now works: opens a subtitle file and detects
-  the language from text (script + diacritic markers). Croatian (cp1250), German
-  (umlauts), Russian (Cyrillic), Arabic, CJK, and more are detected when the
-  filename has no language suffix. Root cause was `utf-8-sig` with
-  `errors=replace` silently swallowing bytes instead of raising.
-- SubFile now auto-sets `lang` from detected language on open.
+### Added
+- Content-based language detection: when a subtitle file is opened and the
+  filename has no language suffix, the app now inspects the text content
+  to determine the language (script detection for Cyrillic, Arabic, CJK;
+  diacritic markers for Latin-script languages). The detected language is
+  shown in the file-open dialog.
 
 ### Changed
-- Language auto-detection from filename now takes priority over stored Settings
-  default (e.g. dropping `movie.en.srt` shows "English" even if you last used
-  Croatian).
+- Language auto-detection from the filename now takes priority over the
+  last-used language from Settings. Dropping a file named `movie.en.srt`
+  correctly shows English regardless of previous sessions.
+- The check-for-updates feature uses the GitHub Releases API directly,
+  removing the need for externally hosted update manifests.
 
-## [0.19.4] — 2026-07-20
-- "Check for updates" now uses the GitHub Releases API directly
-  (`/releases/latest`) instead of the old assets.json mechanism (no hosting
-  infrastructure needed — just tag a release and upload the setup.exe).
-
-## [0.19.3] — 2026-07-13
+## [0.19.0] — 2026-07-09
 
 First release of the modernized fork.
 
 ### Added
-- Multi-engine speech recognition — choose between **PocketSphinx** (classic),
-  **Vosk** (fast, recommended) and **Whisper** (opt-in, multilingual). Selectable
-  in Settings and with the `--engine` command-line option.
-- Whisper uses one multilingual model, enabling audio-based sync for essentially
-  any language without a per-language model.
-- WebVTT (`.vtt`) subtitles are now supported for both input and output.
-- Experimental dark theme (Light / Dark / System) applied across the app.
-- Setting to choose the start view (Basic or Batch) on launch.
-- Windows taskbar icon shows synchronization progress.
-- Batch: right-click a reference → "Use as reference for all rows", so a single
-  video can be applied to many subtitle rows at once.
-- Windows installer (`setup.exe`) and a single-file portable executable.
+- Multi-engine speech recognition — **PocketSphinx** (classic), **Vosk**
+  (fast, recommended) and **Whisper** (opt-in, multilingual). Selectable
+  in Settings and via `--engine`.
+- A single Whisper multilingual model covers essentially all languages for
+  audio-based sync.
+- WebVTT (`.vtt`) subtitle support (input and output).
+- Experimental dark theme (Light / Dark / System).
+- Start-view preference (Basic or Batch) on launch.
+- Windows taskbar progress indicator.
+- Batch context menu: "Use as reference for all rows".
+- Windows installer and a single-file portable executable.
+- App translations for German, Croatian, Polish, Swedish, Norwegian,
+  Italian (English fallback for untranslated strings; `.po` files ready for
+  human translation).
 
 ### Changed
-- Runs on Python 3.11+, FFmpeg 5.1–7.x, C++17 and wxPython 4.2.
-- Build system migrated from the removed `distutils` to `setuptools` +
-  `pyproject.toml`.
-- Updated Python dependencies (pysubs2, PyYAML, requests, pybind11, wxPython,
-  pycryptodome).
-- Speech/Vosk models are loaded once and shared across parallel jobs; the
-  richer engines automatically use a lower effort budget, making them faster.
-- Downloaded assets can be verified against multiple trusted signing keys.
+- Runs on Python 3.11+, FFmpeg 5.1–7.x, C++17, wxPython 4.2.
+- Build system: `distutils` → `setuptools` + `pyproject.toml`.
+- Updated Python dependencies.
+- Vosk models are loaded once and shared across parallel jobs; richer
+  engines automatically use a lower effort budget for faster sync.
 
 ### Fixed
-- Synchronized output now preserves the original subtitle's formatting,
-  positioning and styling (the timing is applied to the original file).
-- Batch and command-line output encoding now respects the configured output
-  encoding and the source encoding instead of always writing UTF-8.
-- Batch synchronization keeps working until it correlates rather than giving up
-  early, so files that sync fine individually also sync in batch.
-- Headless/command-line mode on Windows no longer opens a stray console window.
-- The command line now explains why a sync failed and prints a goodness-of-fit
-  summary on success.
-- Output paths that contain brackets or braces no longer fail as an invalid
-  pattern.
-- Czech now accepts its correct ISO 639-3 code; two-letter language codes are
-  accepted everywhere.
-- Fixed several Python 3 / wxPython 4.2 crashes in the GUI (sliders, progress
-  bars, timers, locale handling and the Settings window).
-- Benign FFmpeg probing warnings for image-based subtitle tracks are no longer
-  printed.
+- Output preserves the original subtitle file's formatting, positioning
+  and styles (the timing correction is applied to the original).
+- Batch/CLI output encoding respects the configured output encoding
+  and the source encoding instead of always writing UTF-8.
+- Batch mode keeps processing until correlation is achieved, matching
+  the single-file behaviour.
+- Headless mode on Windows no longer opens a stray console window.
+- CLI now prints a goodness-of-fit summary on success and an explanation
+  when synchronization fails.
+- Output paths containing brackets or braces no longer fail as an
+  invalid pattern.
+- Czech accepts its correct ISO 639-3 code; two-letter language codes
+  are accepted everywhere.
+- Fixed wxPython 4.2 / Python 3 type errors in sliders, progress bars,
+  timers, locale initialisation and the Settings window.
+- Benign FFmpeg warnings for image-based (PGS) subtitle tracks are
+  filtered from the log.
 
 ### Known limitations
-- A delay that drifts through the video is only partially corrected — the linear
-  model handles a constant offset perfectly but averages a changing delay.
-- A fully native dark mode requires wxWidgets 3.3 (not yet available); the
-  notebook tab strip stays light.
-- macOS builds are not provided, and image-based (PGS) subtitles are unsupported.
+- A delay that drifts through a video is only partially corrected by the
+  single linear model.
+- Full native dark mode requires wxWidgets 3.3 (not yet available).
+- macOS builds and image-based (PGS) subtitle extraction are not provided.
 
 ### Baseline
-- Based on upstream sc0ty/subsync, archived in October 2024.
+- Based on upstream sc0ty/subsync, archived October 2024.
